@@ -4,28 +4,27 @@ class UsersController{
     
     // USERS CONTROLLER
 
-    public $Users;
-
-    function __construct($user)
+    private $Users = null;
+    function __construct()
     {
-        $Users = $user;
+        $this->Users = new Users();
     }
 
 
     // Create a User
     public function createUser($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status) {
-        $this->Users->set
+        $this->Users->setUser($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status);
     }
 
 
     // Delete User
     public function deleteUser($id) {
-        $Users->deleteUserById($id);
+        $this->Users->deleteUserById($id);
     }
 
     // Update User
     public function updateUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id) {
-        $Users->editUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id);
+        $this->Users->editUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id);
     }
 
     // LOGIN METHODS

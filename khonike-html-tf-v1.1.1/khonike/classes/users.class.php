@@ -7,7 +7,7 @@ class Users extends Dbh {
     // GETTERS
 
     // Get all Users
-    protected function getAllUsers() {
+    public function getAllUsers() {
         $sql = "SELECT * FROM users";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([]);
@@ -17,7 +17,7 @@ class Users extends Dbh {
     }
     
     // Get User by ID
-    protected function getUserById($id) {
+    public function getUserById($id) {
         $sql = "SELECT * FROM users WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
@@ -27,7 +27,7 @@ class Users extends Dbh {
     }
 
     // Get User by Username
-    protected function getUserByUsername($username) {
+    public function getUserByUsername($username) {
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$username]);
@@ -39,7 +39,7 @@ class Users extends Dbh {
     // LOGIN METHODS
 
     // Check if User exists by Username or Email
-    protected function getUserByUsernameOrEmail($username, $email) {
+    public function getUserByUsernameOrEmail($username, $email) {
         $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$username, $email]);
@@ -49,7 +49,7 @@ class Users extends Dbh {
     }
 
     // Get User by Username AND Password
-    protected function getUserByUsernameAndPassword($username, $password) {
+    public function getUserByUsernameAndPassword($username, $password) {
         $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$username, $password]);
@@ -63,21 +63,21 @@ class Users extends Dbh {
     // SETTERS
 
     // Set User
-    protected function setUser($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status) {
+    public function setUser($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status) {
         $sql = "INSERT INTO users (username, password, fullname, email, dob, phone, address, level, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$username, $password, $fullname, $email, $dob, $phone, $address, $level, $status]);
     }
 
     // Delete User By ID
-    protected function deleteUserById($id) {
+    public function deleteUserById($id) {
         $sql = "DELETE FROM users WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
     }
 
     // Update User By ID
-    protected function editUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id) {
+    public function editUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id) {
         $sql = "UPDATE users SET username = ?, password = ?, fullname = ?, email = ?, dob = ?, phone = ?, address = ?, level = ?, status = ? WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id]);
