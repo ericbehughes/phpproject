@@ -1,0 +1,19 @@
+Version 1.1.1 - 10 July 2020 
+- Fixed: Map Product CSS Issue in Chrome Browser
+
+Version 1.1.0 - 21 September 2019 
+- Added: One Home (hero search with background kenburn slider)
+- Update: Bootstrap, jQuery & others plugins to latest version
+- Fixed: Minor Responsive CSS Issue
+
+Version 1.0.3 - 13 April 2019 
+- Added: Single Properties Page With Gallery
+
+Version 1.0.2 - 6 October 2018 
+- Added: 3 Gallery Pages (2 Column, 4 Column, 4 Column)
+
+Version 1.0.1 - 5 October 2018 
+- Fixed: Fixed Issue with Property Slider
+
+Version 1.0.0 - 5 October 2018 
+Initial release
