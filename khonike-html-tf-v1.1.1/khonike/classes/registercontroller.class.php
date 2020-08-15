@@ -8,8 +8,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-$dbCheck = new UsersView();
-$addUser = new UsersController();
+
+$usersController = new UsersController();
 
 //Registry Handler
 if (isset($_POST['register-submit'])) {
@@ -49,14 +49,14 @@ if (isset($_POST['register-submit'])) {
         exit();
     } else {
         // Check if user already exists in DB
-        $results = $dbCheck->checkIfUserExists($usernameRegister, $emailRegister);
+        $results = $usersController->checkIfUserExists($usernameRegister, $emailRegister);
         //If User Already Exists
         if (!empty($results)) {
             header("Location: ../login-register.php?error=existinguser&user=" . $usernameRegister . "&name=" . $fullnameRegister . "&mail=" . $emailRegister . "&dob=" . $dobRegister . "&phone=" . $phoneRegister . "&address=" . $addressRegister);
             exit();
             //If user doesn't already exist, add user to the DB
         } else {
-            $addUser->createUser($usernameRegister, $passwordRegister, $fullnameRegister, $emailRegister, $dobRegister, $phoneRegister, $addressRegister, 1, 1);
+            $usersController->createUser($usernameRegister, $passwordRegister, $fullnameRegister, $emailRegister, $dobRegister, $phoneRegister, $addressRegister, 1, 1);
             header("Location: ../login-register.php?signup=success");
             exit();
         }
