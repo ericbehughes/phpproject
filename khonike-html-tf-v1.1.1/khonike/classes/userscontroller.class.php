@@ -1,6 +1,6 @@
 <?php
 
-class UsersController{
+class UsersController {
     
     // USERS CONTROLLER
 
@@ -32,7 +32,7 @@ class UsersController{
     // Check if User Exists
     public function checkIfUserExists($username, $email)
     {
-        $results = $Users->getUserByUsernameOrEmail($username, $email);
+        $results = $this->Users->getUserByUsernameOrEmail($username, $email);
 
         return $results;
     }
@@ -40,7 +40,7 @@ class UsersController{
     // Show User by Username And Password
     public function showUserByUsernameAndPassword($username, $password)
     {
-        $results = $Users->getUserByUsernameAndPassword($username, $password);
+        $results = $this->Users->getUserByUsernameAndPassword($username, $password);
 
         return $results;
     }
@@ -48,7 +48,7 @@ class UsersController{
     // Show All Users
     public function showAllUsers()
     {
-        $results = $Users->getAllUsers();
+        $results = $this->Users->getAllUsers();
 
         return $results;
         //echo "Username: " . $results[0]['username'] . "<br>Fullname: " . $results[0]['fullname'] . "<br>Email: " . $results[0]['email'];
@@ -58,7 +58,7 @@ class UsersController{
     // Show User by ID
     public function showUserById($id)
     {
-        $results = $Users->getUserById($id);
+        $results = $this->Users->getUserById($id);
 
         return $results;
     }
@@ -66,7 +66,7 @@ class UsersController{
     // Show User by Username
     public function showUserByUsername($username)
     {
-        $results = $Users->getUserByUsername($username);
+        $results = $this->Users->getUserByUsername($username);
 
         return $results;
     }

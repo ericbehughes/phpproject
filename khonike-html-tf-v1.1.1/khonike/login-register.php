@@ -76,7 +76,7 @@ include 'includes/autoloader.inc.php';
 
                         <!-- Registration Tab -->
                         <div id="register-tab" class="tab-pane">
-                            <form action="classes/registercontroller.class.php" method="POST">
+                            <form action="classes/register.class.php" method="POST">
                                 <div class="row">
                                     <div class="col-12 mb-30"><input type="text" name="usernameRegister" placeholder="Username" value="<?= ($_GET['user']); ?>" required></div>
                                     <div class="col-12 mb-30"><input type="password" name="passwordRegister" placeholder="Password" required></div>
