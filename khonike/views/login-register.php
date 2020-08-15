@@ -12,15 +12,15 @@ include 'includes/autoloader.inc.php';
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
-    <link href="assets/images/favicon.ico" type="img/x-icon" rel="shortcut icon">
+    <link href="../assets/images/favicon.ico" type="img/x-icon" rel="shortcut icon">
     <!-- All css files are included here. -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/iconfont.min.css">
-    <link rel="stylesheet" href="assets/css/plugins.css">
-    <link rel="stylesheet" href="assets/css/helper.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/iconfont.min.css">
+    <link rel="stylesheet" href="../assets/css/plugins.css">
+    <link rel="stylesheet" href="../assets/css/helper.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Modernizr JS -->
-    <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
 </head>
 
 <body>
@@ -99,7 +99,7 @@ include 'includes/autoloader.inc.php';
         <!--Login & Register Section end-->
 
         <!--Footer section start-->
-        <footer class="footer-section section" style="background-image: url(assets/images/bg/footer-bg.jpg)">
+        <footer class="footer-section section" style="background-image: url(../assets/images/bg/footer-bg.jpg)">
 
             <!--Footer Top start-->
             <div class="footer-top section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-60 pb-lg-40 pb-md-30 pb-sm-20 pb-xs-10">
@@ -108,7 +108,7 @@ include 'includes/autoloader.inc.php';
 
                         <!--Footer Widget start-->
                         <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                            <img src="assets/images/logo-footer.png" alt="">
+                            <img src="../assets/images/logo-footer.png" alt="">
                             <p>Khonike - Real Estate Bootstrap 4 Templatethe best theme for elit, sed do to eiumod tempor dolor sit amet, ctetur adipiscing elit seddo dolor sit amet.</p>
                             <div class="footer-social">
                                 <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
@@ -191,12 +191,12 @@ include 'includes/autoloader.inc.php';
 
     <!-- All jquery file included here -->
     <script src="https://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.22&key=AIzaSyDAq7MrCR1A2qIShmjbtLHSKjcEIEBEEwM"></script>
-    <script src="assets/js/vendor/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/map-place.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/vendor/jquery-3.4.1.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/map-place.js"></script>
+    <script src="../assets/js/main.js"></script>
 
 </body>
 
