@@ -7,10 +7,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-
 $usersController = new UsersController();
-
 //Registry Handler
 if (isset($_POST['register-submit'])) {
 
