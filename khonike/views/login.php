@@ -1,5 +1,5 @@
 <?php 
-include 'includes/autoloader.inc.php';
+//include 'includes/autoloader.inc.php';
 ?>
 
 <!doctype html>
@@ -72,7 +72,7 @@ include 'includes/autoloader.inc.php';
 
                 <!-- Login Tab -->
                         <div id="login-tab" class="tab-pane show active">
-                            <form action="classes/logincontroller.class.php" method="POST">
+                            <form action="../assets/php/login.php" method="POST">
                                 <div class="row">
                                     <div class="col-12 mb-30"><input name="usernameLogin" type="text" placeholder="Username" value="<?= ($_GET['user']); ?>" required></div>
                                     <div class="col-12 mb-50"><input name="passwordLogin" type="password" placeholder="Password" required></div>

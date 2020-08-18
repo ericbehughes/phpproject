@@ -1,13 +1,12 @@
 <?php
-include '../includes/autoloader.inc.php';
-
 // This is used to display the error messages
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+include_once '../../includes/autoloaderController.inc.php';
 
-$dbCheck = new UsersView();
+$usersController = new UsersController();
 
 
 //Login Handler
@@ -19,19 +18,19 @@ if (isset($_POST['login-submit'])) {
     //Error Handlers
     //Validate empty fields
     if (empty($usernameLogin) || empty($passwordLogin)) {
-        header("Location: ../loginView.php?error=emptyfields&user=" . $usernameLogin);
+        header("Location: ../../views/login.php?error=emptyfields&user=" . $usernameLogin);
         exit();
         //Validate Username
     } else if (!preg_match("/^[a-zA-Z0-9]+$/", $usernameLogin)) {
-        header("Location: ../loginView.php?error=username&user=" . $usernameLogin);
+        header("Location: ../../views/login.php?error=username&user=" . $usernameLogin);
         exit();
         //Validate Number of Characters
     } else if (strlen($usernameLogin) > 10 || strlen($usernameLogin) < 4 ||  strlen($passwordLogin) < 4 || strlen($passwordLogin) > 32) {
-        header("Location: ../loginView.php?error=charlength&user=" . $usernameLogin);
+        header("Location: ../../views/login.php?error=charlength&user=" . $usernameLogin);
         exit();
     } else {
         // Check if user exists in DB
-        $results = $dbCheck->showUserByUsernameAndPassword($usernameLogin, $passwordLogin);
+        $results = $usersController->showUserByUsernameAndPassword($usernameLogin, $passwordLogin);
         //Invalid Login
         if (!empty($results)) {
             session_start();
@@ -45,11 +44,11 @@ if (isset($_POST['login-submit'])) {
             $_SESSION['level'] = $results[0]['level'];
             $_SESSION['level'] = $results[0]['status'];
 
-            header("Location: ../loginView.php?login=success");
+            header("Location: ../../views/login.php?login=success");
             exit();
             //Valid login
         } else {
-            header("Location: ../loginView.php?error=invalidlogin&user=" . $usernameLogin);
+            header("Location: ../../views/login.php?error=invalidlogin&user=" . $usernameLogin);
             //session_unset();
             //session_destroy();
             exit();
@@ -57,7 +56,7 @@ if (isset($_POST['login-submit'])) {
     }
 
 } else {
-    header("Location: ../loginView.php?error=submit");
+    header("Location: ../../views/login.php?error=submit");
     exit();
 }
 

@@ -14,15 +14,15 @@ session_start();
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
-    <link href="assets/images/favicon.ico" type="img/x-icon" rel="shortcut icon">
+    <link href="../assets/images/favicon.ico" type="img/x-icon" rel="shortcut icon">
     <!-- All css files are included here. -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/iconfont.min.css">
-    <link rel="stylesheet" href="assets/css/plugins.css">
-    <link rel="stylesheet" href="assets/css/helper.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/iconfont.min.css">
+    <link rel="stylesheet" href="../assets/css/plugins.css">
+    <link rel="stylesheet" href="../assets/css/helper.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Modernizr JS -->
-    <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
 </head>
 
 <body>
@@ -38,7 +38,7 @@ session_start();
                         <!--Logo start-->
                         <div class="col mt-10 mb-10">
                             <div class="logo">
-                                <a href="index.php"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="index.php"><img src="../assets/images/logo.png" alt=""></a>
                             </div>
                         </div>
                         <!--Logo end-->

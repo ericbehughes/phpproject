@@ -1,15 +1,20 @@
 <?php
+include '../../models/users.class.php';
+//var_dump(file_exists('../../models/users.class.php'));
 
 class UsersController {
     
     // USERS CONTROLLER
 
-    private $Users = null;
+
+    // Contructor
+    public $Users = null;
     function __construct()
     {
         $this->Users = new Users();
     }
 
+    // Setters
 
     // Create a User
     public function createUser($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status) {
@@ -27,23 +32,8 @@ class UsersController {
         $this->Users->editUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id);
     }
 
-    // LOGIN METHODS
 
-    // Check if User Exists
-    public function checkIfUserExists($username, $email)
-    {
-        $results = $this->Users->getUserByUsernameOrEmail($username, $email);
-
-        return $results;
-    }
-
-    // Show User by Username And Password
-    public function showUserByUsernameAndPassword($username, $password)
-    {
-        $results = $this->Users->getUserByUsernameAndPassword($username, $password);
-
-        return $results;
-    }
+    // Getters
 
     // Show All Users
     public function showAllUsers()
@@ -67,6 +57,25 @@ class UsersController {
     public function showUserByUsername($username)
     {
         $results = $this->Users->getUserByUsername($username);
+
+        return $results;
+    }
+    
+
+    // LOGIN METHODS
+
+    // Check if User Exists
+    public function checkIfUserExists($username, $email)
+    {
+        $results = $this->Users->getUserByUsernameOrEmail($username, $email);
+
+        return $results;
+    }
+
+    // Show User by Username And Password
+    public function showUserByUsernameAndPassword($username, $password)
+    {
+        $results = $this->Users->getUserByUsernameAndPassword($username, $password);
 
         return $results;
     }

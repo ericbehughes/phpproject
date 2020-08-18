@@ -1,8 +1,9 @@
-<?php 
+<?php
+include '../../database/dbh.class.php';
 
 class Users extends Dbh {
 
-    // USERS MODEL
+     // USERS MODEL
 
     // GETTERS
 
@@ -82,7 +83,5 @@ class Users extends Dbh {
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id]);
     }
-
-
 
 }
