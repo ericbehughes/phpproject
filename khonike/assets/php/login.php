@@ -36,21 +36,20 @@ if (isset($_POST['login-submit'])) {
             session_start();
             $_SESSION['id'] = $results[0]['id'];
             $_SESSION['username'] = $results[0]['username'];
+            $_SESSION['password'] = $results[0]['password'];
             $_SESSION['fullname'] = $results[0]['fullname'];
             $_SESSION['email'] = $results[0]['email'];
             $_SESSION['dob'] = $results[0]['dob'];
             $_SESSION['phone'] = $results[0]['phone'];
             $_SESSION['address'] = $results[0]['address'];
             $_SESSION['level'] = $results[0]['level'];
-            $_SESSION['level'] = $results[0]['status'];
+            $_SESSION['status'] = $results[0]['status'];
 
-            header("Location: ../../views/login.php?login=success");
+            header("Location: ../../views/my-account.php");
             exit();
             //Valid login
         } else {
             header("Location: ../../views/login.php?error=invalidlogin&user=" . $usernameLogin);
-            //session_unset();
-            //session_destroy();
             exit();
         }
     }

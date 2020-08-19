@@ -1,6 +1,5 @@
 <?php
 session_start();
-//session_destroy();
 ?>
 
 
@@ -49,8 +48,8 @@ session_start();
                                 <ul>
                                     <li class=""><a href="index.php">Home</a>
                                         <?php
-                                        echo $_SESSION['id'];
-                                        var_dump($_SESSION);
+                                        // echo $_SESSION['id'];
+                                        // var_dump($_SESSION);
                                         ?>
                                     </li>
                                     <li class="has-dropdown"><a href="properties.html">Properties</a>
@@ -128,7 +127,7 @@ session_start();
                                             <li><a href="gallery-3-column.html">Gallery 3 Column</a></li>
                                             <li><a href="gallery-4-column.html">Gallery 4 Column</a></li>
                                             <li><a href="login-register.html">Login & Register</a></li>
-                                            <li><a href="my-account.html">My Account</a></li>
+                                            <li><a href="my-account.php">My Account</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -139,14 +138,15 @@ session_start();
                         <!--User start-->
                         <div class="col mr-sm-50 mr-xs-50">
                             <div class="header-user">
-                                <a href="login-register.html" class="user-toggle"><i class="pe-7s-user"></i><span>
-                                        <?php
-                                        if (isset($_SESSION['id'])) {
-                                            echo "Logout";
-                                        } else {
-                                            echo "Login or Register";
-                                        }
-                                        ?></span></a>
+                                <?php
+                                if (isset($_SESSION['id'])) {
+                                    echo '<a href="my-account.php" class="user-toggle"><i class="pe-7s-user"></i><span>My Account</span>
+                                    </a>';
+                                } else {
+                                    echo '<a href="login.php" class="user-toggle"><i class="pe-7s-user"></i><span>Login / Register</span>
+                                    </a>';
+                                }
+                                ?>
                             </div>
                         </div>
 
