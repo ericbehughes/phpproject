@@ -5,6 +5,30 @@ class Users extends Dbh {
 
      // USERS MODEL
 
+       // SETTERS
+
+    // Set User
+    public function setUser($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status) {
+        $sql = "INSERT INTO users (username, password, fullname, email, dob, phone, address, level, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$username, $password, $fullname, $email, $dob, $phone, $address, $level, $status]);
+    }
+
+    // Delete User By ID
+    public function deleteUserById($id) {
+        $sql = "DELETE FROM users WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
+    // Update User By ID
+    public function editUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id) {
+        $sql = "UPDATE users SET username = ?, password = ?, fullname = ?, email = ?, dob = ?, phone = ?, address = ?, level = ?, status = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id]);
+    }
+
+
     // GETTERS
 
     // Get all Users
@@ -59,29 +83,12 @@ class Users extends Dbh {
         return $results;
     }
 
-    
-
-    // SETTERS
-
-    // Set User
-    public function setUser($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status) {
-        $sql = "INSERT INTO users (username, password, fullname, email, dob, phone, address, level, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
+    // Update Password
+    public function editPassword($password, $id) {
+        $sql = "UPDATE users SET password = ? WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$username, $password, $fullname, $email, $dob, $phone, $address, $level, $status]);
-    }
-
-    // Delete User By ID
-    public function deleteUserById($id) {
-        $sql = "DELETE FROM users WHERE id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$id]);
-    }
-
-    // Update User By ID
-    public function editUserById($username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id) {
-        $sql = "UPDATE users SET username = ?, password = ?, fullname = ?, email = ?, dob = ?, phone = ?, address = ?, level = ?, status = ? WHERE id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$username, $password, $fullname, $email, $dob, $phone, $address, $level, $status, $id]);
+        $stmt->execute([$password, $id]);
     }
 
 }

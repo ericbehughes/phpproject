@@ -63,9 +63,16 @@ if (isset($_SESSION['id'])) {
                 <div class="container">
                     <div class="row row-25">
 
+                    <!-- Tabs Start -->
                         <div class="col-lg-4 col-12 mb-sm-50 mb-xs-50">
                             <ul class="myaccount-tab-list nav">
-                                <li><a class="active" href="#profile-tab" data-toggle="tab"><i class="pe-7s-user"></i>My Profile</a></li>
+                                <!-- Profile tab -->
+                                <li><a class="<?php 
+                                if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
+                                    echo '';
+                                } else {
+                                    echo 'active';
+                                }?>" href="#profile-tab" data-toggle="tab"><i class="pe-7s-user"></i>My Profile</a></li>
                                 <?php 
                                 if ($_SESSION['level'] == 2) {
                                    echo '<li><a href="#agency-tab" data-toggle="tab"><i class="pe-7s-note2"></i>Agency Profile</a></li>
@@ -73,15 +80,31 @@ if (isset($_SESSION['id'])) {
                                    <li><a href="add-properties.php"><i class="pe-7s-back fa-flip-horizontal"></i>Add New Property</a></li>';
                                 }
                                 ?>
-                                <li><a href="#password-tab" data-toggle="tab"><i class="pe-7s-lock"></i>Change Password</a></li>
-                                <li><a href="../assets/php/logout.php"><i class="pe-7s-power"></i>Log Out</a></li>
+                                <!-- Change password tab -->
+                                <li><a class="
+                                <?php 
+                                if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
+                                    echo 'active';
+                                } else {
+                                    echo '';
+                                }?>" href="#password-tab" data-toggle="tab"><i class="pe-7s-lock"></i>Change Password</a></li>
+                                <!-- Logout Tab -->
+                                <li><a class="" href="../assets/php/logout.php"><i class="pe-7s-power"></i>Log Out</a></li>
                             </ul>
                         </div>
+                        <!-- Tabs end -->
 
+                        <!-- Content Pane -->
                         <div class="col-lg-8 col-12">
-
                             <div class="tab-content">
-                                <div id="profile-tab" class="tab-pane show active">
+                                <!-- Personal Profile -->
+                                <div id="profile-tab" class="tab-pane show 
+                                <?php 
+                                if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
+                                    echo '';
+                                } else {
+                                    echo 'active';
+                                }?>">
                                     <form action="../assets/php/myaccountUpdate.php" method="POST">
                                         <div class="row">
                                             <div class="col-12 mb-30">
@@ -95,12 +118,16 @@ if (isset($_SESSION['id'])) {
                                                     echo '<div class="col-12 mb-30"><p>Username must only include letters and numbers</p></div>';
                                                 } else if ($_GET['error'] == 'fullname') {
                                                     echo '<div class="col-12 mb-30"><p>Full Name must only include letters</p></div>';
-                                                } else if ($_GET['error'] == 'emailaddress') {
-                                                    echo '<p>Please enter a valid Email Address</p>';
+                                                } else if ($_GET['error'] == 'email') {
+                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid Email Address</p></div>';
                                                 } else if ($_GET['error'] == 'phone') {
-                                                    echo '<p>Please enter a valid Phone Number!</p>';
+                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid Phone Number!</p></div>';
                                                 } else if ($_GET['error'] == 'characterlength') {
-                                                    echo '<p>Please enter a valid number of characters</p>';
+                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid number of characters</p></div>';
+                                                }
+                                            } else if (isset($_GET['update'])) {
+                                                if ($_GET['update'] == 'success') {
+                                                    echo '<div class="col-12 mb-30"><p>Update successful</p></div>';
                                                 }
                                             }
                                             ?>
@@ -139,7 +166,8 @@ if (isset($_SESSION['id'])) {
                                         </div>
                                     </form>
                                 </div> <!-- Profile Tab End -->
-
+                                        
+                                        <!-- Agency Tab -->
                                 <?php 
                                 if ($_SESSION['level'] == 2) {
                                     echo '
@@ -332,19 +360,47 @@ if (isset($_SESSION['id'])) {
 
                                 </div>';
                             }?>
-    
-                                <div id="password-tab" class="tab-pane">
-                                    <form action="../assets/php/myaccountUpdate.php">
+                                <!-- Password Tab -->
+                                <div id="password-tab" class="tab-pane show 
+                                <?php 
+                                if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
+                                    echo 'active';
+                                } else {
+                                    echo '';
+                                }?>">
+                                    <form action="../assets/php/changePassword.php" method="POST">
 
                                         <div class="row">
                                             <div class="col-12 mb-30">
                                                 <h3 class="mb-0">Change Password</h3>
                                             </div>
+
+                                            <!-- Validation Error Messages -->
+                                            <?php
+                                            if (isset($_GET['error'])) {
+                                                if ($_GET['error'] == 'emptyFieldsPass') {
+                                                    echo '<div class="col-12 mb-30"><p>Please fill in all fields</p></div>';
+                                                } else if ($_GET['error'] == 'passwordCurrent') {
+                                                    echo '<div class="col-12 mb-30"><p>Current Password does not match</p></div>';
+                                                } else if ($_GET['error'] == 'passwordMismatch') {
+                                                    echo '<div class="col-12 mb-30"><p>New Password and Confirm Password must match</p></div>';
+                                                } else if ($_GET['error'] == 'passwordLength') {
+                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid number of characters</p></div>';
+                                                } else if ($_GET['error'] == 'passwordRepeat') {
+                                                    echo '<div class="col-12 mb-30"><p>Password cannot be the same as previous password</p></div>';
+                                                }
+                                            } else if (isset($_GET['update'])) {
+                                                if ($_GET['update'] == 'successPass') {
+                                                    echo '<div class="col-12 mb-30"><p>Update successful</p></div>';
+                                                }
+                                            }
+                                            ?>
+
                                             <div class="col-12 mb-30"><label for="current_password">Current Password</label><input name="passwordCurrent" type="password" id="current_password" value=""></div>
                                             <div class="col-12 mb-30"><label for="new_password">New Password</label><input name="passwordNew" type="password" id="new_password"></div>
                                             <div class="col-12 mb-30"><label for="confirm_new_password">Confirm New Password</label><input name="passwordConfirm" type="password" id="confirm_new_password"></div>
 
-                                            <div class="col-12 mb-30"><button name="submit-password" type="submit" class="btn">Save Change</button></div>
+                                            <div class="col-12 mb-30"><button name="password-submit" type="submit" class="btn">Save Change</button></div>
                                         </div>
                                     </form>
                                 </div>

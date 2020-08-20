@@ -80,6 +80,14 @@ class UsersController {
         return $results;
     }
 
+    // Update Password
+    public function updatePassword($password, $id) {
+
+        $results = $this->Users->editPassword($password, $id);
+
+        return $results;
+    }
+
 }
 
 
