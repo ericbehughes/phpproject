@@ -38,6 +38,7 @@ if (isset($_SESSION['id'])) {
 
         <div id="main-wrapper">
 
+            <!-- Header -->
             <?php
             include_once('header.php');
             ?>
