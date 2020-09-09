@@ -2,10 +2,9 @@
 include '../../models/users.class.php';
 //var_dump(file_exists('../../models/users.class.php'));
 
+// USERS CONTROLLER
 class UsersController {
     
-    // USERS CONTROLLER
-
 
     // Contructor
     public $Users = null;

@@ -50,86 +50,133 @@
                 <div class="row">
                     <div class="add-property-wrap col">
 
+                        <!-- TABS -->
                         <ul class="add-property-tab-list nav mb-50">
-                            <li class="working"><a href="#basic_info" data-toggle="tab">1. Basic Information</a></li>
-                            <li><a href="#gallery_video" data-toggle="tab">2. Gallery & Video</a></li>
-                            <li><a href="#detailed_info" data-toggle="tab">3. Detailed Information</a></li>
+                            <li <?php //Basic info TAB
+                                if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery") {
+                                    echo 'hidden';
+                                } else {
+                                    echo 'class="working" ';
+                                }
+                                ?>><a href="#basic_info" data-toggle="tab">1. Basic Information</a></li>
+                            <li <?php // Detailed info TAB
+                                if ($_GET['update'] == "propertyBasicSuccess" || $_GET['error'] == "propertyDetailSize") {
+                                    echo 'class="working" ';
+                                } else {
+                                    echo "hidden";
+                                }
+                                ?>><a href="#detailed_info" data-toggle="tab">2. Detailed Information</a></li>
+                            <li <?php // Gallery info TAB
+                                if ($_GET['update'] == "propertyDetailSuccess" || $_GET['error'] == "propertyGallery") {
+                                    echo 'class="working" ';
+                                } else {
+                                    echo "hidden";
+                                }
+                                ?>><a href="#gallery_video" data-toggle="tab">3. Gallery & Video</a></li>
                         </ul>
 
                         <div class="add-property-form tab-content">
 
-                            <div class="tab-pane show active" id="basic_info">
+                            <!-- Basic Info -->
+                            <div class="tab-pane show <?php
+                                                        if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery") {
+                                                            echo '';
+                                                        } else {
+                                                            echo 'active';
+                                                        }
+                                                        ?>" id="basic_info">
                                 <div class="tab-body">
 
-                                    <form action="#">
+                                    <form name="form-basic" action="../assets/php/addProperty.php" method="POST">
                                         <div class="row">
-                                            <div class="col-12 mb-30">
-                                                <label for="property_title">Property Title</label>
-                                                <input type="text" id="property_title">
+
+                                            <div class="col-md-4 col-12 mb-30">
+                                                <label for="property_number">Street Number</label>
+                                                <input name="propertyNumber" max="99999" type="number" id="" value="<?= ($_GET['propertyNumber']); ?>" required>
                                             </div>
 
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label for="property_address">Address</label>
-                                                <input type="text" id="property_address">
+                                                <label for="property_street">Street Name</label>
+                                                <input name="propertyStreet" type="text" id="property_address" value="<?= ($_GET['propertyStreet']); ?>" required>
                                             </div>
 
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Status</label>
-                                                <select class="nice-select">
-                                                    <option>For Rent</option>
-                                                    <option>For Sale</option>
+                                                <label for="property_city">City</label>
+                                                <input name="propertyCity" type="text" id="property_address" value="<?= ($_GET['propertyCity']); ?>" required>
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-30">
+                                                <label for="property_Province">Province</label>
+                                                <select class="nice-select" name="propertyProvince" id="" required>
+                                                    <option value="QC">QC</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Rental Period</label>
-                                                <select class="nice-select">
-                                                    <option>Daily</option>
-                                                    <option>Weekly</option>
-                                                    <option>Monthly</option>
-                                                    <option>Yearly</option>
+                                                <label for="property_Postal">Postal Code</label>
+                                                <input name="propertyPostal" placeholder="A1A1A1" type="text" id="property_address" pattern="[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]" value="<?= ($_GET['propertyPostal']); ?>" required>
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-30">
+                                                <label>Property Type</label>
+                                                <select name="propertyType" class="nice-select">
+                                                    <option>Rent</option>
+                                                    <option>Sale</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Type</label>
-                                                <select class="nice-select">
+                                                <label>Structure</label>
+                                                <select name="propertyStructure" class="nice-select">
                                                     <option>Apartment</option>
-                                                    <option>Cafe</option>
+                                                    <option>Condominium</option>
                                                     <option>House</option>
-                                                    <option>Restaurant</option>
-                                                    <option>Store</option>
-                                                    <option>Villa</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label for="property_price">Price <span>(USD)</span></label>
-                                                <input type="text" id="property_price">
+                                                <label for="property_price">Price <span>(CAD)</span></label>
+                                                <input name="propertyPrice" type="number" min="100" id="property_price" value="<?= ($_GET['propertyPrice']); ?>" required>
                                             </div>
 
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label for="property_area">Area <span>(SqFt)</span></label>
-                                                <input type="text" id="property_area">
+                                                <label for="property_area">Constructed Date</label>
+                                                <input name="propertyConstructedDate" max="2020-10-09" type="date" id="property_area" value="<?= ($_GET['propertyConstructedDate']); ?>" required>
                                             </div>
+
+                                            <!-- <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
+                                                 <a href="#gallery_video" data-toggle="tab" class="btn">Next</a> 
+                                            </div> -->
+
 
                                             <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
-                                                <!-- <a href="#gallery_video" data-toggle="tab" class="btn">Next</a> -->
+                                                <button name="propertyBasic-submit" class="property-submit btn">Confirm</button>
                                             </div>
                                         </div>
                                     </form>
 
                                 </div>
                             </div>
+                            <!-- Basic Info End -->
 
-                            <div class="tab-pane" id="gallery_video">
+
+                            <!-- Gallery -->
+                            <div class="tab-pane <?php
+                                                    if ($_GET['update'] == "propertyDetailSuccess" || $_GET['error'] == "propertyGallery") {
+                                                        echo 'active';
+                                                    } else {
+                                                        echo '';
+                                                    }
+                                                    ?>" id="gallery_video">
                                 <div class="tab-body">
 
-                                    <form action="#">
+                                    <form action="../assets/php/addProperty.php" method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-12 mb-30">
                                                 <label>Gallery Images</label>
-                                                <div class="dropzone"></div>
+                                                <!-- <div class="dropzone"></div> -->
+                                                <!-- <div class='pe-7s-cloud-upload'></div> -->
+                                                <input multiple type="file" name="file">
                                             </div>
 
                                             <div class="col-12 mb-30">
@@ -140,161 +187,192 @@
                                             <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
                                                 <!-- <a href="#detailed_info" data-toggle="tab" class="btn">Next</a> -->
                                             </div>
+
+                                            <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
+                                                <button class="property-submit btn" name="propertyGallery-submit" type="submit">Confirm</button>
+                                            </div>
+
                                         </div>
                                     </form>
 
                                 </div>
                             </div>
+                            <!-- Gallery End -->
 
-                            <div class="tab-pane" id="detailed_info">
+
+                            <!-- Detailed Info -->
+                            <div class="tab-pane <?php
+                                                    if ($_GET['update'] == "propertyBasicSuccess" || $_GET['error'] == "propertyDetailSize") {
+                                                        echo 'active';
+                                                    } else {
+                                                        echo "";
+                                                    }
+                                                    ?>" id="detailed_info">
                                 <div class="tab-body">
 
-                                    <form action="#">
+                                    <form action="../assets/php/addProperty.php" method="POST">
                                         <div class="row">
-                                            <div class="col-12 mb-30">
+                                            <!-- <div class="col-12 mb-30">
                                                 <label for="property_description">Description</label>
                                                 <textarea id="property_description"></textarea>
-                                            </div>
+                                            </div> -->
 
+                                            <!-- Parking Spaces -->
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Building age</label>
-                                                <select class="nice-select">
-                                                    <option>1 Years</option>
-                                                    <option>2 Years</option>
-                                                    <option>3 Years</option>
-                                                    <option>4 Years</option>
-                                                    <option>5 Years</option>
-                                                    <option>6 Years</option>
-                                                    <option>7 Years</option>
-                                                    <option>8 Years</option>
-                                                    <option>9 Years</option>
+                                                <label>Parking Spaces</label>
+                                                <select name="propertyParking" class="nice-select">
+                                                    <option value="1">1 Car</option>
+                                                    <option value="2">2 Cars</option>
+                                                    <option value="3">3 Cars</option>
+                                                    <option value="4">4 Cars</option>
+                                                    <option value="5">5 Cars</option>
+                                                    <option value="6">6 Cars</option>
+                                                    <option value="7">7 Cars</option>
+                                                    <option value="8">8 Cars</option>
+                                                    <option value="9">9 Cars</option>
+                                                    <option value="10">10 Cars</option>
+                                                    <option value="11">11 Cars</option>
+                                                    <option value="12">12 Cars</option>
                                                 </select>
                                             </div>
 
+                                            <!-- Bedrooms -->
                                             <div class="col-md-4 col-12 mb-30">
                                                 <label>Bedrooms</label>
-                                                <select class="nice-select">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
+                                                <select name="propertyBedrooms" id="bedroomList" class="nice-select">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
                                                 </select>
                                             </div>
 
+                                            <div id="inputArea"></div>
+
+                                            <!-- Bathrooms -->
                                             <div class="col-md-4 col-12 mb-30">
                                                 <label>Bathrooms</label>
-                                                <select class="nice-select">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
+                                                <select name="propertyBathrooms" class="nice-select">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
                                                 </select>
                                             </div>
 
+                                            <!-- Baths -->
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Kitchen</label>
-                                                <select class="nice-select">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
+                                                <label>Baths</label>
+                                                <select name="propertyBaths" class="nice-select">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
                                                 </select>
                                             </div>
 
+                                            <!-- Stories -->
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Garage</label>
-                                                <select class="nice-select">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
+                                                <label>Stories</label>
+                                                <select name="propertyStories" class="nice-select">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
                                                 </select>
                                             </div>
 
+                                            <!-- Exterior Finish -->
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Cooling</label>
-                                                <select class="nice-select">
-                                                    <option>Yes</option>
-                                                    <option>No</option>
+                                                <label>Exterior Finish</label>
+                                                <select name="propertyExteriorFinish" class="nice-select">
+                                                    <option>Brick</option>
+                                                    <option>Vinyl</option>
+                                                    <option>Aluminum</option>
+                                                    <option>Stucco</option>
                                                 </select>
                                             </div>
 
+                                            <!-- Flooring Type -->
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Heating</label>
-                                                <select class="nice-select">
-                                                    <option>Yes</option>
-                                                    <option>No</option>
+                                                <label>Flooring Type</label>
+                                                <select name="propertyFlooringType" class="nice-select">
+                                                    <option>Hardwood</option>
+                                                    <option>Vinyl</option>
+                                                    <option>Ceramic</option>
+                                                    <option>Carpet</option>
                                                 </select>
                                             </div>
 
+                                            <!-- Size Exterior -->
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Sewer</label>
-                                                <select class="nice-select">
-                                                    <option>Yes</option>
-                                                    <option>No</option>
-                                                </select>
+                                                <label>Exterior Square Ft.</label>
+                                                <input value="<?= ($_GET['propertySizeExterior']); ?>" name="propertySizeExterior" type="number">
                                             </div>
 
+                                            <!-- Size Interior -->
                                             <div class="col-md-4 col-12 mb-30">
-                                                <label>Water</label>
-                                                <select class="nice-select">
-                                                    <option>Yes</option>
-                                                    <option>No</option>
-                                                </select>
+                                                <label>Interior Squrare Ft.</label>
+                                                <input value="<?= ($_GET['propertySizeInterior']); ?>" name="propertySizeInterior" type="text">
                                             </div>
 
+                                            <!-- Features -->
                                             <div class="col-12 mb-30">
-                                                <h4>Other Feature</h4>
+                                                <h4>Other Features</h4>
                                                 <ul class="other-features">
-                                                    <li><input type="checkbox" id="air_condition"><label for="air_condition">Air Conditioning</label></li>
-                                                    <li><input type="checkbox" id="bedding"><label for="bedding">Bedding</label></li>
-                                                    <li><input type="checkbox" id="balcony"><label for="balcony">Balcony</label></li>
-                                                    <li><input type="checkbox" id="cable_tv"><label for="cable_tv">Cable TV</label></li>
-                                                    <li><input type="checkbox" id="internet"><label for="internet">Internet</label></li>
-                                                    <li><input type="checkbox" id="parking"><label for="parking">Parking</label></li>
-                                                    <li><input type="checkbox" id="lift"><label for="lift">Lift</label></li>
-                                                    <li><input type="checkbox" id="pool"><label for="pool">Pool</label></li>
-                                                    <li><input type="checkbox" id="dishwasher"><label for="dishwasher">Dishwasher</label></li>
-                                                    <li><input type="checkbox" id="toaster"><label for="toaster">Toaster</label></li>
-                                                    <li><input type="checkbox" id="gym"><label for="gym">Gym</label></li>
+                                                    <li><input name="propertyAC" type="checkbox" id="air_condition" value="Air Conditioning"><label for="air_condition">Air Conditioning</label></li>
+                                                    <li><input name="propertyBalcony" type="checkbox" id="balcony" value="Balcony"><label for="balcony">Balcony</label></>
+                                                    <li><input name="propertyLift" type="checkbox" id="lift" value="Lift"><label for="lift">Lift</label></li>
+                                                    <li><input name="propertyPool" type="checkbox" id="pool" value="Pool"><label for="pool">Pool</label></li>
+                                                    <li><input name="propertyJacuzzi" type="checkbox" id="Jacuzzi" value="Jacuzzi"><label for="Jacuzzi">Jacuzzi</label></li>
+                                                    <li><input name="propertySmart" type="checkbox" id="Smart House" value="Smart House"><label for="Smart House">Smart House</label></li>
+                                                    <li><input name="propertyTheatre" type="checkbox" id="Home Theatre" value="Home Theatre"><label for="Home Theatre">Home Theatre</label></li>
                                                 </ul>
                                             </div>
 
-                                            <div class="col-12">
-                                                <h4>Map Information</h4>
-                                                <div class="row mt-20">
-                                                    <div class="col-lg-6 col-12 mb-30">
-                                                        <label for="map_address">Google Maps Address</label>
-                                                        <input type="text" id="map_address">
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-12 mb-30">
-                                                        <label for="map_lan">Latitude</label>
-                                                        <input type="text" id="map_lan">
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-12 mb-30">
-                                                        <label for="map_long">Longitude</label>
-                                                        <input type="text" id="map_long">
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
-                                                <button class="property-submit btn">Add Property</button>
+                                                <button name="propertyDetails-submit" class="property-submit btn" type="submit">Confirm</button>
                                             </div>
+
+
+
+
+                                            
+
                                         </div>
-                                    </form>
+                                       </form>
+
 
                                 </div>
                             </div>
+                            <!-- Detailed Info End -->
 
                         </div>
 
@@ -403,6 +481,7 @@
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/map-place.js"></script>
     <script src="../assets/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 </body>
 
