@@ -1,9 +1,9 @@
 <?php
-include '../../database/dbh.class.php';
+include_once '../../database/dbh.class.php';
 
+
+// USERS MODEL
 class Users extends Dbh {
-
-     // USERS MODEL
 
        // SETTERS
 

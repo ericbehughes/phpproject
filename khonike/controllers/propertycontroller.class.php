@@ -1,5 +1,5 @@
 <?php
-include '../../models/property.class.php';
+include_once '../../models/property.class.php';
 
 
 // Property CONTROLLER
@@ -42,7 +42,6 @@ class PropertyController
     public function showAllProperties()
     {
         $results = $this->Property->getAllproperties();
-
         return $results;
     }
 
@@ -51,7 +50,13 @@ class PropertyController
     public function showPropertyById($id)
     {
         $results = $this->Property->getpropertyById($id);
+        return $results;
+    }
 
+    // Show Property by Max ID
+    public function showPropertyByMaxId()
+    {
+        $results = $this->Property->getpropertyByMaxId();
         return $results;
     }
 }

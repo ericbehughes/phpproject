@@ -67,7 +67,7 @@
                                 }
                                 ?>><a href="#detailed_info" data-toggle="tab">2. Detailed Information</a></li>
                             <li <?php // Gallery info TAB
-                                if ($_GET['update'] == "propertyDetailSuccess" || $_GET['error'] == "propertyGallery") {
+                                if ($_GET['update'] == "propertyDetailSuccess" || $_GET['error'] == "propertyGallery" || $_GET['update'] == "propertyGallerySuccess") {
                                     echo 'class="working" ';
                                 } else {
                                     echo "hidden";
@@ -162,7 +162,7 @@
 
                             <!-- Gallery -->
                             <div class="tab-pane <?php
-                                                    if ($_GET['update'] == "propertyDetailSuccess" || $_GET['error'] == "propertyGallery") {
+                                                    if ($_GET['update'] == "propertyDetailSuccess" || $_GET['error'] == "propertyGallery" || $_GET['update'] == "propertyGallerySuccess") {
                                                         echo 'active';
                                                     } else {
                                                         echo '';
@@ -172,16 +172,39 @@
 
                                     <form action="../assets/php/addProperty.php" method="POST" enctype="multipart/form-data">
                                         <div class="row">
+
+
                                             <div class="col-12 mb-30">
+                                                <div class="alert alert-danger" >
+                                                    <!-- Validation Error Messages -->
+                                                    <?php
+                                                    if (isset($_GET['error'])) {
+                                                        if ($_GET['error'] == 'propertyGallery') {
+                                                            echo '<span class="align-middle">Description: Letters, Spaces, Max Length 50<br></span>';
+                                                            echo '<span class="align-middle">Sequence: Numbers, Max Number 30<br></span>';
+                                                            echo '<span class="align-middle">Extensions: Jpeg, jpg, png, jfif<br></span>';
+                                                            echo '<span class="align-middle">Size: Max 1MB<br></span>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 mb-30">
                                                 <label>Gallery Images</label>
                                                 <!-- <div class="dropzone"></div> -->
                                                 <!-- <div class='pe-7s-cloud-upload'></div> -->
-                                                <input multiple type="file" name="file">
+                                                <input multiple type="file" name="file" required>
                                             </div>
 
-                                            <div class="col-12 mb-30">
-                                                <label for="property_video">Video Presentation Link</label>
-                                                <input type="text" id="property_video">
+                                            <div class="col-3 mb-30">
+                                                <label for="propertyPhotoDescription">Description</label>
+                                                <input type="text" name="propertyPhotoDescription" value="<?= ($_GET['propertyPhotoDescription']); ?>" id="property_video" required>
+                                            </div>
+
+                                            <div class="col-3 mb-30">
+                                                <label for="property_video">Sequence Number</label>
+                                                <input type="number" value="<?= ($_GET['propertyPhotoSequence']); ?>" name="propertyPhotoSequence" required>
                                             </div>
 
                                             <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
@@ -189,7 +212,7 @@
                                             </div>
 
                                             <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
-                                                <button class="property-submit btn" name="propertyGallery-submit" type="submit">Confirm</button>
+                                                <button class="property-submit btn" name="propertyGallery-submit" type="submit">Add Photo</button>
                                             </div>
 
                                         </div>
@@ -364,10 +387,10 @@
 
 
 
-                                            
+
 
                                         </div>
-                                       </form>
+                                    </form>
 
 
                                 </div>

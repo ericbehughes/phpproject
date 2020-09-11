@@ -1,5 +1,5 @@
 <?php
-include '../../database/dbh.class.php';
+include_once '../../database/dbh.class.php';
 
 class Property extends Dbh {
 
@@ -46,6 +46,16 @@ class Property extends Dbh {
         $sql = "SELECT * FROM property WHERE property_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    // Get property by MAX ID
+    public function getpropertyByMaxId() {
+        $sql = "SELECT MAX(property_id) from property";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
 
         $results = $stmt->fetchAll();
         return $results;

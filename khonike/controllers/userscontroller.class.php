@@ -1,5 +1,5 @@
 <?php
-include '../../models/users.class.php';
+include_once '../../models/users.class.php';
 //var_dump(file_exists('../../models/users.class.php'));
 
 // USERS CONTROLLER
@@ -38,9 +38,7 @@ class UsersController {
     public function showAllUsers()
     {
         $results = $this->Users->getAllUsers();
-
         return $results;
-        //echo "Username: " . $results[0]['username'] . "<br>Fullname: " . $results[0]['fullname'] . "<br>Email: " . $results[0]['email'];
     }
 
 
@@ -48,7 +46,6 @@ class UsersController {
     public function showUserById($id)
     {
         $results = $this->Users->getUserById($id);
-
         return $results;
     }
 
@@ -56,7 +53,6 @@ class UsersController {
     public function showUserByUsername($username)
     {
         $results = $this->Users->getUserByUsername($username);
-
         return $results;
     }
     
@@ -67,7 +63,6 @@ class UsersController {
     public function checkIfUserExists($username, $email)
     {
         $results = $this->Users->getUserByUsernameOrEmail($username, $email);
-
         return $results;
     }
 
@@ -75,7 +70,6 @@ class UsersController {
     public function showUserByUsernameAndPassword($username, $password)
     {
         $results = $this->Users->getUserByUsernameAndPassword($username, $password);
-
         return $results;
     }
 
@@ -83,7 +77,6 @@ class UsersController {
     public function updatePassword($password, $id) {
 
         $results = $this->Users->editPassword($password, $id);
-
         return $results;
     }
 
