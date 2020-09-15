@@ -183,7 +183,7 @@ if (isset($_POST['propertyBasic-submit'])) {
             // Upload to DB
             $PhotoController->createPhoto($_SESSION['maxId'], $propertyPhotoSequence, $propertyPhotoDescription, $fileDestination);
             echo 'properly added to DB';
-            Header("Location: ../../views/add-properties.php?update=propertyGallerySuccess&propertyPhotoSequence=" . $x++);
+            Header("Location: ../../views/add-properties.php?update=propertyGallerySuccess&propertyPhotoSequence=" . $propertyPhotoSequence);
 
 
         }

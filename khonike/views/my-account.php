@@ -11,6 +11,29 @@ if (isset($_SESSION['id'])) {
     $address = $_SESSION['address'];
     $level = $_SESSION['level'];
     $status = $_SESSION['status'];
+    $x = 1;
+
+
+
+    // This is used to display the error messages
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    // Includes
+    include_once __DIR__ . "/../controllers/propertycontroller.class.php";
+    include_once __DIR__ . "/../controllers/photocontroller.class.php";
+
+
+
+    // Instantiate
+    $propertyController = new PropertyController();
+    $photoController = new PhotoController();
+
+    // Calls to DB
+    $sellerProperties = $propertyController->showPropertyBySellerId($id);
+
+
 ?>
 
     <!doctype html>
@@ -32,6 +55,12 @@ if (isset($_SESSION['id'])) {
         <link rel="stylesheet" href="../assets/css/style.css">
         <!-- Modernizr JS -->
         <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
+        <style>
+            #propertyPhotoPreview {
+                width: 100%;
+                height: 290px;
+            }
+        </style>
     </head>
 
     <body>
@@ -64,31 +93,31 @@ if (isset($_SESSION['id'])) {
                 <div class="container">
                     <div class="row row-25">
 
-                    <!-- Tabs Start -->
+                        <!-- Tabs Start -->
                         <div class="col-lg-4 col-12 mb-sm-50 mb-xs-50">
                             <ul class="myaccount-tab-list nav">
                                 <!-- Profile tab -->
-                                <li><a class="<?php 
-                                if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
-                                    echo '';
-                                } else {
-                                    echo 'active';
-                                }?>" href="#profile-tab" data-toggle="tab"><i class="pe-7s-user"></i>My Profile</a></li>
-                                <?php 
+                                <li><a class="<?php
+                                                if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
+                                                    echo '';
+                                                } else {
+                                                    echo 'active';
+                                                } ?>" href="#profile-tab" data-toggle="tab"><i class="pe-7s-user"></i>My Profile</a></li>
+                                <?php
                                 if ($_SESSION['level'] == 2) {
-                                   echo '<li><a href="#agency-tab" data-toggle="tab"><i class="pe-7s-note2"></i>Agency Profile</a></li>
+                                    echo '<li><a href="#agency-tab" data-toggle="tab"><i class="pe-7s-note2"></i>Agency Profile</a></li>
                                    <li><a href="#properties-tab" data-toggle="tab"><i class="pe-7s-photo"></i>My Properties</a></li>
                                    <li><a href="add-properties.php"><i class="pe-7s-back fa-flip-horizontal"></i>Add New Property</a></li>';
                                 }
                                 ?>
                                 <!-- Change password tab -->
                                 <li><a class="
-                                <?php 
+                                <?php
                                 if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
                                     echo 'active';
                                 } else {
                                     echo '';
-                                }?>" href="#password-tab" data-toggle="tab"><i class="pe-7s-lock"></i>Change Password</a></li>
+                                } ?>" href="#password-tab" data-toggle="tab"><i class="pe-7s-lock"></i>Change Password</a></li>
                                 <!-- Logout Tab -->
                                 <li><a class="" href="../assets/php/logout.php"><i class="pe-7s-power"></i>Log Out</a></li>
                             </ul>
@@ -100,12 +129,12 @@ if (isset($_SESSION['id'])) {
                             <div class="tab-content">
                                 <!-- Personal Profile -->
                                 <div id="profile-tab" class="tab-pane show 
-                                <?php 
+                                <?php
                                 if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
                                     echo '';
                                 } else {
                                     echo 'active';
-                                }?>">
+                                } ?>">
                                     <form action="../assets/php/myaccountUpdate.php" method="POST">
                                         <div class="row">
                                             <div class="col-12 mb-30">
@@ -167,12 +196,13 @@ if (isset($_SESSION['id'])) {
                                         </div>
                                     </form>
                                 </div> <!-- Profile Tab End -->
-                                        
-                                        <!-- Agency Tab -->
-                                <?php 
-                                if ($_SESSION['level'] == 2) {
-                                    echo '
-                                    <div id="agency-tab" class="tab-pane">
+
+                                <!-- Agency Tab -->
+
+                                <!-- if ($_SESSION['level'] == 2) { -->
+
+                                <!-- Property Tab -->
+                                <!-- <div id="agency-tab" class="tab-pane">
                                     <form action="#">
 
                                         <div class="row">
@@ -206,39 +236,75 @@ if (isset($_SESSION['id'])) {
                                             <div class="col-12 mb-30"><button type="submit" class="btn">Save Change</button></div>
                                         </div>
                                     </form>
-                                </div>
+                                </div> -->
+                                <!-- Properties Tab -->
                                 <div id="properties-tab" class="tab-pane">
 
                                     <div class="row">
+
+                                        <!-- Foreach to cycle through rows in property -->
+                                        <? foreach ($sellerProperties as $property) {
+                                        $listingId = $property['property_id'];
+                                        $propertyPhotos = $photoController->showAllPhotosByListingId($listingId);
+                                        ?>
+
+                                        <?php
+
+                                        $price = strlen($property['price']);
+                                        $newPrice = null;
+                                        switch (true) {
+                                            case $price = 5:
+                                                $newPrice = substr($price, 0, -3) . "K";
+                                                break;
+
+                                            case $price = 6:
+                                                $newPrice = substr($price, 0, -3) . "K";
+                                                break;
+
+                                            case $price = 7:
+                                                $newPrice = substr($price, 0, -6) . "M";
+                                                break;
+
+                                            default:
+                                                # code...
+                                                break;
+                                        }
+
+
+                                        ?>
 
                                         <!--Property start-->
                                         <div class="property-item col-md-6 col-12 mb-40">
                                             <div class="property-inner">
                                                 <div class="image">
-                                                    <a href="single-properties.html"><img src="../assets/images/property/property-1.jpg" alt=""></a>
+                                                    <a href="single-properties.html"><img id="propertyPhotoPreview" src="<?php echo $propertyPhotos[0]['photos']; ?>" alt="" class="responsive image"></a>
                                                     <ul class="property-feature">
                                                         <li>
-                                                            <span class="area"><img src="../assets/images/icons/area.png" alt="">550 SqFt</span>
+                                                            <span class="area"><img src="<? ?>" alt="">
+                                                                <? echo $property['size_exterior']; ?> SqFt</span>
                                                         </li>
                                                         <li>
-                                                            <span class="bed"><img src="../assets/images/icons/bed.png" alt="">6</span>
+                                                            <span class="bed"><img src="../assets/images/icons/bed.png" alt="">
+                                                                <? echo $property['bedrooms_total']; ?></span>
                                                         </li>
                                                         <li>
-                                                            <span class="bath"><img src="../assets/images/icons/bath.png" alt="">4</span>
+                                                            <span class="bath"><img src="../assets/images/icons/bath.png" alt="">
+                                                                <? echo $property['bathroom_total']; ?></span>
                                                         </li>
                                                         <li>
-                                                            <span class="parking"><img src="../assets/images/icons/parking.png" alt="">3</span>
+                                                            <span class="parking"><img src="../assets/images/icons/parking.png" alt="">
+                                                                <? echo $property['parking_space_total']; ?></span>
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 <div class="content">
                                                     <div class="left">
-                                                        <h3 class="title"><a href="single-properties.html">Friuli-Venezia Giulia</a></h3>
-                                                        <span class="location"><img src="../assets/images/icons/marker.png" alt="">568 E 1st Ave, Miami</span>
+                                                        <h3 class="title"><a href="single-properties.php">Property <?php echo $x++; ?></a></h3>
+                                                        <span class="location"><img src="../assets/images/icons/marker.png" alt=""><?php echo $property['address'] . ", " . $property['city']; ?></span>
                                                     </div>
                                                     <div class="right">
                                                         <div class="type-wrap">
-                                                            <span class="price">$550<span>M</span></span>
+                                                            <span class="price"><?php echo $property['price']; ?><span>M</span></span>
                                                             <span class="type">For Rent</span>
                                                         </div>
                                                     </div>
@@ -246,9 +312,10 @@ if (isset($_SESSION['id'])) {
                                             </div>
                                         </div>
                                         <!--Property end-->
+                                        <?}?>
 
                                         <!--Property start-->
-                                        <div class="property-item col-md-6 col-12 mb-40">
+                                        <!-- <div class="property-item col-md-6 col-12 mb-40">
                                             <div class="property-inner">
                                                 <div class="image">
                                                     <span class="label">Feature</span>
@@ -281,94 +348,22 @@ if (isset($_SESSION['id'])) {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!--Property end-->
-
-                                        <!--Property start-->
-                                        <div class="property-item col-md-6 col-12 mb-40">
-                                            <div class="property-inner">
-                                                <div class="image">
-                                                    <span class="label">popular</span>
-                                                    <a href="single-properties.html"><img src="../assets/images/property/property-3.jpg" alt=""></a>
-                                                    <ul class="property-feature">
-                                                        <li>
-                                                            <span class="area"><img src="../assets/images/icons/area.png" alt="">550 SqFt</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="bed"><img src="../assets/images/icons/bed.png" alt="">6</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="bath"><img src="../assets/images/icons/bath.png" alt="">4</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="parking"><img src="../assets/images/icons/parking.png" alt="">3</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="content">
-                                                    <div class="left">
-                                                        <h3 class="title"><a href="single-properties.html">Ruposi Bangla Cottage</a></h3>
-                                                        <span class="location"><img src="../assets/images/icons/marker.png" alt="">215 L AH Rod, California</span>
-                                                    </div>
-                                                    <div class="right">
-                                                        <div class="type-wrap">
-                                                            <span class="price">$550<span>M</span></span>
-                                                            <span class="type">For Rent</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--Property end-->
-
-                                        <!--Property start-->
-                                        <div class="property-item col-md-6 col-12 mb-40">
-                                            <div class="property-inner">
-                                                <div class="image">
-                                                    <a href="single-properties.html"><img src="../assets/images/property/property-4.jpg" alt=""></a>
-                                                    <ul class="property-feature">
-                                                        <li>
-                                                            <span class="area"><img src="../assets/images/icons/area.png" alt="">550 SqFt</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="bed"><img src="../assets/images/icons/bed.png" alt="">6</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="bath"><img src="../assets/images/icons/bath.png" alt="">4</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="parking"><img src="../assets/images/icons/parking.png" alt="">3</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="content">
-                                                    <div class="left">
-                                                        <h3 class="title"><a href="single-properties.html">MayaKanon de Villa</a></h3>
-                                                        <span class="location"><img src="../assets/images/icons/marker.png" alt="">12 EA 1st Ave, Washington</span>
-                                                    </div>
-                                                    <div class="right">
-                                                        <div class="type-wrap">
-                                                            <span class="price">$550<span>M</span></span>
-                                                            <span class="type">For Rent</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> -->
                                         <!--Property end-->
 
                                     </div>
 
-                                </div>';
-                            }?>
+                                </div>
+                                <!-- End of Property tab -->
+
                                 <!-- Password Tab -->
                                 <div id="password-tab" class="tab-pane show 
-                                <?php 
+                                <?php
                                 if ($_GET['error'] == 'emptyFields' || $_GET['error'] == 'passwordCurrent' || $_GET['error'] == 'passwordMismatch' || $_GET['error'] == 'passwordLength' || $_GET['error'] == 'passwordRepeat' || $_GET['update'] == 'successPass') {
                                     echo 'active';
                                 } else {
                                     echo '';
-                                }?>">
+                                } ?>">
                                     <form action="../assets/php/changePassword.php" method="POST">
 
                                         <div class="row">

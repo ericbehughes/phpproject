@@ -1,5 +1,5 @@
 <?php
-include_once '../../models/property.class.php';
+include_once __DIR__ . '../../models/property.class.php';
 
 
 // Property CONTROLLER
@@ -59,4 +59,13 @@ class PropertyController
         $results = $this->Property->getpropertyByMaxId();
         return $results;
     }
+
+    // Show Property by Seller ID
+    public function showPropertyBySellerId($id)
+    {
+        $results = $this->Property->getpropertyBySellerId($id);
+        return $results;
+    }
+
+
 }

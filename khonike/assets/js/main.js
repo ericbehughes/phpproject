@@ -493,3 +493,9 @@ if(kbs) {
 	});
 	slideshow.init();
 }
+
+
+function myFunction() {
+    document.getElementById("labelid").style.color = "red";
+}
+ 

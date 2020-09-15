@@ -17,6 +17,23 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Modernizr JS -->
     <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("finishedBtn");
+
+            x.style.display = "block";
+
+        }
+    </script>
+    <style>
+        #finishedBtn {
+            display: none;
+        }
+    </style>
+
+
+
+
 </head>
 
 <body>
@@ -175,19 +192,19 @@
 
 
                                             <div class="col-12 mb-30">
-                                                <div class="alert alert-danger" >
-                                                    <!-- Validation Error Messages -->
-                                                    <?php
-                                                    if (isset($_GET['error'])) {
-                                                        if ($_GET['error'] == 'propertyGallery') {
-                                                            echo '<span class="align-middle">Description: Letters, Spaces, Max Length 50<br></span>';
-                                                            echo '<span class="align-middle">Sequence: Numbers, Max Number 30<br></span>';
-                                                            echo '<span class="align-middle">Extensions: Jpeg, jpg, png, jfif<br></span>';
-                                                            echo '<span class="align-middle">Size: Max 1MB<br></span>';
-                                                        }
+                                                <!-- Validation Error Messages -->
+                                                <?php
+                                                if (isset($_GET['error'])) {
+                                                    if ($_GET['error'] == 'propertyGallery') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Description: Letters, Spaces, Max Length 50<br></span>';
+                                                        echo '<span class="align-middle">Sequence: Numbers, Max Number 30<br></span>';
+                                                        echo '<span class="align-middle">Extensions: Jpeg, jpg, png, jfif<br></span>';
+                                                        echo '<span class="align-middle">Size: Max 1MB<br></span>';
+                                                        echo "</div>";
                                                     }
-                                                    ?>
-                                                </div>
+                                                }
+                                                ?>
                                             </div>
 
                                             <div class="col-6 mb-30">
@@ -203,7 +220,7 @@
                                             </div>
 
                                             <div class="col-3 mb-30">
-                                                <label for="property_video">Sequence Number</label>
+                                                <label name="labler" id="labelid" for="property_video">Sequence Number</label>
                                                 <input type="number" value="<?= ($_GET['propertyPhotoSequence']); ?>" name="propertyPhotoSequence" required>
                                             </div>
 
@@ -212,11 +229,17 @@
                                             </div>
 
                                             <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
-                                                <button class="property-submit btn" name="propertyGallery-submit" type="submit">Add Photo</button>
+                                                <button id="addGalleryBtn" class="property-submit btn" onclick="myFunction()" name="propertyGallery-submit" type="submit">Add Photo</button>
                                             </div>
 
                                         </div>
                                     </form>
+                                    
+                                    <!-- Finished Button -->
+                                    <div id="finishedBtn" class="row">
+                                        <div class="nav d-flex justify-content-end col-12" class="ml-30"><button class="btn">Finish</button></div>
+                                    </div>
+
 
                                 </div>
                             </div>

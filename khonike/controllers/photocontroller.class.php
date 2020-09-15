@@ -1,5 +1,5 @@
 <?php
-include_once '../../models/photo.class.php';
+include_once __DIR__ . '../../models/photo.class.php';
 
 // PHOTO CONTROLLER
 class PhotoController
@@ -36,21 +36,21 @@ class PhotoController
 
     public function showAllPhotos()
     {
-        $results = $this->getAllPhotos();
+        $results = $this->Photo->getAllPhotos();
         return $results;
     }
 
     // Show Photo by ID
     public function showPhotoById($id)
     {
-        $results = $this->getPhotoById($id);
+        $results = $this->Photo->getPhotoById($id);
         return $results;
     }
 
     // Show Photos by Listing ID
     public function showAllPhotosByListingId($listing_id)
     {
-        $results = $this->getAllPhotosByListingId($listing_id);
+        $results = $this->Photo->getAllPhotosByListingId($listing_id);
         return $results;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-include_once '../../database/dbh.class.php';
+include_once __DIR__ . '../../database/dbh.class.php';
 
 // PHOTO MODEL
 
@@ -51,14 +51,18 @@ class Photo extends Dbh {
         return $results;
     }
 
-    // Get Photo by Listing ID
+    // Get Photos by Listing ID
     public function getAllPhotosByListingId($listing_id) {
-        $sql = "SELECT * FROM property_photos WHERE listing_id = ?";
+        $sql = "SELECT * FROM property_photos WHERE listing_id = ? AND sequence_id = 1";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$listing_id]);
 
         $results = $stmt->fetchAll();
         return $results;
     }
+
+    // 
+
+    
 
 }

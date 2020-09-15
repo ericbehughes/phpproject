@@ -6760,3 +6760,7 @@ header.header.is-sticky {
 .copyright p a:hover {
   color: #f9c322;
 }
+
+#finishedBtn {
+  display: none;
+}
