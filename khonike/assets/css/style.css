@@ -2893,6 +2893,7 @@ header.header.is-sticky {
   margin-left: 2px;
   font-weight: 500;
   line-height: 18px;
+  word-wrap: break-word;
 }
 
 .property-item .property-inner .content .right .type-wrap .price span::before {

@@ -107,6 +107,12 @@ if (isset($_POST['propertyBasic-submit'])) {
         $propertyPrice = $_SESSION['propertyPrice'];
         $propertyConstructedDate =  $_SESSION['propertyConstructedDate'];
         $propertyAddress = $_SESSION['propertyAddress'];
+        // $propertyBalcony = $_SESSION['propertyBalcony'];
+        // $propertyLift = $_SESSION['propertyLift'];
+        // $propertyPool = $_SESSION['propertyPool'];
+        // $propertyJacuzzi = $_SESSION['propertyJacuzzi'];
+        // $propertySmart = $_SESSION['propertySmart'];
+        // $propertyTheatre = $_SESSION['propertyTheatre'];
     
     
         // Property Size Validation
@@ -114,8 +120,12 @@ if (isset($_POST['propertyBasic-submit'])) {
             Header("Location: ../../views/add-properties.php?error=propertyDetailSize&propertySizeExterior=" . $propertySizeExterior . "&propertySizeInterior=" . $propertySizeInterior);
             exit();
         } else {
+            // Create Features Variable
+            $propertyFeatures = $propertyBalcony . " " . $propertyLift . " " . $propertyPool . " " . $propertyJacuzzi . " " . $propertySmart . " " . $propertyTheatre;
+
             // Add Property
-            $propertyController->createProperty(null, $propertyParking, $propertyPrice, $propertyType, null, $propertyStructure, $propertyBathrooms, $propertyBedrooms, null, $propertyConstructedDate, $propertyExteriorFinish, $propertyFlooringType, $propertyBaths, null, $propertyStories, $propertySizeExterior, $propertySizeInterior, $propertyAddress, $propertyCity, $propertyProvince, $propertyPostal, null, null, null, null, $_SESSION['id']);
+            $propertyController->createProperty($propertyFeatures, $propertyParking, $propertyPrice, $propertyType, null, $propertyStructure, $propertyBathrooms, $propertyBedrooms, null, $propertyConstructedDate, $propertyExteriorFinish, $propertyFlooringType, $propertyBaths, null, $propertyStories, $propertySizeExterior, $propertySizeInterior, $propertyAddress, $propertyCity, $propertyProvince, $propertyPostal, null, null, null, null, $_SESSION['id']);
+
             // Get Max Property ID
             $arrayMaxId = $propertyController->showPropertyByMaxId();
             $maxId = $arrayMaxId[0]['MAX(property_id)'];
@@ -184,18 +194,7 @@ if (isset($_POST['propertyBasic-submit'])) {
             $PhotoController->createPhoto($_SESSION['maxId'], $propertyPhotoSequence, $propertyPhotoDescription, $fileDestination);
             echo 'properly added to DB';
             Header("Location: ../../views/add-properties.php?update=propertyGallerySuccess&propertyPhotoSequence=" . $propertyPhotoSequence);
-
-
         }
-
-
-
-
-        
-        
-            
-        
-
 
     }
     

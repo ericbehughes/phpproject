@@ -8,10 +8,9 @@ error_reporting(E_ALL);
 include_once '../../includes/autoloaderController.inc.php';
 
 
-// Testing MAX property ID
-$propertyController = new PropertyController();
-$maxId = $propertyController->showPropertyByMaxId();
 
-print_r($maxId);
+// if (strlen($price) = 3) {
+//     # code...
+// } elseif (strlen($price) = 4) {
 
-echo $maxId[0]['MAX(property_id)'];
+// }

@@ -407,11 +407,6 @@
                                                 <button name="propertyDetails-submit" class="property-submit btn" type="submit">Confirm</button>
                                             </div>
 
-
-
-
-
-
                                         </div>
                                     </form>
 

@@ -61,8 +61,6 @@ class Photo extends Dbh {
         return $results;
     }
 
-    // 
-
     
 
 }

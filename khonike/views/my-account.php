@@ -13,8 +13,6 @@ if (isset($_SESSION['id'])) {
     $status = $_SESSION['status'];
     $x = 1;
 
-
-
     // This is used to display the error messages
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
@@ -24,16 +22,12 @@ if (isset($_SESSION['id'])) {
     include_once __DIR__ . "/../controllers/propertycontroller.class.php";
     include_once __DIR__ . "/../controllers/photocontroller.class.php";
 
-
-
     // Instantiate
     $propertyController = new PropertyController();
     $photoController = new PhotoController();
 
     // Calls to DB
     $sellerProperties = $propertyController->showPropertyBySellerId($id);
-
-
 ?>
 
     <!doctype html>
@@ -248,36 +242,11 @@ if (isset($_SESSION['id'])) {
                                         $propertyPhotos = $photoController->showAllPhotosByListingId($listingId);
                                         ?>
 
-                                        <?php
-
-                                        $price = strlen($property['price']);
-                                        $newPrice = null;
-                                        switch (true) {
-                                            case $price = 5:
-                                                $newPrice = substr($price, 0, -3) . "K";
-                                                break;
-
-                                            case $price = 6:
-                                                $newPrice = substr($price, 0, -3) . "K";
-                                                break;
-
-                                            case $price = 7:
-                                                $newPrice = substr($price, 0, -6) . "M";
-                                                break;
-
-                                            default:
-                                                # code...
-                                                break;
-                                        }
-
-
-                                        ?>
-
                                         <!--Property start-->
                                         <div class="property-item col-md-6 col-12 mb-40">
                                             <div class="property-inner">
                                                 <div class="image">
-                                                    <a href="single-properties.html"><img id="propertyPhotoPreview" src="<?php echo $propertyPhotos[0]['photos']; ?>" alt="" class="responsive image"></a>
+                                                    <a href="<?php echo 'single-properties-gallery.php' . "?propertyId=" . $property['property_id']; ?>"><img id="propertyPhotoPreview" src="<?php echo $propertyPhotos[0]['photos']; ?>" alt="" class="responsive image"></a>
                                                     <ul class="property-feature">
                                                         <li>
                                                             <span class="area"><img src="<? ?>" alt="">
@@ -304,15 +273,61 @@ if (isset($_SESSION['id'])) {
                                                     </div>
                                                     <div class="right">
                                                         <div class="type-wrap">
-                                                            <span class="price"><?php echo $property['price']; ?><span>M</span></span>
-                                                            <span class="type">For Rent</span>
+                                                            <span class="price"><?php
+                                                                                $price = strlen($property['price']);
+                                                                                $newPrice = null;
+
+                                                                                switch (true) {
+                                                                                    case $price == 3:
+                                                                                        $newPrice = substr($property['price'], 0, 3) . "$";
+                                                                                        echo $newPrice;
+                                                                                        break;
+                                                                                    case $price == 4:
+                                                                                        $newPrice = substr($property['price'], 0, 4) . "$";
+                                                                                        echo $newPrice;
+                                                                                        break;
+                                                                                    case $price == 5:
+                                                                                        $newPrice = substr($property['price'], 0, 2) . "K";
+                                                                                        echo $newPrice;
+                                                                                        break;
+                                                                                    case $price == 6:
+                                                                                        $newPrice = substr($property['price'], 0, 3) . "K";
+                                                                                        echo $newPrice;
+                                                                                        break;
+                                                                                    case $price == 7:
+                                                                                        $million = substr($property['price'], 0, 1) . ".";
+                                                                                        $hundreds = substr($property['price'], 1, 2) . "M";
+                                                                                        $newPrice = $million . $hundreds;
+                                                                                        echo $newPrice;
+                                                                                        break;
+                                                                                    case $price == 8:
+                                                                                        $million = substr($property['price'], 0, 2) . ".";
+                                                                                        $hundreds = substr($property['price'], 2, 2) . "M";
+                                                                                        $newPrice = $million . $hundreds;
+                                                                                        echo $newPrice;
+                                                                                        break;
+                                                                                    default:
+                                                                                        echo "-";
+                                                                                        break;
+                                                                                } ?><span><?php if ($property['property_type'] == "Rent") {echo "m";}?></span></span>
+                                                            <span class="type">
+                                                                <?php
+                                                                if ($property['property_type'] == "Sale") {
+                                                                    echo "For Sale";
+                                                                } elseif ($property['property_type'] == "Rent") {
+                                                                    echo "For Rent";
+                                                                } else {
+                                                                    echo "-";
+                                                                }
+                                                                ?></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--Property end-->
                                         <?}?>
+                                        <!--Property end-->
+
 
                                         <!--Property start-->
                                         <!-- <div class="property-item col-md-6 col-12 mb-40">

@@ -5,22 +5,8 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-// Includes
-include_once __DIR__ . "/../controllers/propertycontroller.class.php";
-include_once __DIR__ . "/../controllers/photocontroller.class.php";
-
-// Instantiate
-$propertyController = new PropertyController();
-$photoController = new PhotoController();
-
-// Get Property ID
-$id = $_GET['propertyId'];
-
-// Assign the array to a variable
-$property = $propertyController->showPropertyById($id);
-
 ?>
+
 
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -51,6 +37,7 @@ $property = $propertyController->showPropertyById($id);
         <?php
         include_once('header.php');
         ?>
+
 
         <!--Page Banner Section start-->
         <div class="page-banner-section section" style="background-image: url(../assets/images/bg/single-property-bg.jpg)">
@@ -106,26 +93,19 @@ $property = $propertyController->showPropertyById($id);
                                             <div class="item"><img src="../assets/images/property/single-property-3-thumb.jpg" alt=""></div>
                                             <div class="item"><img src="../assets/images/property/single-property-4-thumb.jpg" alt=""></div>
                                         </div>
-                                        <div class="single-property-thumb">
-                                            <div class="item"><img src="../assets/images/property/single-property-1-thumb.jpg" alt=""></div>
-                                            <div class="item"><img src="../assets/images/property/single-property-2-thumb.jpg" alt=""></div>
-                                            <div class="item"><img src="../assets/images/property/single-property-3-thumb.jpg" alt=""></div>
-                                            <div class="item"><img src="../assets/images/property/single-property-4-thumb.jpg" alt=""></div>
-                                        </div>
                                     </div>
 
                                     <div class="content">
 
-                                        <!-- <h3>Description</h3>
+                                        <h3>Description</h3>
 
                                         <p>Khonike - Real Estate Bootstrap 4 Templateipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et lore magna iqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut quipx ea codo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolo.</p>
                                         <p>Khonike - Real Estate Bootstrap 4 Templateis the Best should be the consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore lore gna iqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex eacm emod tempor nt ut labore lore magna iqua. Ut enim ad minim veniamco laboris nisi ut aliqu.</p>
-                                        <p>Khonike - Real Estate Bootstrap 4 Templateis the Best should be the consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore lore gna iqua. Ut enim ad minim veniam, quis nostrud exercitation.</p> -->
-
+                                        <p>Khonike - Real Estate Bootstrap 4 Templateis the Best should be the consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore lore gna iqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
 
                                         <div class="row mt-30 mb-30">
 
-                                            <!-- <div class="col-md-5 col-12 mb-xs-30">
+                                            <div class="col-md-5 col-12 mb-xs-30">
                                                 <h3>Condition</h3>
                                                 <ul class="feature-list">
                                                     <li>
@@ -144,9 +124,9 @@ $property = $propertyController->showPropertyById($id);
                                                         <div class="image"><img src="../assets/images/icons/kitchen.png" alt=""></div>Kitchen 2
                                                     </li>
                                                 </ul>
-                                            </div> -->
+                                            </div>
 
-                                            <!-- <div class="col-md-7 col-12">
+                                            <div class="col-md-7 col-12">
                                                 <h3>Amenities</h3>
                                                 <ul class="amenities-list">
                                                     <li>Air Conditioning</li>
@@ -161,27 +141,9 @@ $property = $propertyController->showPropertyById($id);
                                                     <li>Toaster</li>
                                                 </ul>
                                             </div>
-                                        </div> -->
-
-
-                                            <div class="col-md-7 col-12">
-                                                <h3>Amenities</h3>
-                                                <ul class="amenities-list">
-                                                    <?php 
-                                                        $features = $property[0]['features'];
-                                                        $featuresArray = explode(" ", $features, -1);
-                                                        
-                                                        for ($i=0; $i < sizeof($featuresArray); $i++) { 
-                                                            echo "<li>" . $featuresArray[$i] . "</li>";
-                                                        }
-
-                                                    ?>
-                                                </ul>
-                                            </div>
 
                                         </div>
 
-                                        <!-- 
                                         <div class="row">
                                             <div class="col-12 mb-30">
                                                 <h3>Video</h3>
@@ -195,7 +157,7 @@ $property = $propertyController->showPropertyById($id);
                                                     <div id="single-property-map" class="embed-responsive-item google-map" data-lat="40.740178" data-Long="-74.190194"></div>
                                                 </div>
                                             </div>
-                                        </div> -->
+                                        </div>
 
                                     </div>
                                 </div>
@@ -203,7 +165,7 @@ $property = $propertyController->showPropertyById($id);
                             <!--Property end-->
 
                             <!--Comment start-->
-                            <!-- <div class="comment-wrap col-12">
+                            <div class="comment-wrap col-12">
                                 <h3>3 Feedback</h3>
 
                                 <ul class="comment-list">
@@ -269,7 +231,7 @@ $property = $propertyController->showPropertyById($id);
                                     </form>
                                 </div>
 
-                            </div> -->
+                            </div>
                             <!--Comment end-->
 
                         </div>
@@ -278,95 +240,14 @@ $property = $propertyController->showPropertyById($id);
                     <div class="col-lg-4 col-12 order-2 order-lg-1 pr-30 pr-sm-15 pr-xs-15">
 
                         <!--Sidebar start-->
-                        <!-- <div class="sidebar">
-                            <h4 class="sidebar-title"><span class="text">Property Options</span><span class="shape"></span></h4> -->
+                        <div class="sidebar">
+                            <h4 class="sidebar-title"><span class="text">Search Property</span><span class="shape"></span></h4>
 
 
-                        <!--Property Search start-->
-                        <!-- <div class="property-search sidebar-property-search"> -->
+                            <!--Property Search start-->
+                            <div class="property-search sidebar-property-search">
 
-                        <!-- <div id="feature-right" class="col-md-5 col-12 mb-xs-30">
-                                                <h3>Condition</h3>
-                                                <ul class="feature-list">
-                                                    <li>
-                                                        <div class="image"><img src="../assets/images/icons/area.png" alt=""></div>Area 550 sqft
-                                                    </li>
-                                                    <li>
-                                                        <div class="image"><img src="../assets/images/icons/bed.png" alt=""></div>Bedroom 6
-                                                    </li>
-                                                    <li>
-                                                        <div class="image"><img src="../assets/images/icons/bath.png" alt=""></div>Bathroom 4
-                                                    </li>
-                                                    <li>
-                                                        <div class="image"><img src="../assets/images/icons/parking.png" alt=""></div>Garage 2
-                                                    </li>
-                                                    <li>
-                                                        <div class="image"><img src="../assets/images/icons/kitchen.png" alt=""></div>Kitchen 2
-                                                    </li>
-                                                </ul>
-                                            </div> -->
-
-
-                        <!-- 
-                                                interior
-                                                exterior
-                                                bedrooms
-                                                bathrooms
-                                                parking
-                                                structure
-                                                constructed date
-                                                finish
-                                                flooring
-                                                stories
-                                                -->
-
-                        <!-- Property Options -->
-                        <div class="">
-                            <!-- If Admin or Seller -->
-                            <h4 class="sidebar-title"><span class="text">Property Options</span><span class="shape"></span></h4>
-                            <button class="btn btn-block mb-15">Edit Property</button>
-                            <button class="btn btn-block mb-25">Delete Property</button>
-
-                           
-
-
-                            <h4 class="sidebar-title"><span class="text">Sepcifications</span><span class="shape"></span></h4>
-                            <ul>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/areax.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Int: " . $property[0]['size_interior'] . " Sqft."; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/areax.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Ext: " . $property[0]['size_exterior'] . " Sqft."; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/bedroomsx.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Bedrooms: " . $property[0]['bedrooms_total']; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/bathroom.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Bathrooms: " . $property[0]['bathroom_total']; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/parkingx.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Parking: " . $property[0]['parking_space_total']; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/structure.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Structure: " . $property[0]['structure']; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/constructed.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Constructed On: " . $property[0]['constructed_date']; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/exteriorfinish.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Finish: " . $property[0]['exterior_finish']; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/floor.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Flooring: " . $property[0]['flooring_type']; ?></span></div>
-                                </li>
-                                <li class="mb-20">
-                                    <div class="image"><img src="../assets/images/icons/stories.png" alt="" width="30px" height="30px"><span class="ml-15"><?php echo "Stories: " . $property[0]['stories_total']; ?></span></div>
-                                </li>
-                            </ul>
-
-
-                        </div>
-                        <!-- <form action="#">
+                                <form action="#">
 
                                     <div>
                                         <input type="text" placeholder="Location">
@@ -450,20 +331,20 @@ $property = $propertyController->showPropertyById($id);
                                         <button>search</button>
                                     </div>
 
-                                </form> -->
+                                </form>
 
-                        <!-- </div> -->
-                        <!--Property Search end-->
+                            </div>
+                            <!--Property Search end-->
 
-                        <!-- </div> -->
+                        </div>
                         <!--Sidebar end-->
 
                         <!--Sidebar start-->
-                        <!-- <div class="sidebar">
-                            <h4 class="sidebar-title"><span class="text">Feature Property</span><span class="shape"></span></h4> -->
+                        <div class="sidebar">
+                            <h4 class="sidebar-title"><span class="text">Feature Property</span><span class="shape"></span></h4>
 
-                        <!--Sidebar Property start-->
-                        <!-- <div class="sidebar-property-list">
+                            <!--Sidebar Property start-->
+                            <div class="sidebar-property-list">
 
                                 <div class="sidebar-property">
                                     <div class="image">
@@ -501,17 +382,17 @@ $property = $propertyController->showPropertyById($id);
                                     </div>
                                 </div>
 
-                            </div> -->
-                        <!--Sidebar Property end-->
+                            </div>
+                            <!--Sidebar Property end-->
 
-                        <!-- </div> -->
+                        </div>
 
                         <!--Sidebar start-->
-                        <!-- <div class="sidebar">
-                            <h4 class="sidebar-title"><span class="text">Top Agents</span><span class="shape"></span></h4> -->
+                        <div class="sidebar">
+                            <h4 class="sidebar-title"><span class="text">Top Agents</span><span class="shape"></span></h4>
 
-                        <!--Sidebar Agents start-->
-                        <!-- <div class="sidebar-agent-list">
+                            <!--Sidebar Agents start-->
+                            <div class="sidebar-agent-list">
 
                                 <div class="sidebar-agent">
                                     <div class="image">
@@ -563,17 +444,17 @@ $property = $propertyController->showPropertyById($id);
                                     </div>
                                 </div>
 
-                            </div> -->
-                        <!--Sidebar Agents end-->
+                            </div>
+                            <!--Sidebar Agents end-->
 
-                        <!-- </div> -->
+                        </div>
 
                         <!--Sidebar start-->
-                        <!-- <div class="sidebar">
-                            <h4 class="sidebar-title"><span class="text">Popular Tags</span><span class="shape"></span></h4> -->
+                        <div class="sidebar">
+                            <h4 class="sidebar-title"><span class="text">Popular Tags</span><span class="shape"></span></h4>
 
-                        <!--Sidebar Tags start-->
-                        <!-- <div class="sidebar-tags">
+                            <!--Sidebar Tags start-->
+                            <div class="sidebar-tags">
                                 <a href="#">Houses</a>
                                 <a href="#">Real Home</a>
                                 <a href="#">Baths</a>
@@ -584,10 +465,10 @@ $property = $propertyController->showPropertyById($id);
                                 <a href="#">Properties</a>
                                 <a href="#">Location</a>
                                 <a href="#">Price</a>
-                            </div> -->
-                        <!--Sidebar Tags end-->
+                            </div>
+                            <!--Sidebar Tags end-->
 
-                        <!-- </div> -->
+                        </div>
 
                     </div>
 
