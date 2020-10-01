@@ -116,7 +116,7 @@ if (isset($_POST['propertyBasic-submit'])) {
             exit();
         } else {
             // Create Features Variable
-            $propertyFeatures = $propertyAC . " " . $propertyBalcony . " " . $propertyLift . " " . $propertyPool . " " . $propertyJacuzzi . " " . $propertySmart . " " . $propertyTheatre;
+            $propertyFeatures = $propertyAC . " " . $propertyBalcony . " " . $propertyLift . " " . $propertyPool . " " . $propertyJacuzzi . " " . $propertySmart . " " . $propertyTheatre . " ";
 
             // Add Property
             $propertyController->createProperty($propertyFeatures, $propertyParking, $propertyPrice, $propertyType, null, $propertyStructure, $propertyBathrooms, $propertyBedrooms, null, $propertyConstructedDate, $propertyExteriorFinish, $propertyFlooringType, $propertyBaths, null, $propertyStories, $propertySizeExterior, $propertySizeInterior, $propertyAddress, $propertyCity, $propertyProvince, $propertyPostal, null, null, null, null, $_SESSION['id']);
@@ -155,40 +155,38 @@ if (isset($_POST['propertyBasic-submit'])) {
 
         // Extension Validation
         if (!in_array($fileActualExt, $allowed)) {
-            Header("Location: ../../views/add-properties.php?error=propertyGallery&Extension");
+            Header("Location: ../../views/add-properties.php?error=propertyGallery&extension=error");
             exit();
             // System Error Validation
         } else if (!$fileError == 0) {
-            // Header("Location: ../../views/add-properties.php?error=propertyGallery&systemerror");
-            echo $fileError;
-            phpinfo();
+            Header("Location: ../../views/add-properties.php?error=propertyGallery&systemerror=error");
             exit();
             // Size Validation
-        } else if ($fileSize > 3000000) {
-            Header("Location: ../../views/add-properties.php?error=propertyGallery&size");
+        } else if ($fileSize > 2000000) {
+            Header("Location: ../../views/add-properties.php?error=propertyGallery&size=error");
             exit();
             // Description Validation
         } else if (!preg_match("/^[a-zA-Z ]+$/", $propertyPhotoDescription) || strlen($propertyPhotoDescription) > 30 || strlen($propertyPhotoDescription) < 3) {
-            Header("Location: ../../views/add-properties.php?error=propertyGallery&propertyPhotoDescription=" . $propertyPhotoDescription . "&propertyPhotoSequence=" . $propertyPhotoSequence);
+            Header("Location: ../../views/add-properties.php?error=propertyGallery&description=error&propertyPhotoDescription=" . $propertyPhotoDescription . "&propertyPhotoSequence=" . $propertyPhotoSequence);
             exit();
             // Sequence Validation
         } else if (!preg_match("/^[0-9]+$/", $propertyPhotoSequence) || $propertyPhotoSequence > 30) {
-            Header("Location: ../../views/add-properties.php?error=propertyGallery&propertyPhotoSequence=" . $propertyPhotoSequence . "&propertyPhotoDescription=" . $propertyPhotoDescription);
+            Header("Location: ../../views/add-properties.php?error=propertyGallery&sequence=error&propertyPhotoSequence=" . $propertyPhotoSequence . "&propertyPhotoDescription=" . $propertyPhotoDescription);
             exit();
         } else {
             // Upload File to Folder
             $fileNewName = $timestamp . "." . $fileActualExt;
             $fileDestination = "../assets/images/uploads/" . $fileNewName;
-            move_uploaded_file($fileTmpName,$fileDestination);
-            // echo "File uploaded";
+            $fileDestinationMove = "../images/uploads/" . $fileNewName;
+            move_uploaded_file($fileTmpName,$fileDestinationMove);
 
             // Get Max Property ID
-            // $arrayMaxId = $propertyController->showPropertyByMaxId();
-            // $maxId = $arrayMaxId[0]['MAX(property_id)'];
-            // $_SESSION['maxId'] = $maxId;
+            $arrayMaxId = $propertyController->showPropertyByMaxId();
+            $maxId = $arrayMaxId[0]['MAX(property_id)'];
+            $_SESSION['maxId'] = $maxId;
 
             // Upload to DB
-            $PhotoController->createPhoto(16, $propertyPhotoSequence, $propertyPhotoDescription, $fileDestination);
+            $PhotoController->createPhoto($_SESSION['maxId'], $propertyPhotoSequence, $propertyPhotoDescription, $fileDestination);
             // echo 'properly added to DB';
             Header("Location: ../../views/add-properties.php?update=propertyGallerySuccess&propertyPhotoSequence=" . $propertyPhotoSequence);
         }
