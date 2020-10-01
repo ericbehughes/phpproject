@@ -48,6 +48,13 @@ class PhotoController
     }
 
     // Show Photos by Listing ID
+    public function showAllPhotosByListingIdAndSequence1($listing_id)
+    {
+        $results = $this->Photo->getAllPhotosByListingIdAndSequence1($listing_id);
+        return $results;
+    }
+
+    // Show Photos by Listing ID
     public function showAllPhotosByListingId($listing_id)
     {
         $results = $this->Photo->getAllPhotosByListingId($listing_id);

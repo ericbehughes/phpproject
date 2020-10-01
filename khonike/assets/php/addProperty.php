@@ -88,6 +88,7 @@ if (isset($_POST['propertyBasic-submit'])) {
         $propertyFlooringType = $_POST['propertyFlooringType'];
         $propertySizeExterior = $_POST['propertySizeExterior'];
         $propertySizeInterior = $_POST['propertySizeInterior'];
+        $propertyAC = $_POST['propertyAC'];
         $propertyBalcony = $_POST['propertyBalcony'];
         $propertyLift = $_POST['propertyLift'];
         $propertyPool = $_POST['propertyPool'];
@@ -100,19 +101,13 @@ if (isset($_POST['propertyBasic-submit'])) {
         $propertyNumber = $_SESSION['propertyNumber'];
         $propertyStreet = $_SESSION['propertyStreet'];
         $propertyCity = $_SESSION['propertyCity'];
-        $propertyProvince =  $_SESSION['propertyProvince'];
+        $propertyProvince = $_SESSION['propertyProvince'];
         $propertyPostal = $_SESSION['propertyPostal'];
         $propertyType = $_SESSION['propertyType'];
-        $propertyStructure =$_SESSION['propertyStructure'];
+        $propertyStructure = $_SESSION['propertyStructure'];
         $propertyPrice = $_SESSION['propertyPrice'];
         $propertyConstructedDate =  $_SESSION['propertyConstructedDate'];
         $propertyAddress = $_SESSION['propertyAddress'];
-        // $propertyBalcony = $_SESSION['propertyBalcony'];
-        // $propertyLift = $_SESSION['propertyLift'];
-        // $propertyPool = $_SESSION['propertyPool'];
-        // $propertyJacuzzi = $_SESSION['propertyJacuzzi'];
-        // $propertySmart = $_SESSION['propertySmart'];
-        // $propertyTheatre = $_SESSION['propertyTheatre'];
     
     
         // Property Size Validation
@@ -121,7 +116,7 @@ if (isset($_POST['propertyBasic-submit'])) {
             exit();
         } else {
             // Create Features Variable
-            $propertyFeatures = $propertyBalcony . " " . $propertyLift . " " . $propertyPool . " " . $propertyJacuzzi . " " . $propertySmart . " " . $propertyTheatre;
+            $propertyFeatures = $propertyAC . " " . $propertyBalcony . " " . $propertyLift . " " . $propertyPool . " " . $propertyJacuzzi . " " . $propertySmart . " " . $propertyTheatre;
 
             // Add Property
             $propertyController->createProperty($propertyFeatures, $propertyParking, $propertyPrice, $propertyType, null, $propertyStructure, $propertyBathrooms, $propertyBedrooms, null, $propertyConstructedDate, $propertyExteriorFinish, $propertyFlooringType, $propertyBaths, null, $propertyStories, $propertySizeExterior, $propertySizeInterior, $propertyAddress, $propertyCity, $propertyProvince, $propertyPostal, null, null, null, null, $_SESSION['id']);
@@ -164,10 +159,12 @@ if (isset($_POST['propertyBasic-submit'])) {
             exit();
             // System Error Validation
         } else if (!$fileError == 0) {
-            Header("Location: ../../views/add-properties.php?error=propertyGallery&systemerror");
+            // Header("Location: ../../views/add-properties.php?error=propertyGallery&systemerror");
+            echo $fileError;
+            phpinfo();
             exit();
             // Size Validation
-        } else if ($fileSize > 1000000) {
+        } else if ($fileSize > 3000000) {
             Header("Location: ../../views/add-properties.php?error=propertyGallery&size");
             exit();
             // Description Validation
@@ -180,10 +177,10 @@ if (isset($_POST['propertyBasic-submit'])) {
             exit();
         } else {
             // Upload File to Folder
-            $fileNewName = $timestamp . $fileActualExt;
-            $fileDestination = "../images/uploads/" . $fileNewName;
+            $fileNewName = $timestamp . "." . $fileActualExt;
+            $fileDestination = "../assets/images/uploads/" . $fileNewName;
             move_uploaded_file($fileTmpName,$fileDestination);
-            echo "File uploaded";
+            // echo "File uploaded";
 
             // Get Max Property ID
             // $arrayMaxId = $propertyController->showPropertyByMaxId();
@@ -191,8 +188,8 @@ if (isset($_POST['propertyBasic-submit'])) {
             // $_SESSION['maxId'] = $maxId;
 
             // Upload to DB
-            $PhotoController->createPhoto($_SESSION['maxId'], $propertyPhotoSequence, $propertyPhotoDescription, $fileDestination);
-            echo 'properly added to DB';
+            $PhotoController->createPhoto(16, $propertyPhotoSequence, $propertyPhotoDescription, $fileDestination);
+            // echo 'properly added to DB';
             Header("Location: ../../views/add-properties.php?update=propertyGallerySuccess&propertyPhotoSequence=" . $propertyPhotoSequence);
         }
 

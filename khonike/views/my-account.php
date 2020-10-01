@@ -29,7 +29,6 @@ if (isset($_SESSION['id'])) {
     // Calls to DB
     $sellerProperties = $propertyController->showPropertyBySellerId($id);
 ?>
-
     <!doctype html>
     <html class="no-js" lang="zxx">
 
@@ -73,7 +72,7 @@ if (isset($_SESSION['id'])) {
                         <div class="col">
                             <h1 class="page-banner-title">My Account</h1>
                             <ul class="page-breadcrumb">
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="index.php">Home</a></li>
                                 <li class="active">My Account</li>
                             </ul>
                         </div>
@@ -239,7 +238,7 @@ if (isset($_SESSION['id'])) {
                                         <!-- Foreach to cycle through rows in property -->
                                         <? foreach ($sellerProperties as $property) {
                                         $listingId = $property['property_id'];
-                                        $propertyPhotos = $photoController->showAllPhotosByListingId($listingId);
+                                        $propertyPhotos = $photoController->showAllPhotosByListingIdAndSequence1($listingId);
                                         ?>
 
                                         <!--Property start-->

@@ -51,9 +51,19 @@ class Photo extends Dbh {
         return $results;
     }
 
+    // Get Sequence Photos by Listing ID
+    public function getAllPhotosByListingIdAndSequence1($listing_id) {
+        $sql = "SELECT * FROM property_photos WHERE listing_id = ? AND sequence_id = 1";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$listing_id]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
     // Get Photos by Listing ID
     public function getAllPhotosByListingId($listing_id) {
-        $sql = "SELECT * FROM property_photos WHERE listing_id = ? AND sequence_id = 1";
+        $sql = "SELECT * FROM property_photos WHERE listing_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$listing_id]);
 

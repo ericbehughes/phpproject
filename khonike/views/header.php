@@ -47,10 +47,6 @@ session_start();
                             <nav class="main-menu">
                                 <ul>
                                     <li class=""><a href="index.php">Home</a>
-                                        <?php
-                                        // echo $_SESSION['id'];
-                                        // var_dump($_SESSION);
-                                        ?>
                                     </li>
                                     <li class="has-dropdown"><a href="properties.html">Properties</a>
                                         <ul class="sub-menu">

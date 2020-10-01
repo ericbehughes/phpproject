@@ -27,6 +27,7 @@
 
     <div id="main-wrapper">
 
+        <!-- Header -->
         <?php
         include_once('header.php');
         ?>
@@ -38,7 +39,7 @@
                     <div class="col">
                         <h1 class="page-banner-title">Login or Register</h1>
                         <ul class="page-breadcrumb">
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="index.php">Home</a></li>
                             <li class="active">Login or Register</li>
                         </ul>
                     </div>

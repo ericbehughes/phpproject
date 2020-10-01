@@ -18,22 +18,12 @@
     <!-- Modernizr JS -->
     <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
     <script>
-        function myFunction() {
-            var x = document.getElementById("finishedBtn");
-
-            x.style.display = "block";
-
-        }
     </script>
     <style>
         #finishedBtn {
-            display: none;
-        }
+            display: block;
+        } 
     </style>
-
-
-
-
 </head>
 
 <body>
@@ -228,18 +218,19 @@
                                                 <!-- <a href="#detailed_info" data-toggle="tab" class="btn">Next</a> -->
                                             </div>
 
-                                            <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
-                                                <button id="addGalleryBtn" class="property-submit btn" onclick="myFunction()" name="propertyGallery-submit" type="submit">Add Photo</button>
+                                            <div class="nav d-flex justify-content-end col-12 mb-20 pl-15 pr-15">
+                                                <button id="addGalleryBtn" class="property-submit btn" onclick="" name="propertyGallery-submit" type="submit">Add Photo</button>
                                             </div>
 
                                         </div>
                                     </form>
-                                    
-                                    <!-- Finished Button -->
-                                    <div id="finishedBtn" class="row">
-                                        <div class="nav d-flex justify-content-end col-12" class="ml-30"><button class="btn">Finish</button></div>
-                                    </div>
 
+                                    <!-- Finished Button -->
+                                    <?php if (!is_null($_GET['propertyPhotoSequence'])) { ?>
+                                        <div class="row">
+                                            <div class="nav d-flex justify-content-end col-12"><button class="btn  pl-55 pr-60">Finish</button></div>
+                                        </div>
+                                    <?php } ?>
 
                                 </div>
                             </div>
@@ -392,13 +383,13 @@
                                             <div class="col-12 mb-30">
                                                 <h4>Other Features</h4>
                                                 <ul class="other-features">
-                                                    <li><input name="propertyAC" type="checkbox" id="air_condition" value="Air Conditioning"><label for="air_condition">Air Conditioning</label></li>
+                                                    <li><input name="propertyAC" type="checkbox" id="air_condition" value="Air Conditioning"><label for="air_condition">Air-Conditioning</label></li>
                                                     <li><input name="propertyBalcony" type="checkbox" id="balcony" value="Balcony"><label for="balcony">Balcony</label></>
                                                     <li><input name="propertyLift" type="checkbox" id="lift" value="Lift"><label for="lift">Lift</label></li>
                                                     <li><input name="propertyPool" type="checkbox" id="pool" value="Pool"><label for="pool">Pool</label></li>
                                                     <li><input name="propertyJacuzzi" type="checkbox" id="Jacuzzi" value="Jacuzzi"><label for="Jacuzzi">Jacuzzi</label></li>
-                                                    <li><input name="propertySmart" type="checkbox" id="Smart House" value="Smart House"><label for="Smart House">Smart House</label></li>
-                                                    <li><input name="propertyTheatre" type="checkbox" id="Home Theatre" value="Home Theatre"><label for="Home Theatre">Home Theatre</label></li>
+                                                    <li><input name="propertySmart" type="checkbox" id="Smart House" value="Smart House"><label for="Smart House">Smart-House</label></li>
+                                                    <li><input name="propertyTheatre" type="checkbox" id="Home Theatre" value="Home Theatre"><label for="Home Theatre">Home-Theatre</label></li>
                                                 </ul>
                                             </div>
 

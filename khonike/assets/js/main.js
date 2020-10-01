@@ -495,7 +495,5 @@ if(kbs) {
 }
 
 
-function myFunction() {
-    document.getElementById("labelid").style.color = "red";
-}
+
  

@@ -19,7 +19,7 @@ $id = $_GET['propertyId'];
 
 // Assign the array to a variable
 $property = $propertyController->showPropertyById($id);
-
+$propertyPhotos = $photoController->showAllPhotosByListingId($id);
 ?>
 
 <!doctype html>
@@ -41,6 +41,25 @@ $property = $propertyController->showPropertyById($id);
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Modernizr JS -->
     <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <script>
+        function expandPhoto(imgs) {
+            // Get the expanded image
+            var expandImg = document.getElementById("expandedImg");
+            // Get the image text
+            var imgText = document.getElementById("imgtext");
+            // Use the same src in the expanded image as the image being clicked on from the grid
+            expandImg.src = imgs.src;
+            // Use the value of the alt attribute of the clickable image as text inside the expanded image
+            imgText.innerHTML = imgs.alt;
+            // Show the container element (hidden with CSS)
+            expandImg.parentElement.style.display = "block";
+        }
+    </script>
+    <style>
+        .imgContainer {
+            float: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,6 +87,8 @@ $property = $propertyController->showPropertyById($id);
         </div>
         <!--Page Banner Section end-->
 
+
+
         <!--New property section start-->
         <div class="property-section section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50">
             <div class="container">
@@ -82,18 +103,94 @@ $property = $propertyController->showPropertyById($id);
 
                                     <div class="head">
                                         <div class="left">
-                                            <h1 class="title">Friuli-Venezia Giulia</h1>
-                                            <span class="location"><img src="../assets/images/icons/marker.png" alt="">568 E 1st Ave, Miami</span>
+                                            <h2 class="title"><img src="../assets/images/icons/marker.png" alt=""> <?php echo $property[0]['address'] . " " . $property[0]['city'] . ", " . $property[0]['province'] ?></h2>
+                                            <span class="location"><?php echo $property[0]['structure']; ?></span>
                                         </div>
                                         <div class="right">
                                             <div class="type-wrap">
-                                                <span class="price">$550<span>Month</span></span>
-                                                <span class="type">For Rent</span>
+                                                <span class="price">$<?php
+                                                                        $price = strlen($property[0]['price']);
+                                                                        $newPrice = null;
+
+                                                                        switch (true) {
+                                                                            case $price == 3:
+                                                                                $newPrice = substr($property[0]['price'], 0, 3) . "<span>M</span>";
+                                                                                echo $newPrice;
+                                                                                break;
+                                                                            case $price == 4:
+                                                                                $newPrice = substr($property[0]['price'], 0, 4) . "<span>M</span>";
+                                                                                echo $newPrice;
+                                                                                break;
+                                                                            case $price == 5:
+                                                                                $newPrice = substr($property[0]['price'], 0, 2) . "K";
+                                                                                echo $newPrice;
+                                                                                break;
+                                                                            case $price == 6:
+                                                                                $newPrice = substr($property[0]['price'], 0, 3) . "K";
+                                                                                echo $newPrice;
+                                                                                break;
+                                                                            case $price == 7:
+                                                                                $million = substr($property[0]['price'], 0, 1) . ".";
+                                                                                $hundreds = substr($property[0]['price'], 1, 2) . "M";
+                                                                                $newPrice = $million . $hundreds;
+                                                                                echo $newPrice;
+                                                                                break;
+                                                                            case $price == 8:
+                                                                                $million = substr($property[0]['price'], 0, 2) . ".";
+                                                                                $hundreds = substr($property[0]['price'], 2, 2) . "M";
+                                                                                $newPrice = $million . $hundreds;
+                                                                                echo $newPrice;
+                                                                                break;
+                                                                            default:
+                                                                                echo "-";
+                                                                                break;
+                                                                        } ?></span>
+                                                <span class="type"><?php
+                                                                    if ($property[0]['property_type'] == "Sale") {
+                                                                        echo "For Sale";
+                                                                    } elseif ($property[0]['property_type'] == "Rent") {
+                                                                        echo "For Rent";
+                                                                    } else {
+                                                                        echo "-";
+                                                                    }
+                                                                    ?></span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="image mb-30">
+                                    <!-- Photo Gallery -->
+                                    <div class="container pr-0 pl-0">
+                                        <!-- Close the image -->
+                                        <!-- <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span> -->
+
+                                        <!-- Expanded image -->
+                                        <img class="mb-15 " id="expandedImg" style="width:100%" src="<?php echo $propertyPhotos[0]['photos']; ?>">
+
+                                        <!-- Image text -->
+                                        <div id="imgtext"></div>
+                                    </div>
+
+
+
+                                    <!-- The grid: four columns -->
+                                    <div class="row">
+                                        <div class="column">
+                                            <?php for ($i = 0; $i < sizeof($propertyPhotos); $i++) { ?>
+                                                <div class="imgContainer">
+                                                    <img style="height: 120px; width: 180px; margin-left: 16px; margin-bottom: 16px;" src="<?php echo $propertyPhotos[$i]['photos']; ?>" alt="" onclick="expandPhoto(this);">
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+                                    <!-- <div class="image mb-30">
                                         <div class="single-property-gallery">
                                             <div class="item"><img src="../assets/images/property/single-property-1.jpg" alt=""></div>
                                             <div class="item"><img src="../assets/images/property/single-property-2.jpg" alt=""></div>
@@ -112,7 +209,7 @@ $property = $propertyController->showPropertyById($id);
                                             <div class="item"><img src="../assets/images/property/single-property-3-thumb.jpg" alt=""></div>
                                             <div class="item"><img src="../assets/images/property/single-property-4-thumb.jpg" alt=""></div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="content">
 
@@ -167,14 +264,13 @@ $property = $propertyController->showPropertyById($id);
                                             <div class="col-md-7 col-12">
                                                 <h3>Amenities</h3>
                                                 <ul class="amenities-list">
-                                                    <?php 
-                                                        $features = $property[0]['features'];
-                                                        $featuresArray = explode(" ", $features, -1);
-                                                        
-                                                        for ($i=0; $i < sizeof($featuresArray); $i++) { 
-                                                            echo "<li>" . $featuresArray[$i] . "</li>";
-                                                        }
+                                                    <?php
+                                                    $features = $property[0]['features'];
+                                                    $featuresArray = explode(" ", $features, -1);
 
+                                                    for ($i = 0; $i < sizeof($featuresArray); $i++) {
+                                                        echo "<li>" . $featuresArray[$i] . "</li>";
+                                                    }
                                                     ?>
                                                 </ul>
                                             </div>
@@ -323,12 +419,11 @@ $property = $propertyController->showPropertyById($id);
                         <!-- Property Options -->
                         <div class="">
                             <!-- If Admin or Seller -->
-                            <h4 class="sidebar-title"><span class="text">Property Options</span><span class="shape"></span></h4>
-                            <button class="btn btn-block mb-15">Edit Property</button>
-                            <button class="btn btn-block mb-25">Delete Property</button>
-
-                           
-
+                            <?php if ($_SESSION['level'] == 2 || $_SESSION['level'] == 3) { ?>
+                                <h4 class="sidebar-title"><span class="text">Property Options</span><span class="shape"></span></h4>
+                                <button class="btn btn-block mb-15">Edit Property</button>
+                                <button class="btn btn-block mb-25">Delete Property</button>
+                            <?php } ?>
 
                             <h4 class="sidebar-title"><span class="text">Sepcifications</span><span class="shape"></span></h4>
                             <ul>
