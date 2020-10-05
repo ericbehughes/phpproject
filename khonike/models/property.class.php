@@ -71,6 +71,26 @@ class Property extends Dbh {
         return $results;
     }
 
+    // Get Number of Rooms by Property ID
+    // public function getRoomsByPropertyId($id) {
+    //     $sql = "SELECT * FROM property WHERE property_id = ?";
+    //     $stmt = $this->connect()->prepare($sql);
+    //     $stmt->execute();
+
+    //     $results = $stmt->fetchAll();
+    //     return $results;
+    // }
+
+    // Get properties by Seller ID
+    public function getRoomsById($id) {
+        $sql = "SELECT * FROM property WHERE property_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
     
 
 

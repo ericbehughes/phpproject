@@ -67,5 +67,10 @@ class PropertyController
         return $results;
     }
 
-
+    // Show Rooms by Property ID
+    public function showRoomsById($property_id)
+    {
+        $results = $this->Property->getRoomsById($property_id);
+        return $results;
+    }
 }

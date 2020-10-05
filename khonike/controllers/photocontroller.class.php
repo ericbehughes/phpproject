@@ -60,4 +60,5 @@ class PhotoController
         $results = $this->Photo->getAllPhotosByListingId($listing_id);
         return $results;
     }
+
 }

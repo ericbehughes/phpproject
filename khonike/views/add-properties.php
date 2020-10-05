@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// This is used to display the error messages
+// ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Includes
+include_once __DIR__ . "/../controllers/propertycontroller.class.php";
+
+
+// Instantiate
+$propertyController = new PropertyController();
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -22,7 +38,7 @@
     <style>
         #finishedBtn {
             display: block;
-        } 
+        }
     </style>
 </head>
 
@@ -60,7 +76,7 @@
                         <!-- TABS -->
                         <ul class="add-property-tab-list nav mb-50">
                             <li <?php //Basic info TAB
-                                if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery") {
+                                if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery" || $_GET['update'] == "propertyGalleryFinished") {
                                     echo 'hidden';
                                 } else {
                                     echo 'class="working" ';
@@ -80,13 +96,20 @@
                                     echo "hidden";
                                 }
                                 ?>><a href="#gallery_video" data-toggle="tab">3. Gallery & Video</a></li>
+                            <li <?php // Rooms info TAB
+                                if ($_GET['update'] == "propertyGalleryFinished") {
+                                    echo 'class="working" ';
+                                } else {
+                                    echo "hidden";
+                                }
+                                ?>><a href="propertyAddRooms" data-toggle="tab">4. Room Specifications</a></li>
                         </ul>
 
                         <div class="add-property-form tab-content">
 
                             <!-- Basic Info -->
                             <div class="tab-pane show <?php
-                                                        if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery") {
+                                                        if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery" || $_GET['error'] == "propertyGalleryFinished" || $_GET['update'] == "propertyGalleryFinished") {
                                                             echo '';
                                                         } else {
                                                             echo 'active';
@@ -214,7 +237,7 @@
                                                 <label>Gallery Images</label>
                                                 <!-- <div class="dropzone"></div> -->
                                                 <!-- <div class='pe-7s-cloud-upload'></div> -->
-                                                <input multiple type="file" name="file" required>
+                                                <input type="file" name="file" required>
                                             </div>
 
                                             <div class="col-3 mb-30">
@@ -418,8 +441,133 @@
                                 </div>
                             </div>
                             <!-- Detailed Info End -->
-                            
-                            
+
+
+                            <!-- Room Specifications -->
+
+                            <!-- Obtain Recently Added Property -->
+                            <?php
+                            if ($_GET['update'] == "propertyGalleryFinished") {
+
+                                // Get Max Property ID
+                                $arrayMaxId = $propertyController->showPropertyByMaxId();
+                                $maxId = $arrayMaxId[0]['MAX(property_id)'];
+                                $_SESSION['maxId'] = $maxId;
+
+                                // Get Number of Rooms by Property ID
+                                $property = $propertyController->showRoomsById($maxId);
+                                $numberOfBedrooms = $property[0]['bedrooms_total'];
+                                $numberOfBathrooms = $property[0]['bedrooms_total'];
+
+                            }
+                            ?>
+                            <!-- Determine Tab -->
+                            <div class="tab-pane <?php
+                                                    if ($_GET['update'] == "propertyGalleryFinished") {
+                                                        echo 'active';
+                                                    } else {
+                                                        echo '';
+                                                    }
+                                                    ?>" id="addRoomProperties">
+                                <div class="tab-body">
+
+                                    <form action="../assets/php/addProperty.php" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+
+                                            <!-- Validation Error Messages -->
+                                            <div class="col-12 mb-30">
+
+                                                <?php
+                                                if (isset($_GET['bedroomWidthError'])) {
+                                                    if ($_GET['bedroomWidthError'] == 1) {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Bedroom 1 Width Must be in-between 1 & 50<br></span>';
+                                                        echo "</div>";
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+
+                                            <!-- Bedroom Input Fields -->
+                                            <?php for ($i = 1; $i <= $numberOfBedrooms; $i++) { ?>
+                                                <div class="container">
+                                                    <div class="row">
+
+                                                        <div class="col-md-3 text-center mt-40 mb-40">
+                                                            <h3>Bedroom <?php echo $i; ?></h3>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label>Bedroom Width</label>
+                                                            <input class="mb-20" type="number" min="10" max="50" name="<?php echo "bedroomWidth" . $i; ?>" required>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label>Bedroom Length</label>
+                                                            <input class="mb-20" type="number" min="10" max="50" name="<?php echo "bedroomLength" . $i; ?>" required>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label>Level</label>
+                                                            <select class="nice-select" name="<?php echo "bedroomLevel" . $i; ?>" required>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+                                            <!-- Bathroom Input Fields -->
+                                            <?php for ($i = 1; $i <= $numberOfBathrooms; $i++) { ?>
+                                                <div class="container">
+                                                    <div class="row">
+
+                                                        <div class="col-md-3 text-center mt-40 mb-40">
+                                                            <h3>Bathroom <?php echo $i; ?></h3>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label>Bathroom Width</label>
+                                                            <input class="mb-20" type="number" min="1" max="50" name="<?php echo "bathroomWidth" . $i; ?>" required>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label>Bathroom Length</label>
+                                                            <input class="mb-20" type="number" min="1" max="50" name="<?php echo "bathroomLength" . $i; ?>" required>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label>Level</label>
+                                                            <select class="nice-select" name="<?php echo "bathroomLevel" . $i; ?>" required>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+                                            <div class="nav d-flex justify-content-end col-12 mb-20 pl-15 pr-15">
+                                                <button id="" class="property-submit btn" onclick="" name="propertyRooms-submit" type="submit">Add Rooms</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <!-- Room Specifications -->
 
 
                         </div>

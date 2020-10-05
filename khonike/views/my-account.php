@@ -130,30 +130,47 @@ if (isset($_SESSION['id'])) {
                                 } ?>">
                                     <form action="../assets/php/myaccountUpdate.php" method="POST">
                                         <div class="row">
-                                            <div class="col-12 mb-30">
-                                                <h3 class="mb-0">Personal Profile</h3>
-                                            </div>
 
-                                            <!-- Validation Error Messages -->
-                                            <?php
+                                        <!-- Validation Error Messages -->
+                                        <?php
                                             if (isset($_GET['error'])) {
                                                 if ($_GET['error'] == 'username') {
-                                                    echo '<div class="col-12 mb-30"><p>Username must only include letters and numbers</p></div>';
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Username must only include letters and numbers<br></span>';
+                                                    echo "</div>";
                                                 } else if ($_GET['error'] == 'fullname') {
-                                                    echo '<div class="col-12 mb-30"><p>Full Name must only include letters</p></div>';
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Full Name must only include letters<br></span>';
+                                                    echo "</div>";
                                                 } else if ($_GET['error'] == 'email') {
-                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid Email Address</p></div>';
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Please enter a valid Email Address<br></span>';
+                                                    echo "</div>";
                                                 } else if ($_GET['error'] == 'phone') {
-                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid Phone Number!</p></div>';
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Please enter a valid Phone Number!<br></span>';
+                                                    echo "</div>";
                                                 } else if ($_GET['error'] == 'characterlength') {
-                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid number of characters</p></div>';
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Please enter a valid number of characters<br></span>';
+                                                    echo "</div>";
                                                 }
                                             } else if (isset($_GET['update'])) {
                                                 if ($_GET['update'] == 'success') {
-                                                    echo '<div class="col-12 mb-30"><p>Update successful</p></div>';
+                                                    echo "<div class='alert alert-success' >";
+                                                    echo '<span class="align-middle">Update Successfull<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['update'] == 'roomAddedSuccessfully') {
+                                                    echo "<div class='alert alert-success' >";
+                                                    echo '<span class="align-middle">Property Added Successfully<br></span>';
+                                                    echo "</div>";
                                                 }
                                             }
                                             ?>
+
+                                            <div class="col-12 mb-30">
+                                                <h3 class="mb-0">Personal Profile</h3>
+                                            </div>
 
                                             <div class="col-md-6 col-12 mb-30"><label for="l_name">Username</label><input name="usernameUpdate" type="text" id="u_name" value="<?php echo $username; ?>" required></div>
                                             <div class="col-md-6 col-12 mb-30"><label for="f_name">Fullname</label><input name="fullnameUpdate" type="text" id="f_name" value="<?php echo $fullname; ?>" required></div>
@@ -308,7 +325,9 @@ if (isset($_SESSION['id'])) {
                                                                                     default:
                                                                                         echo "-";
                                                                                         break;
-                                                                                } ?><span><?php if ($property['property_type'] == "Rent") {echo "m";}?></span></span>
+                                                                                } ?><span><?php if ($property['property_type'] == "Rent") {
+                                                                                                echo "m";
+                                                                                            } ?></span></span>
                                                             <span class="type">
                                                                 <?php
                                                                 if ($property['property_type'] == "Sale") {
