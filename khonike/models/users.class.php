@@ -1,5 +1,5 @@
 <?php
-include_once '../../database/dbh.class.php';
+include_once __DIR__ . '../../database/dbh.class.php';
 
 
 // USERS MODEL

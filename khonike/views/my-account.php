@@ -21,13 +21,18 @@ if (isset($_SESSION['id'])) {
     // Includes
     include_once __DIR__ . "/../controllers/propertycontroller.class.php";
     include_once __DIR__ . "/../controllers/photocontroller.class.php";
+    include_once __DIR__ . "/../controllers/visitcontroller.class.php";
+    include_once __DIR__ . "/../controllers/userscontroller.class.php";
 
     // Instantiate
     $propertyController = new PropertyController();
     $photoController = new PhotoController();
+    $visitController = new VisitController();
+    $userController = new UsersController();
 
     // Calls to DB
     $sellerProperties = $propertyController->showPropertyBySellerId($id);
+
 ?>
     <!doctype html>
     <html class="no-js" lang="zxx">
@@ -96,9 +101,10 @@ if (isset($_SESSION['id'])) {
                                                 } else {
                                                     echo 'active';
                                                 } ?>" href="#profile-tab" data-toggle="tab"><i class="pe-7s-user"></i>My Profile</a></li>
+                                <!-- Seller Tabs -->
                                 <?php
                                 if ($_SESSION['level'] == 2) {
-                                    echo '<li><a href="#agency-tab" data-toggle="tab"><i class="pe-7s-note2"></i>Agency Profile</a></li>
+                                    echo '<li><a href="#visits-tab" data-toggle="tab"><i class="pe-7s-note2"></i>Manage Visits</a></li>
                                    <li><a href="#properties-tab" data-toggle="tab"><i class="pe-7s-photo"></i>My Properties</a></li>
                                    <li><a href="add-properties.php"><i class="pe-7s-back fa-flip-horizontal"></i>Add New Property</a></li>';
                                 }
@@ -131,8 +137,8 @@ if (isset($_SESSION['id'])) {
                                     <form action="../assets/php/myaccountUpdate.php" method="POST">
                                         <div class="row">
 
-                                        <!-- Validation Error Messages -->
-                                        <?php
+                                            <!-- Validation Error Messages -->
+                                            <?php
                                             if (isset($_GET['error'])) {
                                                 if ($_GET['error'] == 'username') {
                                                     echo "<div class='alert alert-danger' >";
@@ -158,7 +164,7 @@ if (isset($_SESSION['id'])) {
                                             } else if (isset($_GET['update'])) {
                                                 if ($_GET['update'] == 'success') {
                                                     echo "<div class='alert alert-success' >";
-                                                    echo '<span class="align-middle">Update Successfull<br></span>';
+                                                    echo '<span class="align-middle">Update Successful<br></span>';
                                                     echo "</div>";
                                                 } else if ($_GET['update'] == 'roomAddedSuccessfully') {
                                                     echo "<div class='alert alert-success' >";
@@ -184,73 +190,74 @@ if (isset($_SESSION['id'])) {
                                                     <div class="col-md-6 col-12 mb-30"><label for="l_name"></label><input class="col-2" name="idUpdate" type="text" id="id" value="<?php echo $id; ?>" hidden></div>
                                                     <input name="levelUpdate" type="text" id="" value="<?php echo $level; ?>" hidden>
                                                     <input name="statusUpdate" type="text" id="" value="<?php echo $status; ?>" hidden>
-
-                                                    <!-- <div class="col-md-6 col-12 mb-30"><label for="personal_web">Website</label><input type="text" id="personal_web" value="www.example.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_agency">Agencies</label><input type="text" id="personal_agency" value=" Royao Estates, Duplex Estates"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_company">Company</label><input type="text" id="personal_company" value="GTA5"></div> -->
                                                 </div>
-                                                <!-- <h4>Social</h4>
-                                                <div class="row">
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_facebook"><i class="fa fa-facebook-official"></i>Facebook</label><input type="text" id="personal_social_facebook" value="www.facebook.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_twitter"><i class="fa fa-twitter"></i>Twitter</label><input type="text" id="personal_social_twitter" value="www.twitter.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_linkedin"><i class="fa fa-linkedin"></i>Linkedin</label><input type="text" id="personal_social_linkedin" value="www.linkedin.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_google"><i class="fa fa-google"></i>Google Plus</label><input type="text" id="personal_social_google" value="www.google.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_instagram"><i class="fa fa-instagram"></i>Instagram</label><input type="text" id="personal_social_instagram" value="www.instagram.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_pinterest"><i class="fa fa-pinterest"></i>Pinterest</label><input type="text" id="personal_social_pinterest" value="www.pinterest.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_skype"><i class="fa fa-skype"></i>Skype</label><input type="text" id="personal_social_skype" value="www.skype.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="personal_social_tumblr"><i class="fa fa-tumblr"></i>Tumblr</label><input type="text" id="personal_social_tumblr" value="www.tumblr.com"></div>
-                                                </div> -->
                                             </div>
 
                                             <div class="col-12 mb-30"><button type="submit" name="myaccountUpdate-submit" class="btn">Save Change</button></div>
                                         </div>
                                     </form>
-                                </div> <!-- Profile Tab End -->
+                                </div>
+                                <!-- Profile Tab End -->
 
-                                <!-- Agency Tab -->
-
-                                <!-- if ($_SESSION['level'] == 2) { -->
-
-                                <!-- Property Tab -->
-                                <!-- <div id="agency-tab" class="tab-pane">
+                                <!-- Visits Tab -->
+                                <div id="visits-tab" class="tab-pane">
                                     <form action="#">
+                                        <div class="col-12 mb-30">
+                                            <h3 class="mb-0">Manage Visits</h3>
+                                        </div>
+                                        <div class="content">
 
-                                        <div class="row">
-                                            <div class="col-12 mb-30">
-                                                <h3 class="mb-0">Agency Profile</h3>
-                                            </div>
-                                            <div class="col-12 mb-30"><label for="agency_name">Agency Name</label><input type="text" id="agency_name" value=""></div>
-                                            <div class="col-12 mb-30"><label for="about_agency">About Agency</label><textarea id="about_agency"></textarea></div>
+                                            <?php
+                                            if ($_SESSION['level'] == 2 || $_SESSION['level'] == 3) {
+                                            ?>
+                                                <?php
+                                                $visitsBySellerArray = $visitController->showVisitsBySellerId($_SESSION['id']);
+                                                
+                                                for ($i = 0; $i < sizeof($visitsBySellerArray); $i++) {
+                                                $userById = $userController->showUserById($visitsBySellerArray[$i]['customer_id']);
+                                                ?>
 
-                                            <div class="col-12">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_address">Address</label><input type="text" id="agency_address" value="256, 1st AVE, Manchester 125 , Noth England"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_number">Phone Number</label><input type="text" id="agency_number" value="(756) 447 5779"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_email">Email</label><input type="text" id="agency_email" value="info@example.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_web">Website</label><input type="text" id="agency_web" value="www.example.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_license">License</label><input type="text" id="agency_license" value="AB7876A6"></div>
-                                                </div>
-                                                <h4>Social</h4>
-                                                <div class="row">
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_facebook"><i class="fa fa-facebook-official"></i>Facebook</label><input type="text" id="agency_social_facebook" value="www.facebook.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_twitter"><i class="fa fa-twitter"></i>Twitter</label><input type="text" id="agency_social_twitter" value="www.twitter.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_linkedin"><i class="fa fa-linkedin"></i>Linkedin</label><input type="text" id="agency_social_linkedin" value="www.linkedin.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_google"><i class="fa fa-google"></i>Google Plus</label><input type="text" id="agency_social_google" value="www.google.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_instagram"><i class="fa fa-instagram"></i>Instagram</label><input type="text" id="agency_social_instagram" value="www.instagram.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_pinterest"><i class="fa fa-pinterest"></i>Pinterest</label><input type="text" id="agency_social_pinterest" value="www.pinterest.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_skype"><i class="fa fa-skype"></i>Skype</label><input type="text" id="agency_social_skype" value="www.skype.com"></div>
-                                                    <div class="col-md-6 col-12 mb-30"><label for="agency_social_tumblr"><i class="fa fa-tumblr"></i>Tumblr</label><input type="text" id="agency_social_tumblr" value="www.tumblr.com"></div>
-                                                </div>
-                                            </div>
+                                                    <div class="row">
 
-                                            <div class="col-12 mb-30"><button type="submit" class="btn">Save Change</button></div>
+                                                        <div class="col-6 pl-100">
+                                                            <h4 class="mb-0 mt-10">Requested Visit</h4>
+                                                            <h4 class="pl-40 mb-10">Time</h4>
+                                                            <span><?php echo $visitsBySellerArray[$i]['datetime']; ?></span>
+                                                        </div>
+                                                        <div class="col-6 pl-120">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <p class="mb-5 mt-10t"><b>Name:&nbsp;&nbsp;&nbsp;&nbsp;</b><?php echo $userById[0]['fullname']; ?><br></p>
+                                                                    <p class="mb-5 mt-10t"><b> Email: &nbsp;&nbsp;&nbsp;&nbsp;</b><?php echo $userById[0]['email']; ?></p>
+                                                                    <p class="mb-5 mt-10t"><b>Phone:&nbsp;&nbsp;&nbsp;&nbsp;</b><?php echo $userById[0]['phone']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <button type="submit" class="btn col-5">Confirm</button>
+                                                            <button type="submit" class="btn col-5 float-right">Decline</button>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+
+                                                <?php } ?>
+
+                                            <?php } else if ($_SESSION['level'] == 1) { ?>
+
+                                            <?php } ?>
+
                                         </div>
                                     </form>
-                                </div> -->
+                                </div>
+                                <!-- Visits Tab End -->
+
                                 <!-- Properties Tab -->
                                 <div id="properties-tab" class="tab-pane">
 
                                     <div class="row">
+
 
                                         <!-- Foreach to cycle through rows in property -->
                                         <? foreach ($sellerProperties as $property) {

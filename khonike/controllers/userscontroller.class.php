@@ -1,5 +1,5 @@
 <?php
-include_once '../../models/users.class.php';
+include_once __DIR__ . '../../models/users.class.php';
 //var_dump(file_exists('../../models/users.class.php'));
 
 // USERS CONTROLLER

@@ -57,11 +57,11 @@ class Room extends Dbh
     }
 
     // Get All Rooms by Property ID
-    public function getRoomsByPropertyId($id)
+    public function getRoomsByPropertyId($property_id)
     {
         $sql = "SELECT * FROM property_rooms WHERE listing_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$property_id]);
 
         $results = $stmt->fetchAll();
         return $results;

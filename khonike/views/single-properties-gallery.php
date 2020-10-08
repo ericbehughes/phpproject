@@ -9,10 +9,12 @@ error_reporting(E_ALL);
 // Includes
 include_once __DIR__ . "/../controllers/propertycontroller.class.php";
 include_once __DIR__ . "/../controllers/photocontroller.class.php";
+include_once __DIR__ . "/../controllers/roomcontroller.class.php";
 
 // Instantiate
 $propertyController = new PropertyController();
 $photoController = new PhotoController();
+$roomController = new RoomController();
 
 // Get Property ID
 $id = $_GET['propertyId'];
@@ -20,6 +22,7 @@ $id = $_GET['propertyId'];
 // Assign the array to a variable
 $property = $propertyController->showPropertyById($id);
 $propertyPhotos = $photoController->showAllPhotosByListingId($id);
+$rooms = $roomController->showRoomsByPropertyId($id);
 ?>
 
 <!doctype html>
@@ -53,11 +56,28 @@ $propertyPhotos = $photoController->showAllPhotosByListingId($id);
             imgText.innerHTML = imgs.alt;
             // Show the container element (hidden with CSS)
             expandImg.parentElement.style.display = "block";
+
+
+
+        }
+
+        function showDateTime() {
+
+            var selector = document.getElementById("dateTimeSelector").style.display = 'block';
+            var selector = document.getElementById("dateTimeSelectorLabel").style.display = 'block';
         }
     </script>
     <style>
         .imgContainer {
             float: left;
+        }
+
+        #dateTimeSelector {
+            display: none;
+        }
+
+        #dateTimeSelectorLabel {
+            display: none;
         }
     </style>
 </head>
@@ -180,10 +200,11 @@ $propertyPhotos = $photoController->showAllPhotosByListingId($id);
                                             <?php } ?>
                                         </div>
                                     </div>
-                                    
-                                    <!-- Amenities -->
+
+
                                     <div class="content">
 
+                                        <!-- Amenities -->
                                         <div class="row mt-30 mb-30">
 
                                             <!-- For Loop to Display Amenities -->
@@ -202,6 +223,12 @@ $propertyPhotos = $photoController->showAllPhotosByListingId($id);
                                             </div>
 
                                         </div>
+
+                                        <!-- Visits and Messaging -->
+                                        <div class="row mt-30 mb-30">
+
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -287,11 +314,57 @@ $propertyPhotos = $photoController->showAllPhotosByListingId($id);
 
                         <!-- Property Options -->
                         <div class="">
-                            <!-- If Admin or Seller -->
+                            <!-- Display Options Determined by level of User -->
                             <?php if ($_SESSION['level'] == 2 || $_SESSION['level'] == 3) { ?>
                                 <h4 class="sidebar-title"><span class="text">Property Options</span><span class="shape"></span></h4>
                                 <button class="btn btn-block mb-15">Edit Property</button>
                                 <button class="btn btn-block mb-25">Delete Property</button>
+                            <?php } else if ($_SESSION['level'] == 1) { ?>
+                                <h4 class="sidebar-title"><span class="text">Property Options</span><span class="shape"></span></h4>
+
+                                <!-- Visit Submit Form -->
+                                <form action="../assets/php/requestvisit.php" method="POST">
+
+                                    <!-- Validation Error Messages -->
+                                    <?php
+                                    if (isset($_GET['update'])) {
+                                        if ($_GET['update'] == 'error' || $_GET['visitAlreadyRequested'] == 1) {
+                                            echo "<div class='alert alert-danger' >";
+                                            echo '<span class="align-middle">A Request Has Already Been Submitted<br></span>';
+                                            echo "</div>";
+                                        } else if ($_GET['update'] == 'success') {
+                                            echo "<div class='alert alert-success' >";
+                                            echo '<span class="align-middle">Request Submitted<br></span>';
+                                            echo "</div>";
+                                        }
+                                    }
+                                    ?>
+
+                                    <h5 id="dateTimeSelectorLabel">Date and Time of Visit (Hour Intervals)</h5>
+
+                                    <!-- Get the current time in order to determine Minimum visit time -->
+                                    <?php
+                                    // Set the default time zone
+                                    date_default_timezone_set("America/Toronto");
+                                    $minimumVisitDate = date("m-d-y h:i:00");
+
+                                    //  Couldnt get the minimum Date to function here
+                                    // $minimumVisitDateS = strval($minimumVisitDate);
+                                    // $minimumVisitDateU = substr_replace("1", "T", $minimumVisitDateS);
+                                    ?>
+
+                                    <!-- Date Selector -->
+                                    <input name="dateTimeSelector" id="dateTimeSelector" class="mb-15" type="datetime-local" step="3600" min="2020-10-09T13:00" required>
+
+                                    <!-- Store property Id -->
+                                    <?php
+                                    $_SESSION['currentPropertyId'] = $_GET['propertyId'];
+                                    ?>
+
+                                    <!-- Request Visit Button -->
+                                    <button name="visit-submit" onclick="showDateTime()" class="btn btn-block mb-15" type="submit">Request a Visit</button>
+                                </form>
+                                <button class="btn btn-block mb-25">Message Seller</button>
                             <?php } ?>
 
                             <h4 class="sidebar-title"><span class="text">Sepcifications</span><span class="shape"></span></h4>
@@ -328,6 +401,29 @@ $propertyPhotos = $photoController->showAllPhotosByListingId($id);
                                 </li>
                             </ul>
 
+
+                        </div>
+                        <!-- Room Specifications -->
+                        <div class="row mt-30 mb-30">
+
+                            <!-- For Loop to Display Room Dimensions -->
+                            <div class="col-12">
+                                <h4 class="sidebar-title"><span class="text">Room Dimensions</span><span class="shape"></span></h4>
+
+                                <?php for ($i = 0; $i < sizeof($rooms); $i++) { ?>
+
+                                    <div class="imgContainer pr-50">
+                                        <!-- <div class="image"><img src="../assets/images/icons/bedroomsx.png" alt="" width="1px" height="100px"></div> -->
+                                        <?php echo "<h5><u>" . "Room " . ($i + 1) . "</u></h5>";
+                                        echo "<b>" . $rooms[$i]['type'] . "</b>";
+                                        // echo "<b>Dimensions (ft): </b>" . "<br>". $rooms[$i]['width'] . " x " . $rooms[$i]['length'] . "<br><br>";
+                                        echo "<h4 class='mb-25'>" . $rooms[$i]['width'] . "' x " . $rooms[$i]['length'] . "'" . "</h4>";
+                                        ?>
+                                    </div>
+                                <?php } ?>
+
+
+                            </div>
 
                         </div>
 
@@ -426,6 +522,9 @@ $propertyPhotos = $photoController->showAllPhotosByListingId($id);
         </footer>
         <!--Footer section end-->
     </div>
+    <script>
+
+    </script>
 
     <!-- Placed js at the end of the document so the pages load faster -->
 

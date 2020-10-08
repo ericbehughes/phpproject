@@ -52,9 +52,9 @@ class RoomController
     }
 
     // Show All Rooms by Property ID
-    public function showRoomsByPropertyId($username)
+    public function showRoomsByPropertyId($property_id)
     {
-        $results = $this->Room->getRoomsByPropertyId($username);
+        $results = $this->Room->getRoomsByPropertyId($property_id);
 
         return $results;
     }
