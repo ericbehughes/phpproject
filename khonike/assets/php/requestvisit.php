@@ -57,9 +57,14 @@ for ($i = 0; $i < 50; $i++) {
     }
 
     if (isset($_POST['visitDecline-submit' . $i])) {
-        // $visitController->updateVisitStatusById(2, $i);
         $visitController->deleteVisit($i);
         header("Location: ../../views/my-account.php?update=visitDeleted");
+        exit();
+    }
+
+    if (isset($_POST['visitCancel-submit' . $i])) {
+        $visitController->deleteVisit($i);
+        header("Location: ../../views/my-account.php?update=visitCanceled");
         exit();
     }
 }

@@ -117,10 +117,13 @@ if (isset($_POST['propertyDetails-submit'])) {
         exit();
     } else {
         // Create Features Variable
-        $propertyFeatures = $propertyAC . " " . $propertyBalcony . " " . $propertyLift . " " . $propertyPool . " " . $propertyJacuzzi . " " . $propertySmart . " " . $propertyTheatre . " ";
+        $propertyFeaturesArray = array($propertyAC, $propertyBalcony, $propertyLift, $propertyPool, $propertyJacuzzi, $propertySmart, $propertyTheatre);
+
+        $propertyFeatures = implode(" ", $propertyFeaturesArray) . " ";
 
         // Add Property
         $propertyController->createProperty($propertyFeatures, $propertyParking, $propertyPrice, $propertyType, null, $propertyStructure, $propertyBathrooms, $propertyBedrooms, null, $propertyConstructedDate, $propertyExteriorFinish, $propertyFlooringType, $propertyBaths, null, $propertyStories, $propertySizeExterior, $propertySizeInterior, $propertyAddress, $propertyCity, $propertyProvince, $propertyPostal, null, null, null, null, $_SESSION['id']);
+
 
         // Get Max Property ID
         $arrayMaxId = $propertyController->showPropertyByMaxId();
@@ -169,7 +172,7 @@ if (isset($_POST['propertyGallery-submit'])) {
         Header("Location: ../../views/add-properties.php?error=propertyGallery&description=error&propertyPhotoDescription=" . $propertyPhotoDescription . "&propertyPhotoSequence=" . $propertyPhotoSequence);
         exit();
         // Sequence Validation
-    } else if (!preg_match("/^[0-9]+$/", $propertyPhotoSequence) || $propertyPhotoSequence > 30) {
+    } else if (!preg_match("/^[0-9]+$/", $propertyPhotoSequence) || $propertyPhotoSequence > 30 || $propertyPhotoSequence < 1) {
         Header("Location: ../../views/add-properties.php?error=propertyGallery&sequence=error&propertyPhotoSequence=" . $propertyPhotoSequence . "&propertyPhotoDescription=" . $propertyPhotoDescription);
         exit();
     } else {
@@ -211,10 +214,11 @@ if (isset($_POST['propertyRooms-submit'])) {
             } else {
                 // Add Room
                 $roomController->createRoom($_SESSION['maxId'], "Bedroom",  ${"bedroomWidth$i"}, ${"bedroomLength$i"}, ${"bedroomLevel$i"}, null, null);
+                echo "bedroom " . $i . " added<br>";
 
                 // Redirect
-                Header("Location: ../../views/my-account.php?update=propertyAddedSuccessfully");
-                exit();
+                // Header("Location: ../../views/my-account.php?update=propertyAddedSuccessfully");
+                // exit();
             }
         }
     }
@@ -238,10 +242,12 @@ if (isset($_POST['propertyRooms-submit'])) {
                 // Add Room
                 $roomController->createRoom($_SESSION['maxId'], "Bathroom",  ${"bathroomWidth$i"}, ${"bathroomLength$i"}, ${"bathroomLevel$i"}, null, null);
 
-                // Redirect
-                Header("Location: ../../views/my-account.php?update=propertyAddedSuccessfully");
-                exit();
+                echo "bathroom " . $i . " added<br>";
             }
         }
     }
+
+    // Redirect
+    Header("Location: ../../views/my-account.php?update=propertyAddedSuccessfully");
+    exit();
 }

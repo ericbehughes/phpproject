@@ -17,8 +17,6 @@ $photoController = new PhotoController();
 $properties = $propertyController->showAllProperties();
 $x = 1;
 ?>
-
-
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -38,184 +36,57 @@ $x = 1;
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Modernizr JS -->
     <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <style>
+        #pageBanner {
+                background-image: url(../assets/images/bg/page-banner.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                position: relative;
+                z-index: 1;
+                padding: 100px 0;
+                margin-top: 91px;
+            }
+    </style>
 </head>
 
 <body>
 
     <div id="main-wrapper">
 
-        <!--Header section start-->
+        <!-- Header -->
         <?php
         include_once('header.php');
         ?>
-        <!--Header section end-->
 
-        <!--slider section start-->
-        <div class="hero-section section position-relative">
-
-            <!--Hero Item start-->
-            <div class="hero-item align-items-end">
-                <ul class="kenburns-slideshow">
-                    <li><img src="../assets/images/hero/home-1.jpg" alt=""></li>
-                    <li><img src="../assets/images/hero/home-2.jpg" alt=""></li>
-                    <li><img src="../assets/images/hero/home-3.jpg" alt=""></li>
-                </ul>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-
-                            <!--Property Search start-->
-                            <div class="property-search hero-property-search">
-                                <h1 class="title">Find Your <span>Dream</span> Home</h1>
-                                <form action="#">
-                                    <div>
-                                        <select class="nice-select">
-                                            <option>All Cities</option>
-                                            <option>Montreal</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <select class="nice-select">
-                                            <option>For Rent</option>
-                                            <option>For Sale</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <select class="nice-select">
-                                            <option>Structure</option>
-                                            <option>Apartment</option>
-                                            <option>Cafe</option>
-                                            <option>House</option>
-                                            <option>Restaurant</option>
-                                            <option>Store</option>
-                                            <option>Villa</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <select class="nice-select">
-                                            <option>Bedrooms</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <select class="nice-select">
-                                            <option>Bathrooms</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <div id="search-price-range"></div>
-                                    </div>
-
-                                    <div>
-                                        <button>search</button>
-                                    </div>
-
-                                </form>
-
-                            </div>
-                            <!--Property Search end-->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Hero Item end-->
-
-        </div>
-        <!--slider section end-->
-
-        <!--Template section-->
-        <div class="feature-section feature-section-border-bottom section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-40 pb-lg-50 pb-md-40 pb-sm-30 pb-xs-20">
+        <!--Page Banner Section start-->
+        <div id="pageBanner" class="page-banner-section section">
             <div class="container">
                 <div class="row">
-
-                    <!--Feature start-->
-                    <div class="col-lg-3 col-sm-6 col-12 mb-30">
-                        <div class="feature-2">
-                            <div class="icon"><i class="pe-7s-piggy"></i></div>
-                            <div class="content">
-                                <h4>Save Money</h4>
-                                <p>Book a Visit With One of Our Representatives For Free</p>
-                            </div>
-                        </div>
+                    <div class="col">
+                        <h1 class="page-banner-title">Properties</h1>
+                        <ul class="page-breadcrumb">
+                            <li><a href="index.php">Home</a></li>
+                            <li class="active">Properties</li>
+                        </ul>
                     </div>
-                    <!--Feature end-->
-
-                    <!--Feature start-->
-                    <div class="col-lg-3 col-sm-6 col-12 mb-30">
-                        <div class="feature-2">
-                            <div class="icon"><i class="pe-7s-display1"></i></div>
-                            <div class="content">
-                                <h4>User Friendly</h4>
-                                <p>Explore Our Newly Designed Easy-To-Use Website</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Feature end-->
-
-                    <!--Feature start-->
-                    <div class="col-lg-3 col-sm-6 col-12 mb-30">
-                        <div class="feature-2">
-                            <div class="icon"><i class="pe-7s-map"></i></div>
-                            <div class="content">
-                                <h4>Montreal Based</h4>
-                                <p>Easily Search For the Local Property That Matches Your Needs</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Feature end-->
-
-                    <!--Feature start-->
-                    <div class="col-lg-3 col-sm-6 col-12 mb-30">
-                        <div class="feature-2">
-                            <div class="icon"><i class="pe-7s-shield"></i></div>
-                            <div class="content">
-                                <h4>Reliable</h4>
-                                <p>Our Hardworking Team Works Around the Clock to Keep You Satisfied</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Feature end-->
-
                 </div>
             </div>
         </div>
-        <!--Template section end-->
+        <!--Page Banner Section end-->
+        <?php
+        //  print_r($sellerProperties); 
+        ?>
 
         <!--Feature property section start-->
-        <div class="property-section section pt-70 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50">
+        <div class="property-section section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50">
             <div class="container">
 
-                <!--Section Title start-->
                 <div class="row">
-                    <div class="col-md-12 mb-60 mb-xs-30">
-                        <div class="section-title center">
-                            <h1>Featured Properties</h1>
-                        </div>
-                    </div>
-                </div>
-                <!--Section Title end-->
 
-                <div class="row">
 
                     <!--Property Slider start-->
-                    <div class="property-carousel section">
+                    <div class="property-carousel section" data-row="2">
 
                         <!-- Foreach to cycle through rows in property -->
                         <? foreach ($properties as $property) {
@@ -320,66 +191,9 @@ $x = 1;
         </div>
         <!--Feature property section end-->
 
-        <!--CTA Section start-->
-        <div class="cta-section section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50" style="background-image: url(../assets/images/bg/homes-4.jpg)">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-
-                        <!--CTA start-->
-                        <div class="cta-content text-center">
-                            <h1><span>Buy</span> or <span>Sell</span> Properties <br> In Seconds With <span>Khonike</span></h1>
-                            <div class="buttons">
-                                
-                                <!-- <a href="register.php">Add Property</a>
-                                <a href="properties-carousel2.html">Browse Properties</a> -->
-                            </div>
-                        </div>
-                        <!--CTA end-->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--CTA Section end-->
-
-        <!--Brand section start-->
-        <div class="brand-section section pt-50 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50">
-            <div class="container">
-
-                <!--Section Title start-->
-                <div class="row">
-                    <div class="col-md-12 mb-60 mb-xs-30">
-                        <div class="section-title center">
-                            <h1>Our Proud Partners</h1>
-                        </div>
-                    </div>
-                </div>
-                <!--Section Title end-->
-
-                <div class="row">
-
-                    <!--Brand Slider start-->
-                    <div class="brand-carousel section">
-                        <div class="brand col"><img src="../assets/images/brands/brand-1.png" alt=""></div>
-                        <div class="brand col"><img src="../assets/images/brands/brand-2.png" alt=""></div>
-                        <div class="brand col"><img src="../assets/images/brands/brand-3.png" alt=""></div>
-                        <div class="brand col"><img src="../assets/images/brands/brand-4.png" alt=""></div>
-                        <div class="brand col"><img src="../assets/images/brands/brand-5.png" alt=""></div>
-                        <div class="brand col"><img src="../assets/images/brands/brand-6.png" alt=""></div>
-                    </div>
-                    <!--Brand Slider end-->
-
-                </div>
-
-            </div>
-        </div>
-        <!--Brand section end-->
-        
-        <?php 
+        <?php
         include_once("footer.php");
         ?>
-       
     </div>
 
     <!-- Placed js at the end of the document so the pages load faster -->

@@ -87,4 +87,12 @@ class VisitController
 
         return $results;
     }
+
+    // Show All Visits by Seller ID
+    public function showVisitsByCustomerId($customer_id)
+    {
+        $results = $this->Visit->getVisitsByCustomerId($customer_id);
+
+        return $results;
+    }
 }

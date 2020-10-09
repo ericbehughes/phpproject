@@ -19,6 +19,14 @@ if (isset($_POST['register-submit'])) {
     $dobRegister = $_POST['dobRegister'];
     $phoneRegister = $_POST['phoneRegister'];
     $addressRegister = $_POST['addressRegister'];
+    $registerType = $_POST['registerType'];
+
+    // Determine if the User is a Customer or Vendor
+    if ($registerType == "Customer") {
+        $level = 1;
+    } elseif ($registerType == "Vendor") {
+        $level = 2;
+    }
 
     //Error Handlers
     //Validate empty fields
@@ -54,8 +62,8 @@ if (isset($_POST['register-submit'])) {
             exit();
             //If user doesn't already exist, add user to the DB
         } else {
-            $usersController->createUser($usernameRegister, $passwordRegister, $fullnameRegister, $emailRegister, $dobRegister, $phoneRegister, $addressRegister, 1, 1);
-            header("Location: ../../views/register.php?signup=success");
+            $usersController->createUser($usernameRegister, $passwordRegister, $fullnameRegister, $emailRegister, $dobRegister, $phoneRegister, $addressRegister, $level, 1);
+            header("Location: ../../views/login.php?signup=success");
             exit();
         }
     }

@@ -42,31 +42,40 @@ include_once '../../includes/autoloaderController.inc.php';
 // Sellers
 // Display All by Seller Id *
 // If confirm is clicked Then change the status to 1 (confirmed) *
-// Disable confirm button
+// Disable confirm button *
 // If declide is Clicked then change the status to 2 (declined) *
-// Then Delete Vist
+// Then Delete Vist *
 // 
 // Buyers
-// Display all by Customer ID
-// Cancel Visits if need be
+// Display all by Customer ID *
+// Cancel Visits if need be *
 // 
 
 
 // FINAL NIGHT
 // 
-// Home Page
-// All Properties
+// Confirm Visits *
+// Home Page *
+// All Properties *
+// Add everything to the DB to make it pretty *
+// 
+// Presentation Day
+// 
+// Add BANNER on all pages and change - Home - href
+// Check Validation *
+// Add rooms to DB *
+// Add Photos to DB *
+// Add Amenities to DB *
+// Download Photos to add for presentation *
 
-<?php if ($_GET['visitConfirm'] !== $visitsBySellerArray[$i]['id']) { ?>
-    <!-- Echo Nothing -->
-<?php } else { ?>
 
-    <?php } ?>
+// To finish Tonight
+// FAQ PAGE
+// 
+// 
+// 
+// 
+// 
 
-    <?php
-                                if ($_GET['update'] == "confirmed" || $_GET['update'] == "visitDeleted") {
-                                    echo 'active';
-                                } else {
-                                    echo '';
-                                } ?>
+
 

@@ -47,7 +47,7 @@ if (isset($_POST['myaccountUpdate-submit'])) {
         header("Location: ../../views/my-account.php?error=phone&user=" . $usernameUpdate . "&name=" . $fullnameUpdate . "&mail=" . $emailUpdate . "&dob=" . $dobUpdate . "&phone=" . $phoneUpdate . "&address=" . $addressUpdate);
         exit();
         //Validate number of characters
-    } else if (strlen($usernameUpdate) > 10 || strlen($passwordUpdate) > 32 || strlen($fullnameUpdate) > 50 || strlen($emailUpdate) > 100 || strlen($phoneUpdate) > 10 || strlen($addressUpdate) > 250 || strlen($usernameUpdate) < 4 || strlen($passwordUpdate) < 4 || strlen($fullnameUpdate) < 4 || strlen($emailUpdate) < 6 || strlen($phoneUpdate) < 10 || strlen($addressUpdate) < 20) {
+    } else if (strlen($usernameUpdate) > 10 || strlen($passwordUpdate) > 32 || strlen($fullnameUpdate) > 50 || strlen($emailUpdate) > 100 || strlen($phoneUpdate) > 10 || strlen($addressUpdate) > 250 || strlen($usernameUpdate) < 4 || strlen($passwordUpdate) < 4 || strlen($fullnameUpdate) < 4 || strlen($emailUpdate) < 6 || strlen($phoneUpdate) < 10 || strlen($addressUpdate) < 10) {
         header("Location: ../../views/my-account.php?error=charlen&user=" . $usernameUpdate . "&name=" . $fullnameUpdate . "&mail=" . $emailUpdate . "&dob=" . $dobUpdate . "&phone=" . $phoneUpdate . "&address=" . $addressUpdate);
         exit();
     } else {

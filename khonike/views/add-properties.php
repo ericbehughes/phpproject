@@ -39,6 +39,17 @@ $propertyController = new PropertyController();
         #finishedBtn {
             display: block;
         }
+
+        #pageBanner {
+                background-image: url(../assets/images/bg/page-banner.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                position: relative;
+                z-index: 1;
+                padding: 100px 0;
+                margin-top: 91px;
+            }
     </style>
 </head>
 
@@ -52,14 +63,14 @@ $propertyController = new PropertyController();
         ?>
 
         <!--Page Banner Section start-->
-        <div class="page-banner-section section">
+        <div id="pageBanner" class="page-banner-section section">
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h1 class="page-banner-title">Add Properties</h1>
+                        <h1 class="page-banner-title">Add Property</h1>
                         <ul class="page-breadcrumb">
                             <li><a href="index.php">Home</a></li>
-                            <li class="active">Add Properties</li>
+                            <li class="active">Add Property</li>
                         </ul>
                     </div>
                 </div>
@@ -104,9 +115,52 @@ $propertyController = new PropertyController();
                                 }
                                 ?>><a href="propertyAddRooms" data-toggle="tab">4. Room Specifications</a></li>
                         </ul>
-
                         <div class="add-property-form tab-content">
+                            <!-- Tabs End -->
 
+                            <!-- Validation Error Messages -->
+                            <?php
+                                            if (isset($_GET['error'])) {
+                                                if ($_GET['error'] == 'propertyBasicStreet') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Street must only include letters<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyBasicCity') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">City must only include letters<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyBasicNumber') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Street Number must only include numbers<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyBasicPostal') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Please enter a valid Postal Code<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyBasicPrice') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Price must only include numbers<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyBasicCharlength') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Reduce Number of Characters<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyDetailSize') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Square Footage must be in-between 100 - 100,000<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyBasicPrice') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Price must only include numbers<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['error'] == 'propertyBasicCharlength') {
+                                                    echo "<div class='alert alert-danger' >";
+                                                    echo '<span class="align-middle">Reduce Number of Characters<br></span>';
+                                                    echo "</div>";
+                                                }
+                                            }
+                                            ?>
+                        
                             <!-- Basic Info -->
                             <div class="tab-pane show <?php
                                                         if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery" || $_GET['error'] == "propertyGalleryFinished" || $_GET['update'] == "propertyGalleryFinished") {
@@ -226,7 +280,13 @@ $propertyController = new PropertyController();
                                                         echo "</div>";
                                                     } else if ($_GET['sequence'] == 'error') {
                                                         echo "<div class='alert alert-danger' >";
-                                                        echo '<span class="align-middle">Sequence: Numbers - Maximum 30<br></span>';
+                                                        echo '<span class="align-middle">Sequence: Numbers - Maximum 30 - Minimum 1<br></span>';
+                                                        echo "</div>";
+                                                    }
+                                                } else if (isset($_GET['update'])) {
+                                                    if ($_GET['update'] == 'propertyGallerySuccess') {
+                                                        echo "<div class='alert alert-success' >";
+                                                        echo '<span class="align-middle">Photo Added Successfully<br></span>';
                                                         echo "</div>";
                                                     }
                                                 }
@@ -262,10 +322,12 @@ $propertyController = new PropertyController();
                                     </form>
 
                                     <!-- Finished Button -->
-                                    <?php if (!is_null($_GET['propertyPhotoSequence'])) { ?>
+                                    <?php if (is_null($_GET['error'])) { ?>
+                                        <?php if ($_GET['update'] !== "propertyDetailSuccess") { ?>
                                         <div class="row">
-                                            <div class="nav d-flex justify-content-end col-12"><button id="finishedButton" class="btn  pl-55 pr-60" onclick="location.href = 'my-account.php'">Finish</button></div>
+                                            <div class="nav d-flex justify-content-end col-12"><button id="finishedButton" class="btn  pl-55 pr-60" onclick="location.href = 'add-properties.php?update=propertyGalleryFinished'">Finish</button></div>
                                         </div>
+                                    <?php } ?>
                                     <?php } ?>
 
                                 </div>
@@ -285,10 +347,6 @@ $propertyController = new PropertyController();
 
                                     <form action="../assets/php/addProperty.php" method="POST">
                                         <div class="row">
-                                            <!-- <div class="col-12 mb-30">
-                                                <label for="property_description">Description</label>
-                                                <textarea id="property_description"></textarea>
-                                            </div> -->
 
                                             <!-- Parking Spaces -->
                                             <div class="col-md-4 col-12 mb-30">
@@ -424,8 +482,8 @@ $propertyController = new PropertyController();
                                                     <li><input name="propertyLift" type="checkbox" id="lift" value="Lift"><label for="lift">Lift</label></li>
                                                     <li><input name="propertyPool" type="checkbox" id="pool" value="Pool"><label for="pool">Pool</label></li>
                                                     <li><input name="propertyJacuzzi" type="checkbox" id="Jacuzzi" value="Jacuzzi"><label for="Jacuzzi">Jacuzzi</label></li>
-                                                    <li><input name="propertySmart" type="checkbox" id="Smart House" value="Smart House"><label for="Smart-House">Smart-House</label></li>
-                                                    <li><input name="propertyTheatre" type="checkbox" id="Home Theatre" value="Home Theatre"><label for="Home-Theatre">Home-Theatre</label></li>
+                                                    <li><input name="propertySmart" type="checkbox" id="Smart-House" value="Smart-House"><label for="Smart-House">Smart-House</label></li>
+                                                    <li><input name="propertyTheatre" type="checkbox" id="Home-Theatre" value="Home-Theatre"><label for="Home-Theatre">Home-Theatre</label></li>
                                                 </ul>
                                             </div>
 
@@ -534,12 +592,12 @@ $propertyController = new PropertyController();
 
                                                         <div class="col-md-3">
                                                             <label>Bathroom Width</label>
-                                                            <input class="mb-20" type="number" min="1" max="50" name="<?php echo "bathroomWidth" . $i; ?>" required>
+                                                            <input class="mb-20" type="number" min="10" max="50" name="<?php echo "bathroomWidth" . $i; ?>" required>
                                                         </div>
 
                                                         <div class="col-md-3">
                                                             <label>Bathroom Length</label>
-                                                            <input class="mb-20" type="number" min="1" max="50" name="<?php echo "bathroomLength" . $i; ?>" required>
+                                                            <input class="mb-20" type="number" min="10" max="50" name="<?php echo "bathroomLength" . $i; ?>" required>
                                                         </div>
 
                                                         <div class="col-md-3">
@@ -579,93 +637,9 @@ $propertyController = new PropertyController();
         </div>
         <!--Add Properties section end-->
 
-        <!--Footer section start-->
-        <footer class="footer-section section" style="background-image: url(../assets/images/bg/footer-bg.jpg)">
-
-            <!--Footer Top start-->
-            <div class="footer-top section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-60 pb-lg-40 pb-md-30 pb-sm-20 pb-xs-10">
-                <div class="container">
-                    <div class="row row-25">
-
-                        <!--Footer Widget start-->
-                        <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                            <img src="../assets/images/logo-footer.png" alt="">
-                            <p>Khonike - Real Estate Bootstrap 4 Templatethe best theme for elit, sed do to eiumod tempor dolor sit amet, ctetur adipiscing elit seddo dolor sit amet.</p>
-                            <div class="footer-social">
-                                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                                <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-                                <a href="#" class="pinterest"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                        </div>
-                        <!--Footer Widget end-->
-
-                        <!--Footer Widget start-->
-                        <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                            <h4 class="title"><span class="text">Contact us</span><span class="shape"></span></h4>
-                            <ul>
-                                <li><i class="fa fa-map-o"></i><span>256, 1st AVE, Manchester 125 , Noth England</span></li>
-                                <li><i class="fa fa-phone"></i><span><a href="#">+012 345 678 102</a><a href="#">+012 345 678 101</a></span></li>
-                                <li><i class="fa fa-envelope-o"></i><span><a href="#">info@example.com</a><a href="#">www.example.com</a></span></li>
-                            </ul>
-                        </div>
-                        <!--Footer Widget end-->
-
-                        <!--Footer Widget start-->
-                        <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                            <h4 class="title"><span class="text">Useful links</span><span class="shape"></span></h4>
-                            <ul>
-                                <li><a href="#">Rental Builidngs</a></li>
-                                <li><a href="#">Browe all Categories</a></li>
-                                <li><a href="#">Top Mortagages Rates</a></li>
-                                <li><a href="#">RentalTerms of use</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-                        <!--Footer Widget end-->
-
-                        <!--Footer Widget start-->
-                        <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                            <h4 class="title"><span class="text">Newsletter</span><span class="shape"></span></h4>
-
-                            <p>Subscribe our newsletter and get all latest news about our latest properties, promotions, offers and discount</p>
-
-                            <form id="mc-form" class="mc-form footer-newsletter">
-                                <input id="mc-email" type="email" autocomplete="off" placeholder="Email Here.." />
-                                <button id="mc-submit"><i class="fa fa-paper-plane-o"></i></button>
-                            </form>
-                            <!-- mailchimp-alerts Start -->
-                            <div class="mailchimp-alerts text-centre">
-                                <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                            </div><!-- mailchimp-alerts end -->
-
-                        </div>
-                        <!--Footer Widget end-->
-
-                    </div>
-                </div>
-            </div>
-            <!--Footer Top end-->
-
-            <!--Footer bottom start-->
-            <div class="footer-bottom section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="copyright text-center">
-                                <p>Copyright &copy;2018 <a href="#">Khonike</a>. All rights reserved.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Footer bottom end-->
-
-        </footer>
-        <!--Footer section end-->
+        <?php 
+        include_once("footer.php");
+        ?>
     </div>
 
     <!-- Placed js at the end of the document so the pages load faster -->

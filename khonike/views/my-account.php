@@ -32,7 +32,6 @@ if (isset($_SESSION['id'])) {
 
     // Calls to DB
     $sellerProperties = $propertyController->showPropertyBySellerId($id);
-
 ?>
     <!doctype html>
     <html class="no-js" lang="zxx">
@@ -53,17 +52,24 @@ if (isset($_SESSION['id'])) {
         <link rel="stylesheet" href="../assets/css/style.css">
         <!-- Modernizr JS -->
         <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
-        <script>
-            function disableButton() {
-
-            }
-        </script>
         <style>
             #propertyPhotoPreview {
                 width: 100%;
                 height: 290px;
             }
+
+            #pageBanner {
+                background-image: url(../assets/images/bg/page-banner.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                position: relative;
+                z-index: 1;
+                padding: 100px 0;
+                margin-top: 91px;
+            }
         </style>
+
     </head>
 
     <body>
@@ -76,7 +82,7 @@ if (isset($_SESSION['id'])) {
             ?>
 
             <!--Page Banner Section start-->
-            <div class="page-banner-section section">
+            <div id="pageBanner" class="page-banner-section section">
                 <div class="container">
                     <div class="row">
                         <div class="col">
@@ -106,11 +112,11 @@ if (isset($_SESSION['id'])) {
                                                 } else {
                                                     echo 'active';
                                                 } ?>" href="#profile-tab" data-toggle="tab"><i class="pe-7s-user"></i>My Profile</a></li>
+                                <li><a href="#visits-tab" data-toggle="tab"><i class="pe-7s-note2"></i>Manage Visits</a></li>
                                 <!-- Seller Tabs -->
                                 <?php
                                 if ($_SESSION['level'] == 2) {
-                                    echo '<li><a href="#visits-tab" data-toggle="tab"><i class="pe-7s-note2"></i>Manage Visits</a></li>
-                                   <li><a href="#properties-tab" data-toggle="tab"><i class="pe-7s-photo"></i>My Properties</a></li>
+                                    echo '<li><a href="#properties-tab" data-toggle="tab"><i class="pe-7s-photo"></i>My Properties</a></li>
                                    <li><a href="add-properties.php"><i class="pe-7s-back fa-flip-horizontal"></i>Add New Property</a></li>';
                                 }
                                 ?>
@@ -142,50 +148,63 @@ if (isset($_SESSION['id'])) {
                                     <form action="../assets/php/myaccountUpdate.php" method="POST">
                                         <div class="row">
 
-                                            <!-- Validation Error Messages -->
-                                            <?php
-                                            if (isset($_GET['error'])) {
-                                                if ($_GET['error'] == 'username') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Username must only include letters and numbers<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'fullname') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Full Name must only include letters<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'email') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Please enter a valid Email Address<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'phone') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Please enter a valid Phone Number!<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'characterlength') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Please enter a valid number of characters<br></span>';
-                                                    echo "</div>";
+                                            <div class="col-12">
+
+
+
+                                                <!-- Validation Error Messages -->
+                                                <?php
+                                                if (isset($_GET['error'])) {
+                                                    if ($_GET['error'] == 'username') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Username must only include letters and numbers<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'fullname') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Full Name must only include letters<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'email') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Please enter a valid Email Address<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'phone') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Please enter a valid Phone Number!<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'charlen') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Please enter a valid number of characters<br></span>';
+                                                        echo "</div>";
+                                                    }
+                                                } else if (isset($_GET['update'])) {
+                                                    if ($_GET['update'] == 'success') {
+                                                        echo "<div class='alert alert-success' >";
+                                                        echo '<span class="align-middle">Update Successful<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['update'] == 'roomAddedSuccessfully') {
+                                                        echo "<div class='alert alert-success' >";
+                                                        echo '<span class="align-middle">Property Added Successfully<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['update'] == 'confirmed') {
+                                                        echo "<div class='alert alert-success col-12' >";
+                                                        echo '<span class="align-middle">Visit Confirmed<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['update'] == 'visitDeleted') {
+                                                        echo "<div class='alert alert-success col-12' >";
+                                                        echo '<span class="align-middle">Visit Declined<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['update'] == 'visitCanceled') {
+                                                        echo "<div class='alert alert-success col-12' >";
+                                                        echo '<span class="align-middle">Visit Cancelled<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['update'] == 'propertyAddedSuccessfully') {
+                                                        echo "<div class='alert alert-success col-12' >";
+                                                        echo '<span class="align-middle">Property Added Successfully<br></span>';
+                                                        echo "</div>";
+                                                    }
                                                 }
-                                            } else if (isset($_GET['update'])) {
-                                                if ($_GET['update'] == 'success') {
-                                                    echo "<div class='alert alert-success' >";
-                                                    echo '<span class="align-middle">Update Successful<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['update'] == 'roomAddedSuccessfully') {
-                                                    echo "<div class='alert alert-success' >";
-                                                    echo '<span class="align-middle">Property Added Successfully<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['update'] == 'confirmed') {
-                                                    echo "<div class='alert alert-success col-12' >";
-                                                    echo '<span class="align-middle">Visit Confirmed<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['update'] == 'visitDeleted') {
-                                                    echo "<div class='alert alert-success col-12' >";
-                                                    echo '<span class="align-middle">Visit Declined<br></span>';
-                                                    echo "</div>";
-                                                } 
-                                            }
-                                            ?>
+                                                ?>
+                                            </div>
 
                                             <div class="col-12 mb-30">
                                                 <h3 class="mb-0">Personal Profile</h3>
@@ -221,12 +240,15 @@ if (isset($_SESSION['id'])) {
                                     <div class="content">
 
                                         <form action="../assets/php/requestvisit.php" method="POST">
+                                            <!-- Show visit on seller profile -->
                                             <?php
                                             if ($_SESSION['level'] == 2 || $_SESSION['level'] == 3) {
                                             ?>
                                                 <?php
+                                                // Get visits by Seller Id
                                                 $visitsBySellerArray = $visitController->showVisitsBySellerId($_SESSION['id']);
 
+                                                // For loop to get all
                                                 for ($i = 0; $i < sizeof($visitsBySellerArray); $i++) {
                                                     $userById = $userController->showUserById($visitsBySellerArray[$i]['customer_id']);
                                                 ?>
@@ -248,13 +270,12 @@ if (isset($_SESSION['id'])) {
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <button name="<?php echo "visitConfirm-submit" . $visitsBySellerArray[$i]['id']; ?>" type="submit" class="btn col-5" <?php
-                                                                                                                                                                                    // If the visit has already beed confirmed, disable
-                                                                                                                                                                                    if ($visitsBySellerArray[$i]['status'] == 1) {
+                                                            <button name="<?php echo "visitConfirm-submit" . $visitsBySellerArray[$i]['id']; ?>" type="submit" class="btn col-5" <?php if ($visitsBySellerArray[$i]['status'] == 1) {
                                                                                                                                                                                         echo "disabled";
-                                                                                                                                                                                    }
-                                                                                                                                                                                    ?>>Confirm</button>
-                                                            <button name="<?php echo "visitDecline-submit" . $visitsBySellerArray[$i]['id']; ?>" type="submit" class="btn col-5 float-right">Decline</button>
+                                                                                                                                                                                    } ?>>Confirm</button>
+                                                            <button name="<?php echo "visitDecline-submit" . $visitsBySellerArray[$i]['id']; ?>" type="submit" class="btn col-5 float-right" <?php if ($visitsBySellerArray[$i]['status'] == 1) {
+                                                                                                                                                                                                    echo "disabled";
+                                                                                                                                                                                                } ?>>Decline</button>
                                                         </div>
                                                         <div class="col-12">
                                                             <hr>
@@ -263,7 +284,47 @@ if (isset($_SESSION['id'])) {
 
                                                 <?php } ?>
 
+                                                <!-- Show visit on buyer profile -->
                                             <?php } else if ($_SESSION['level'] == 1) { ?>
+
+                                                <?php
+                                                $visitsBySellerArray = $visitController->showVisitsByCustomerId($_SESSION['id']);
+
+                                                // For Loop to get all
+                                                for ($i = 0; $i < sizeof($visitsBySellerArray); $i++) {
+                                                    $userById = $userController->showUserById($visitsBySellerArray[$i]['customer_id']);
+                                                ?>
+
+                                                    <div class="row">
+
+                                                        <div class="col-6 pl-100">
+                                                            <h4 class="mb-0 mt-10">Requested Visit</h4>
+                                                            <h4 class="pl-40 mb-10">Time</h4>
+                                                            <span><?php echo $visitsBySellerArray[$i]['datetime']; ?></span>
+                                                        </div>
+                                                        <div class="col-6 pl-120">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <p class="mb-5 mt-10t"><b>Name:&nbsp;&nbsp;&nbsp;&nbsp;</b><?php echo $userById[0]['fullname']; ?><br></p>
+                                                                    <p class="mb-5 mt-10t"><b> Email: &nbsp;&nbsp;&nbsp;&nbsp;</b><?php echo $userById[0]['email']; ?></p>
+                                                                    <p class="mb-5 mt-10t"><b>Phone:&nbsp;&nbsp;&nbsp;&nbsp;</b><?php echo $userById[0]['phone']; ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <?php if ($visitsBySellerArray[$i]['status'] == 1) { ?>
+                                                                <h4 class="text-success d-flex mb-0 ml-110">Confirmed</h4>
+                                                            <?php } else { ?>
+                                                                <button name="<?php echo "visitCancel-submit" . $visitsBySellerArray[$i]['id']; ?>" type="submit" class="btn col-12">Cancel</button>
+                                                            <?php } ?>
+
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+
+                                                <?php } ?>
 
                                             <?php } ?>
                                         </form>
@@ -372,44 +433,6 @@ if (isset($_SESSION['id'])) {
                                         <?}?>
                                         <!--Property end-->
 
-
-                                        <!--Property start-->
-                                        <!-- <div class="property-item col-md-6 col-12 mb-40">
-                                            <div class="property-inner">
-                                                <div class="image">
-                                                    <span class="label">Feature</span>
-                                                    <a href="single-properties.html"><img src="../assets/images/property/property-2.jpg" alt=""></a>
-                                                    <ul class="property-feature">
-                                                        <li>
-                                                            <span class="area"><img src="../assets/images/icons/area.png" alt="">550 SqFt</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="bed"><img src="../assets/images/icons/bed.png" alt="">6</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="bath"><img src="../assets/images/icons/bath.png" alt="">4</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="parking"><img src="../assets/images/icons/parking.png" alt="">3</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="content">
-                                                    <div class="left">
-                                                        <h3 class="title"><a href="single-properties.html">Marvel de Villa</a></h3>
-                                                        <span class="location"><img src="../assets/images/icons/marker.png" alt="">450 E 1st Ave, New Jersey</span>
-                                                    </div>
-                                                    <div class="right">
-                                                        <div class="type-wrap">
-                                                            <span class="price">$2550</span>
-                                                            <span class="type">For Sale</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <!--Property end-->
-
                                     </div>
 
                                 </div>
@@ -430,26 +453,41 @@ if (isset($_SESSION['id'])) {
                                                 <h3 class="mb-0">Change Password</h3>
                                             </div>
 
-                                            <!-- Validation Error Messages -->
-                                            <?php
-                                            if (isset($_GET['error'])) {
-                                                if ($_GET['error'] == 'emptyFieldsPass') {
-                                                    echo '<div class="col-12 mb-30"><p>Please fill in all fields</p></div>';
-                                                } else if ($_GET['error'] == 'passwordCurrent') {
-                                                    echo '<div class="col-12 mb-30"><p>Current Password does not match</p></div>';
-                                                } else if ($_GET['error'] == 'passwordMismatch') {
-                                                    echo '<div class="col-12 mb-30"><p>New Password and Confirm Password must match</p></div>';
-                                                } else if ($_GET['error'] == 'passwordLength') {
-                                                    echo '<div class="col-12 mb-30"><p>Please enter a valid number of characters</p></div>';
-                                                } else if ($_GET['error'] == 'passwordRepeat') {
-                                                    echo '<div class="col-12 mb-30"><p>Password cannot be the same as previous password</p></div>';
+                                            <div class="col-12">
+
+                                                <!-- Validation Error Messages -->
+                                                <?php
+                                                if (isset($_GET['error'])) {
+                                                    if ($_GET['error'] == 'emptyFieldsPass') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Please fill out empty fields<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'passwordCurrent') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Current Password does not Match<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'passwordMismatch') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">New Password and Confirm Password do not match<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'passwordLength') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Password Must be in-between 4 - 32 Characters<br></span>';
+                                                        echo "</div>";
+                                                    } else if ($_GET['error'] == 'passwordRepeat') {
+                                                        echo "<div class='alert alert-danger' >";
+                                                        echo '<span class="align-middle">Password Repeated<br></span>';
+                                                        echo "</div>";
+                                                    }
+                                                } else if (isset($_GET['update'])) {
+                                                    if ($_GET['update'] == 'successPass') {
+                                                        echo "<div class='alert alert-success' >";
+                                                        echo '<span class="align-middle">Password Updated Successfully<br></span>';
+                                                        echo "</div>";
+                                                    }
                                                 }
-                                            } else if (isset($_GET['update'])) {
-                                                if ($_GET['update'] == 'successPass') {
-                                                    echo '<div class="col-12 mb-30"><p>Update successful</p></div>';
-                                                }
-                                            }
-                                            ?>
+                                                ?>
+                                            </div>
 
                                             <div class="col-12 mb-30"><label for="current_password">Current Password</label><input name="passwordCurrent" type="password" id="current_password" value=""></div>
                                             <div class="col-12 mb-30"><label for="new_password">New Password</label><input name="passwordNew" type="password" id="new_password"></div>
@@ -467,93 +505,9 @@ if (isset($_SESSION['id'])) {
             </div>
             <!--Login & Register Section end-->
 
-            <!--Footer section start-->
-            <footer class="footer-section section" style="background-image: url(../assets/images/bg/footer-bg.jpg)">
-
-                <!--Footer Top start-->
-                <div class="footer-top section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-60 pb-lg-40 pb-md-30 pb-sm-20 pb-xs-10">
-                    <div class="container">
-                        <div class="row row-25">
-
-                            <!--Footer Widget start-->
-                            <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                                <img src="../assets/images/logo-footer.png" alt="">
-                                <p>Khonike - Real Estate Bootstrap 4 Templatethe best theme for elit, sed do to eiumod tempor dolor sit amet, ctetur adipiscing elit seddo dolor sit amet.</p>
-                                <div class="footer-social">
-                                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                                    <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-                                    <a href="#" class="pinterest"><i class="fa fa-pinterest-p"></i></a>
-                                </div>
-                            </div>
-                            <!--Footer Widget end-->
-
-                            <!--Footer Widget start-->
-                            <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                                <h4 class="title"><span class="text">Contact us</span><span class="shape"></span></h4>
-                                <ul>
-                                    <li><i class="fa fa-map-o"></i><span>256, 1st AVE, Manchester 125 , Noth England</span></li>
-                                    <li><i class="fa fa-phone"></i><span><a href="#">+012 345 678 102</a><a href="#">+012 345 678 101</a></span></li>
-                                    <li><i class="fa fa-envelope-o"></i><span><a href="#">info@example.com</a><a href="#">www.example.com</a></span></li>
-                                </ul>
-                            </div>
-                            <!--Footer Widget end-->
-
-                            <!--Footer Widget start-->
-                            <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                                <h4 class="title"><span class="text">Useful links</span><span class="shape"></span></h4>
-                                <ul>
-                                    <li><a href="#">Rental Builidngs</a></li>
-                                    <li><a href="#">Browe all Categories</a></li>
-                                    <li><a href="#">Top Mortagages Rates</a></li>
-                                    <li><a href="#">RentalTerms of use</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                </ul>
-                            </div>
-                            <!--Footer Widget end-->
-
-                            <!--Footer Widget start-->
-                            <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                                <h4 class="title"><span class="text">Newsletter</span><span class="shape"></span></h4>
-
-                                <p>Subscribe our newsletter and get all latest news about our latest properties, promotions, offers and discount</p>
-
-                                <form id="mc-form" class="mc-form footer-newsletter">
-                                    <input id="mc-email" type="email" autocomplete="off" placeholder="Email Here.." />
-                                    <button id="mc-submit"><i class="fa fa-paper-plane-o"></i></button>
-                                </form>
-                                <!-- mailchimp-alerts Start -->
-                                <div class="mailchimp-alerts text-centre">
-                                    <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                    <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                    <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                                </div><!-- mailchimp-alerts end -->
-
-                            </div>
-                            <!--Footer Widget end-->
-
-                        </div>
-                    </div>
-                </div>
-                <!--Footer Top end-->
-
-                <!--Footer bottom start-->
-                <div class="footer-bottom section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="copyright text-center">
-                                    <p>Copyright &copy;2018 <a href="#">Khonike</a>. All rights reserved.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Footer bottom end-->
-
-            </footer>
-            <!--Footer section end-->
+            <?php
+            include_once("footer.php");
+            ?>
         </div>
 
         <!-- Placed js at the end of the document so the pages load faster -->

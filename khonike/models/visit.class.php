@@ -75,7 +75,7 @@ class Visit extends Dbh
         return $results;
     }
 
-    // Get All Visits by Customer ID
+    // Get All Visits by Customer ID and Property ID
     public function getVisitsByCustomerIdAndPropertyId($customer_id, $property_id)
     {
         $sql = "SELECT * FROM visits WHERE customer_id = ? AND property_id = ?";
@@ -103,6 +103,17 @@ class Visit extends Dbh
         $sql = "SELECT * FROM visits WHERE seller_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$seller_id]);
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    // Get All Visits by Customer ID
+    public function getVisitsByCustomerId($customer_id)
+    {
+        $sql = "SELECT * FROM visits WHERE customer_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$customer_id]);
 
         $results = $stmt->fetchAll();
         return $results;

@@ -48,38 +48,14 @@ session_start();
                                 <ul>
                                     <li class=""><a href="index.php">Home</a>
                                     </li>
-                                    <li class="has-dropdown"><a href="properties.html">Properties</a>
-                                        <ul class="sub-menu">
-                                            <li class="has-dropdown"><a href="properties.html">Properties Grid</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="properties.html">Default Layout</a></li>
-                                                    <li><a href="properties-left-sidebar.html">Left Sidebar</a></li>
-                                                    <li><a href="properties-right-sidebar.html">Right Sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-dropdown"><a href="properties-list-left-sidebar.html">Properties List</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="properties-list-left-sidebar.html">Left Sidebar</a></li>
-                                                    <li><a href="properties-list-right-sidebar.html">Right Sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-dropdown"><a href="properties-carousel.html">Properties Carousel</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="properties-carousel.html">Carousel Single Row</a></li>
-                                                    <li><a href="properties-carousel2.html">Carousel Double Row</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-dropdown"><a href="single-properties.html">Single Properties</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="single-properties.html">Left Sidebar</a></li>
-                                                    <li><a href="single-properties-right-sidebar.html">Right Sidebar</a></li>
-                                                    <li><a href="single-properties-gallery.html">With Gallrey</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-dropdown"><a href="agent.html">agents</a>
-                                        <ul class="sub-menu">
+                                    <?php
+                                    if ($_SESSION['level'] == 1) { ?>
+                                        <li class=""><a href="properties-carousel2.php">Properties</a>
+
+                                        </li>
+                                    <?php } ?>
+                                    <li class=""><a href="">Agents</a>
+                                        <!-- <ul class="sub-menu">
                                             <li class="has-dropdown"><a href="agents.html">Agents Grid</a>
                                                 <ul class="sub-menu">
                                                     <li><a href="agents-3-column.html">Three Column</a></li>
@@ -95,36 +71,17 @@ session_start();
                                                 </ul>
                                             </li>
                                             <li><a href="agent-details.html">Agent Details</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
-                                    <li class="has-dropdown"><a href="agencies.html">Agencies</a>
-                                        <ul class="sub-menu">
+                                    <li class=""><a href="">Agencies</a>
+                                        <!-- <ul class="sub-menu">
                                             <li><a href="agencies.html">Agencies</a></li>
                                             <li><a href="agency-details.html">Agency Details</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
-                                    <li class="has-dropdown"><a href="news.html">News</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="news.html">Default Layout</a></li>
-                                            <li><a href="news-left-sidebar.html">Left Sidebar</a></li>
-                                            <li><a href="news-right-sidebar.html">Right Sidebar</a></li>
-                                            <li><a href="news-carousel.html">Carousel Single Row</a></li>
-                                            <li><a href="news-carousel2.html">Carousel Double Row</a></li>
-                                            <li><a href="news-details.html">Details Left Sidebar</a></li>
-                                            <li><a href="news-details-right-sidebar.html">Details Right Sidebar</a></li>
-                                        </ul>
+                                    <li class=""><a href="">FAQ</a>
                                     </li>
-                                    <li class="has-dropdown"><a href="#">pages</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="about-us.html">About us</a></li>
-                                            <li><a href="add-properties.html">Add Properties</a></li>
-                                            <li><a href="contact-us.html">Contact us</a></li>
-                                            <li><a href="gallery-2-column.html">Gallery 2 Column</a></li>
-                                            <li><a href="gallery-3-column.html">Gallery 3 Column</a></li>
-                                            <li><a href="gallery-4-column.html">Gallery 4 Column</a></li>
-                                            <li><a href="login-register.html">Login & Register</a></li>
-                                            <li><a href="my-account.php">My Account</a></li>
-                                        </ul>
+                                    <li class=""><a href="">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
