@@ -45,3 +45,21 @@ if (isset($_POST['visit-submit'])) {
         exit();
     }
 }
+
+
+// VISITS BUTTONS Submit
+
+for ($i = 0; $i < 50; $i++) {
+    if (isset($_POST['visitConfirm-submit' . $i])) {
+        $visitController->updateVisitStatusById(1, $i);
+        header("Location: ../../views/my-account.php?update=confirmed");
+        exit();
+    }
+
+    if (isset($_POST['visitDecline-submit' . $i])) {
+        // $visitController->updateVisitStatusById(2, $i);
+        $visitController->deleteVisit($i);
+        header("Location: ../../views/my-account.php?update=visitDeleted");
+        exit();
+    }
+}

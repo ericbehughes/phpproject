@@ -14,9 +14,9 @@ if (isset($_SESSION['id'])) {
     $x = 1;
 
     // This is used to display the error messages
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
 
     // Includes
     include_once __DIR__ . "/../controllers/propertycontroller.class.php";
@@ -53,6 +53,11 @@ if (isset($_SESSION['id'])) {
         <link rel="stylesheet" href="../assets/css/style.css">
         <!-- Modernizr JS -->
         <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
+        <script>
+            function disableButton() {
+
+            }
+        </script>
         <style>
             #propertyPhotoPreview {
                 width: 100%;
@@ -170,7 +175,15 @@ if (isset($_SESSION['id'])) {
                                                     echo "<div class='alert alert-success' >";
                                                     echo '<span class="align-middle">Property Added Successfully<br></span>';
                                                     echo "</div>";
-                                                }
+                                                } else if ($_GET['update'] == 'confirmed') {
+                                                    echo "<div class='alert alert-success col-12' >";
+                                                    echo '<span class="align-middle">Visit Confirmed<br></span>';
+                                                    echo "</div>";
+                                                } else if ($_GET['update'] == 'visitDeleted') {
+                                                    echo "<div class='alert alert-success col-12' >";
+                                                    echo '<span class="align-middle">Visit Declined<br></span>';
+                                                    echo "</div>";
+                                                } 
                                             }
                                             ?>
 
@@ -201,20 +214,21 @@ if (isset($_SESSION['id'])) {
 
                                 <!-- Visits Tab -->
                                 <div id="visits-tab" class="tab-pane">
-                                    <form action="#">
-                                        <div class="col-12 mb-30">
-                                            <h3 class="mb-0">Manage Visits</h3>
-                                        </div>
-                                        <div class="content">
+                                    <!-- <form action=""> -->
+                                    <div class="col-12 mb-30">
+                                        <h3 class="mb-0">Manage Visits</h3>
+                                    </div>
+                                    <div class="content">
 
+                                        <form action="../assets/php/requestvisit.php" method="POST">
                                             <?php
                                             if ($_SESSION['level'] == 2 || $_SESSION['level'] == 3) {
                                             ?>
                                                 <?php
                                                 $visitsBySellerArray = $visitController->showVisitsBySellerId($_SESSION['id']);
-                                                
+
                                                 for ($i = 0; $i < sizeof($visitsBySellerArray); $i++) {
-                                                $userById = $userController->showUserById($visitsBySellerArray[$i]['customer_id']);
+                                                    $userById = $userController->showUserById($visitsBySellerArray[$i]['customer_id']);
                                                 ?>
 
                                                     <div class="row">
@@ -234,8 +248,13 @@ if (isset($_SESSION['id'])) {
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <button type="submit" class="btn col-5">Confirm</button>
-                                                            <button type="submit" class="btn col-5 float-right">Decline</button>
+                                                            <button name="<?php echo "visitConfirm-submit" . $visitsBySellerArray[$i]['id']; ?>" type="submit" class="btn col-5" <?php
+                                                                                                                                                                                    // If the visit has already beed confirmed, disable
+                                                                                                                                                                                    if ($visitsBySellerArray[$i]['status'] == 1) {
+                                                                                                                                                                                        echo "disabled";
+                                                                                                                                                                                    }
+                                                                                                                                                                                    ?>>Confirm</button>
+                                                            <button name="<?php echo "visitDecline-submit" . $visitsBySellerArray[$i]['id']; ?>" type="submit" class="btn col-5 float-right">Decline</button>
                                                         </div>
                                                         <div class="col-12">
                                                             <hr>
@@ -247,9 +266,9 @@ if (isset($_SESSION['id'])) {
                                             <?php } else if ($_SESSION['level'] == 1) { ?>
 
                                             <?php } ?>
-
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
+                                    <!-- </form> -->
                                 </div>
                                 <!-- Visits Tab End -->
 

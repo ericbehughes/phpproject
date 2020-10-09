@@ -19,7 +19,7 @@ class Visit extends Dbh
     // Delete Visit By ID
     public function deleteVisitById($id)
     {
-        $sql = "DELETE FROM visits WHERE room_id = ?";
+        $sql = "DELETE FROM visits WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
     }
@@ -30,6 +30,14 @@ class Visit extends Dbh
         $sql = "UPDATE visits SET customer_id = ?, seller_id = ?, listing_id = ?, datetime = ?, status = ? WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$customer_id, $seller_id, $listing_id, $datetime, $status, $id]);
+    }
+
+    // Update Visit Status By ID
+    public function editVisitStatusById($status, $id)
+    {
+        $sql = "UPDATE visits SET status = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$status, $id]);
     }
 
     // GETTERS

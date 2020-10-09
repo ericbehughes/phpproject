@@ -31,6 +31,12 @@ class VisitController
         $this->Visit->editVisitById($customer_id, $seller_id, $listing_id, $datetime, $status, $id);
     }
 
+    // Update Visit Status By ID
+    public function updateVisitStatusById($status, $id)
+    {
+        $this->Visit->editVisitStatusById($status, $id);
+    }
+
 
 
     // Show all Visits
