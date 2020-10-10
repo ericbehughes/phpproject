@@ -50,7 +50,7 @@ if (isset($_POST['register-submit'])) {
         header("Location: ../../views/register.php?error=phone&user=" . $usernameRegister . "&name=" . $fullnameRegister . "&mail=" . $emailRegister . "&dob=" . $dobRegister . "&phone=" . $phoneRegister . "&address=" . $addressRegister);
         exit();
         //Validate number of characters
-    } else if (strlen($usernameRegister) > 10 || strlen($passwordRegister) > 32 || strlen($fullnameRegister) > 50 || strlen($emailRegister) > 100 || strlen($phoneRegister) > 10 || strlen($addressRegister) > 250) {
+    } else if (strlen($usernameRegister) > 10 || strlen($passwordRegister) > 32 || strlen($fullnameRegister) > 50 || strlen($emailRegister) > 100 || strlen($phoneRegister) > 10 || strlen($addressRegister) > 250 || strlen($usernameRegister) < 4 || strlen($passwordRegister) < 4 || strlen($fullnameRegister) < 4 || strlen($emailRegister) < 6 || strlen($phoneRegister) < 10 || strlen($addressRegister) < 10) {
         header("Location: ../../views/register.php?error=characterlength&user=" . $usernameRegister . "&name=" . $fullnameRegister . "&mail=" . $emailRegister . "&dob=" . $dobRegister . "&phone=" . $phoneRegister . "&address=" . $addressRegister);
         exit();
     } else {

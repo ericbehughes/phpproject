@@ -70,12 +70,20 @@ include_once '../../includes/autoloaderController.inc.php';
 
 
 // To finish Tonight
-// FAQ PAGE
+
+// Contact Us
+// remove map
 // 
-// 
-// 
-// 
-// 
+
+
+// MISSING 
+
+// Alerts
+// Messaging
+// Search
+// Email
+// Edit / Delete Property
+// Admin
 
 
 

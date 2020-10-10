@@ -24,7 +24,7 @@
             <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
                 <h4 class="title"><span class="text">Contact us</span><span class="shape"></span></h4>
                 <ul>
-                    <li><i class="fa fa-map-o"></i><span>Place Ville Marie Suite 205, Montreal</span></li>
+                    <li><i class="fa fa-map-o"></i><span>Place Ville Marie Suite 205. Montreal, Quebec</span></li>
                     <li><i class="fa fa-phone"></i><span><a href="#">514-679-8722</a><a href="#">514-889-0066</a></span></li>
                     <li><i class="fa fa-envelope-o"></i><span><a href="#">info@khonikemontreal.com</a><a href="#">requests@khonikemontreal.com</a></span></li>
                 </ul>
@@ -35,10 +35,8 @@
             <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
                 <h4 class="title"><span class="text">Useful links</span><span class="shape"></span></h4>
                 <ul>
-                    <li><a href="#">Rental Builidngs</a></li>
-                    <li><a href="#">Browe all Categories</a></li>
-                    <li><a href="#">Top Mortagages Rates</a></li>
-                    <li><a href="#">RentalTerms of use</a></li>
+                    <li><a href="#">Top Mortgage Rates</a></>
+                    <li><a href="#">Terms of use</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>

@@ -112,7 +112,7 @@ include 'includes/autoloader.inc.php';
                                     <div class="col-12 mb-30"><input type="password" name="passwordRegister" placeholder="Password" required></div>
                                     <div class="col-12 mb-30"><input type="text" name="fullnameRegister" placeholder="Full Name" value="<?= ($_GET['name']); ?>" required></div>
                                     <div class="col-12 mb-30"><input type="email" name="emailRegister" placeholder="Email" value="<?= ($_GET['mail']); ?>" required></div>
-                                    <div class="col-12 mb-30"><input type="date" name="dobRegister" placeholder="Date of Birth" min="2002-10-09" max="2020-10-09" value="<?= ($_GET['dob']); ?>" required></div>
+                                    <div class="col-12 mb-30"><input type="text" onfocus="(this.type='date')" name="dobRegister" placeholder="Date of Birth" min="2002-10-09" max="2020-10-09" value="<?= ($_GET['dob']); ?>" required></div>
                                     <div class="col-12 mb-30"><input type="tel" name="phoneRegister" placeholder="123-456-7890" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" value="<?= ($_GET['phone']); ?>" required></div>
                                     <div class="col-12 mb-50"><input type="text" name="addressRegister" placeholder="Address" value="<?= ($_GET['address']); ?>" required></div>
 

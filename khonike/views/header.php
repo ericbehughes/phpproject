@@ -2,7 +2,6 @@
 session_start();
 ?>
 
-
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -79,9 +78,9 @@ session_start();
                                             <li><a href="agency-details.html">Agency Details</a></li>
                                         </ul> -->
                                     </li>
-                                    <li class=""><a href="">FAQ</a>
+                                    <li class=""><a href="faq.php">FAQ</a>
                                     </li>
-                                    <li class=""><a href="">Contact</a>
+                                    <li class=""><a href="contact-us.php">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
