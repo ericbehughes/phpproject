@@ -44,10 +44,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h1 class="page-banner-title">Contact us</h1>
+                        <h1 class="page-banner-title">FAQ</h1>
                         <ul class="page-breadcrumb">
                             <li><a href="index.php">Home</a></li>
-                            <li class="active">Contact us</li>
+                            <li class="active">FAQ</li>
                         </ul>
                     </div>
                 </div>

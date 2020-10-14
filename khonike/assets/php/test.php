@@ -61,7 +61,7 @@ include_once '../../includes/autoloaderController.inc.php';
 // 
 // Presentation Day
 // 
-// Add BANNER on all pages and change - Home - href
+// Add BANNER on all pages and change - Home - href *
 // Check Validation *
 // Add rooms to DB *
 // Add Photos to DB *
@@ -79,11 +79,13 @@ include_once '../../includes/autoloaderController.inc.php';
 // MISSING 
 
 // Alerts
+// Notification System
 // Messaging
 // Search
 // Email
 // Edit / Delete Property
 // Admin
+
 
 
 
