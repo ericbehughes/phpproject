@@ -41,15 +41,15 @@ $propertyController = new PropertyController();
         }
 
         #pageBanner {
-                background-image: url(../assets/images/bg/page-banner.jpg);
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center center;
-                position: relative;
-                z-index: 1;
-                padding: 100px 0;
-                margin-top: 91px;
-            }
+            background-image: url(../assets/images/bg/page-banner.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+            z-index: 1;
+            padding: 100px 0;
+            margin-top: 91px;
+        }
     </style>
 </head>
 
@@ -120,47 +120,47 @@ $propertyController = new PropertyController();
 
                             <!-- Validation Error Messages -->
                             <?php
-                                            if (isset($_GET['error'])) {
-                                                if ($_GET['error'] == 'propertyBasicStreet') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Street must only include letters<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyBasicCity') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">City must only include letters<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyBasicNumber') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Street Number must only include numbers<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyBasicPostal') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Please enter a valid Postal Code<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyBasicPrice') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Price must only include numbers<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyBasicCharlength') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Reduce Number of Characters<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyDetailSize') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Square Footage must be in-between 100 - 100,000<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyBasicPrice') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Price must only include numbers<br></span>';
-                                                    echo "</div>";
-                                                } else if ($_GET['error'] == 'propertyBasicCharlength') {
-                                                    echo "<div class='alert alert-danger' >";
-                                                    echo '<span class="align-middle">Reduce Number of Characters<br></span>';
-                                                    echo "</div>";
-                                                }
-                                            }
-                                            ?>
-                        
+                            if (isset($_GET['error'])) {
+                                if ($_GET['error'] == 'propertyBasicStreet') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Street must only include letters<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyBasicCity') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">City must only include letters<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyBasicNumber') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Street Number must only include numbers<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyBasicPostal') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Please enter a valid Postal Code<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyBasicPrice') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Price must only include numbers<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyBasicCharlength') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Reduce Number of Characters<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyDetailSize') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Square Footage must be in-between 100 - 100,000<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyBasicPrice') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Price must only include numbers<br></span>';
+                                    echo "</div>";
+                                } else if ($_GET['error'] == 'propertyBasicCharlength') {
+                                    echo "<div class='alert alert-danger' >";
+                                    echo '<span class="align-middle">Reduce Number of Characters<br></span>';
+                                    echo "</div>";
+                                }
+                            }
+                            ?>
+
                             <!-- Basic Info -->
                             <div class="tab-pane show <?php
                                                         if ($_GET['update'] == "propertyBasicSuccess" || $_GET['update'] == "propertyDetailSuccess" || $_GET['update'] == "propertyGallerySuccess" || $_GET['error'] == "propertyDetailSize" || $_GET['error'] == "propertyGallery" || $_GET['error'] == "propertyGalleryFinished" || $_GET['update'] == "propertyGalleryFinished") {
@@ -243,7 +243,6 @@ $propertyController = new PropertyController();
                             </div>
                             <!-- Basic Info End -->
 
-
                             <!-- Gallery -->
                             <div class="tab-pane <?php
                                                     if ($_GET['update'] == "propertyDetailSuccess" || $_GET['error'] == "propertyGallery" || $_GET['update'] == "propertyGallerySuccess") {
@@ -254,68 +253,42 @@ $propertyController = new PropertyController();
                                                     ?>" id="gallery_video">
                                 <div class="tab-body">
 
-                                    <form action="../assets/php/addProperty.php" method="POST" enctype="multipart/form-data">
+                                    <form action="../assets/php/addPropertycopy.php" method="POST" enctype="multipart/form-data">
                                         <div class="row">
-
-
-                                            <div class="col-12 mb-30">
+                                            <div class="col-12 mb-0">
                                                 <!-- Validation Error Messages -->
                                                 <?php
                                                 if (isset($_GET['error'])) {
-                                                    if ($_GET['extension'] == 'error') {
+                                                    // Cylce through the errors array
+                                                    foreach ($_SESSION['errors-gallery'] as $error) {
                                                         echo "<div class='alert alert-danger' >";
-                                                        echo '<span class="align-middle">Extensions: JPEG - JPG - PNG - JFIF<br></span>';
-                                                        echo "</div>";
-                                                    } else if ($_GET['size'] == 'error') {
-                                                        echo "<div class='alert alert-danger' >";
-                                                        echo '<span class="align-middle">Size: Max 2MB<br></span>';
-                                                        echo "</div>";
-                                                    } else if ($_GET['systemerror'] == 'error') {
-                                                        echo "<div class='alert alert-danger' >";
-                                                        echo '<span class="align-middle">Size: Max 2MB<br></span>';
-                                                        echo "</div>";
-                                                    } else if ($_GET['description'] == 'error') {
-                                                        echo "<div class='alert alert-danger' >";
-                                                        echo '<span class="align-middle">Description: Letters - Spaces - 3-30 Characters<br></span>';
-                                                        echo "</div>";
-                                                    } else if ($_GET['sequence'] == 'error') {
-                                                        echo "<div class='alert alert-danger' >";
-                                                        echo '<span class="align-middle">Sequence: Numbers - Maximum 30 - Minimum 1<br></span>';
+                                                        echo '<span class="align-middle">' . $error . '<br></span>';
                                                         echo "</div>";
                                                     }
+                                                    unset($_SESSION['errors-gallery']);
                                                 } else if (isset($_GET['update'])) {
-                                                    if ($_GET['update'] == 'propertyGallerySuccess') {
+                                                        if ($_GET['update'] == 'propertyGallerySuccess') {
                                                         echo "<div class='alert alert-success' >";
-                                                        echo '<span class="align-middle">Photo Added Successfully<br></span>';
+                                                        echo '<span class="align-middle">Photos Added Successfully<br></span>';
                                                         echo "</div>";
                                                     }
                                                 }
                                                 ?>
                                             </div>
-
-                                            <div class="col-6 mb-30">
+                                            <div class="col-12 mb-30">
                                                 <label>Gallery Images</label>
-                                                <!-- <div class="dropzone"></div> -->
-                                                <!-- <div class='pe-7s-cloud-upload'></div> -->
-                                                <input type="file" name="file" required>
+                                                <input type="file" name="file[]" required multiple>
                                             </div>
-
-                                            <div class="col-3 mb-30">
+                                            <!-- <div class="col-3 mb-30">
                                                 <label for="propertyPhotoDescription">Description</label>
-                                                <input type="text" name="propertyPhotoDescription" value="<?= ($_GET['propertyPhotoDescription']); ?>" id="property_video" required>
+                                                <input type="text" name="propertyPhotoDescription" value="" id="property_video">
                                             </div>
-
                                             <div class="col-3 mb-30">
                                                 <label name="labler" id="labelid" for="property_video">Sequence Number</label>
-                                                <input type="number" value="<?= ($_GET['propertyPhotoSequence']); ?>" name="propertyPhotoSequence" required>
-                                            </div>
-
-                                            <div class="nav d-flex justify-content-end col-12 mb-30 pl-15 pr-15">
-                                                <!-- <a href="#detailed_info" data-toggle="tab" class="btn">Next</a> -->
-                                            </div>
-
+                                                <input type="number" value="" name="propertyPhotoSequence">
+                                            </div> -->
                                             <div class="nav d-flex justify-content-end col-12 mb-20 pl-15 pr-15">
-                                                <button id="addGalleryBtn" class="property-submit btn" onclick="" name="propertyGallery-submit" type="submit">Add Photo</button>
+                                                <button id="addGalleryBtn" class="property-submit btn" onclick="" name="propertyGallery-submit" type="submit">Add Photos</button>
                                             </div>
 
                                         </div>
@@ -324,10 +297,10 @@ $propertyController = new PropertyController();
                                     <!-- Finished Button -->
                                     <?php if (is_null($_GET['error'])) { ?>
                                         <?php if ($_GET['update'] !== "propertyDetailSuccess") { ?>
-                                        <div class="row">
-                                            <div class="nav d-flex justify-content-end col-12"><button id="finishedButton" class="btn  pl-55 pr-60" onclick="location.href = 'add-properties.php?update=propertyGalleryFinished'">Finish</button></div>
-                                        </div>
-                                    <?php } ?>
+                                            <div class="row">
+                                                <div class="nav d-flex justify-content-end col-12"><button id="finishedButton" class="btn  pl-55 pr-60" onclick="location.href = 'add-properties.php?update=propertyGalleryFinished'">Finish</button></div>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
 
                                 </div>
@@ -516,7 +489,6 @@ $propertyController = new PropertyController();
                                 $property = $propertyController->showRoomsById($maxId);
                                 $numberOfBedrooms = $property[0]['bedrooms_total'];
                                 $numberOfBathrooms = $property[0]['bedrooms_total'];
-
                             }
                             ?>
                             <!-- Determine Tab -->
@@ -637,7 +609,7 @@ $propertyController = new PropertyController();
         </div>
         <!--Add Properties section end-->
 
-        <?php 
+        <?php
         include_once("footer.php");
         ?>
     </div>

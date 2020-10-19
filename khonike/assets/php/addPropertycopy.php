@@ -6,6 +6,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include_once '../../includes/autoloaderController.inc.php';
+include_once 'functions.php';
 
 // Instantiate
 $propertyController = new PropertyController();
@@ -136,61 +137,64 @@ if (isset($_POST['propertyDetails-submit'])) {
 // Gallery
 if (isset($_POST['propertyGallery-submit'])) {
 
-    // Create Variables
-    $file = $_FILES['file'];
-    $fileName = $file['name'];
-    $fileTmpName = $file['tmp_name'];
-    $fileSize = $file['size'];
-    $fileError = $file['error'];
-    $fileType = $file['type'];
+    // Timestamp
     $timestamp = time();
 
-    $propertyPhotoDescription = $_POST['propertyPhotoDescription'];
-    $propertyPhotoSequence = $_POST['propertyPhotoSequence'];
+    // Validation
+    if (isset($_FILES['file'])) {
+        $file_array = reArrayFiles($_FILES['file']);
+    
+        // For Loop to fill errors array
+        for ($i = 0; $i < count($file_array); $i++) {
 
-    // Grab Extentension
-    $fileExt = explode('.', $fileName);
-    $fileActualExt = strtolower(end($fileExt));
+            // Grab Extentension
+            $fileExt = explode('.', $file_array[$i]['name']);
+            $fileActualExt = strtolower(end($fileExt));
 
-    // Allowed File Types
-    $allowed = array('jpeg', 'jpg', 'png', 'jfif');
+            // Allowed File Types
+            $allowedFileTypes = array('jpeg', 'jpg', 'png', 'jfif');
 
-    // Extension Validation
-    if (!in_array($fileActualExt, $allowed)) {
-        Header("Location: ../../views/add-properties.php?error=propertyGallery&extension=error");
-        exit();
-        // System Error Validation
-    } else if (!$fileError == 0) {
-        Header("Location: ../../views/add-properties.php?error=propertyGallery&systemerror=error");
-        exit();
-        // Size Validation
-    } else if ($fileSize > 2000000) {
-        Header("Location: ../../views/add-properties.php?error=propertyGallery&size=error");
-        exit();
-        // Description Validation
-    } else if (!preg_match("/^[a-zA-Z ]+$/", $propertyPhotoDescription) || strlen($propertyPhotoDescription) > 30 || strlen($propertyPhotoDescription) < 3) {
-        Header("Location: ../../views/add-properties.php?error=propertyGallery&description=error&propertyPhotoDescription=" . $propertyPhotoDescription . "&propertyPhotoSequence=" . $propertyPhotoSequence);
-        exit();
-        // Sequence Validation
-    } else if (!preg_match("/^[0-9]+$/", $propertyPhotoSequence) || $propertyPhotoSequence > 30 || $propertyPhotoSequence < 1) {
-        Header("Location: ../../views/add-properties.php?error=propertyGallery&sequence=error&propertyPhotoSequence=" . $propertyPhotoSequence . "&propertyPhotoDescription=" . $propertyPhotoDescription);
-        exit();
-    } else {
-        // Upload File to Folder
-        $fileNewName = $timestamp . "." . $fileActualExt;
-        $fileDestination = "../assets/images/uploads/" . $fileNewName;
-        $fileDestinationMove = "../images/uploads/" . $fileNewName;
-        move_uploaded_file($fileTmpName, $fileDestinationMove);
+            // PHP Error Validation
+            if ($file_array[$i]['error']) {
+                $_SESSION['errors-gallery'][$i] = $file_array[$i]['name'] . " - Internal System Error";
+                // Extension Validation
+            } else if (!in_array($fileActualExt, $allowedFileTypes)) {
+                $_SESSION['errors-gallery'][$i] = $file_array[$i]['name'] . " - Extensions allowed: JPEG, JPG, JFIF, PNG";
+                // Size Validation
+            } else if ($file_array[$i]['size'] > 2000000) {
+                $_SESSION['errors-gallery'][$i] = $file_array[$i]['name'] . " - Max Size: 2MB";
+            }
+        }
 
-        // Get Max Property ID
-        $arrayMaxId = $propertyController->showPropertyByMaxId();
-        $maxId = $arrayMaxId[0]['MAX(property_id)'];
-        $_SESSION['maxId'] = $maxId;
+        // Verify if there are any errors, then add photos to DB
+        if (count($_SESSION['errors-gallery']) > 0) {
+            Header("Location: ../../views/add-propertiescopy.php?error=propertyGallery");
+            exit();
+        } else {
+            for ($i = 0; $i < count($file_array); $i++) {
+                // Grab Extentension
+                $fileExt = explode('.', $file_array[$i]['name']);
+                $fileActualExt = strtolower(end($fileExt));
 
-        // Upload to DB
-        $PhotoController->createPhoto($_SESSION['maxId'], $propertyPhotoSequence, $propertyPhotoDescription, $fileDestination);
-        // echo 'properly added to DB';
-        Header("Location: ../../views/add-properties.php?update=propertyGallerySuccess&propertyPhotoSequence=" . $propertyPhotoSequence);
+                // Allowed File Types
+                $allowedFileTypes = array('jpeg', 'jpg', 'png', 'jfif');
+
+                // Upload File to Folder
+                $fileNewName = $timestamp . "." . $fileActualExt;
+                $fileDestination = "../assets/images/uploads/" . $fileNewName;
+                $fileDestinationMove = "../images/uploads/" . $fileNewName;
+                move_uploaded_file($file_array[$i]['tmp_name'], $fileDestinationMove);
+
+                // Get Max Property ID
+                $arrayMaxId = $propertyController->showPropertyByMaxId();
+                $maxId = $arrayMaxId[0]['MAX(property_id)'];
+                $_SESSION['maxId'] = $maxId;
+
+                // Upload to DB
+                $PhotoController->createPhoto($_SESSION['maxId'], $i+1, null, $fileDestination);
+                Header("Location: ../../views/add-propertiescopy.php?update=propertyGallerySuccess");
+            }
+        }
     }
 }
 

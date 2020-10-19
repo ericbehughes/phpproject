@@ -71,9 +71,8 @@ include_once '../../includes/autoloaderController.inc.php';
 
 // To finish Tonight
 
-// Contact Us
-// remove map
-// 
+// Contact Us * 
+// remove map * 
 
 
 // MISSING 
@@ -85,7 +84,6 @@ include_once '../../includes/autoloaderController.inc.php';
 // Email
 // Edit / Delete Property
 // Admin
-
 
 
 
